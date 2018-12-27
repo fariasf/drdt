@@ -35,10 +35,12 @@ web/wp-content/*
 !web/wp-content/object-cache.php
 !web/wp-content/config/
 !web/wp-content/mu-plugins/
-web/wp-content/mu-plugins/*
+#web/wp-content/mu-plugins/*
 !web/wp-content/mu-plugins/alter-wpcfm-config-path.php
 !web/wp-content/plugins/
 web/wp-content/plugins/*
+!web/wp-content/plugins/rd*
+!web/wp-content/plugins/wp-no*
 !web/wp-content/plugins/wpmudev-updates/
 !web/wp-content/plugins/wp-smush-pro/
 !web/wp-content/themes

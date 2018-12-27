@@ -1,19 +1,23 @@
 <?php
 /**
- * The template for displaying all single posts
+ * The template for displaying all single listicles
  *
- * @link https://developer.wordpress.org/themes/basics/template-hierarchy/#single-post
+ * @link https://developer.wordpress.org/themes/basics/template-hierarchy/#single-listicle
  *
  * @package bumblebee
  */
 
-include_once 'functions.listicle.php';
-get_header();
-?>
+/**
+ * Include the functions file
+ */
+require_once 'functions.listicle.php';
 
-<div class="site-container">
-	<main class="site-content">
-		<div class="pure-g pre-article-ad text-center">
+get_header();
+$category = get_the_category();
+$category = $category[0];
+?>
+<main class="listicle-page">
+	<section class="advertisement">
 		<?php
 		bumblebee_render_ad(
 			uniqid( 'ad' ),
@@ -26,37 +30,42 @@ get_header();
 				],
 			]
 		);
-		?>
-		</div>
-		<div class="pure-g opening-content">
-	<?php
-	if ( have_posts() ) :
-		/* Start the Loop */
-		while ( have_posts() ) :
-			the_post();
-			get_template_part( 'template-parts/content', 'post' );
-		endwhile;
-	endif;
-?>
-	<div class="pure-u-md-7-24 pure-u-lg-7-24 pure-u-xl-7-24 hide-on-mobile">
-		<div class="sidebar-ad-wrapper text-center">
-			<aside class="sidebar">
-				<?php
-				bumblebee_render_ad(
-					uniqid( 'ad' ),
-					[
-						'slot-name' => 'rail' . ( 1 === $section_num ? 'top' : 2 === $section_num ? 'middle' : 'scroll' ),
-						'sizes'     => '300x250,300x600',
-					]
-				);
-				?>
-			</aside>
-		</div>
-	</div>
-		</div>
-	</main>
-</div>
-	<?php
 
+		?>
+	</section>
+	<section class="content pure-g">
+	<section class="social-share-bar-desktop pure-u-lg-2-24">
+		<ul class="pure-menu-list social-menu">
+			<li class="pure-menu-item"><a href="#" class="pure-menu-link"><img class="social-icons" src="<?php echo esc_url( get_stylesheet_directory_uri() ); ?>/images/envelope-regular.svg" /></a></li>
+			<li class="pure-menu-item"><a href="#" class="pure-menu-link"><img class="social-icons" src="<?php echo esc_url( get_stylesheet_directory_uri() ); ?>/images/facebook-f-brands.svg" /></a></li>
+			<li class="pure-menu-item"><a href="#" class="pure-menu-link"><img class="social-icons" src="<?php echo esc_url( get_stylesheet_directory_uri() ); ?>/images/pinterest-p-brands.svg" /></a></li>
+		</ul>
+	</section>
+	<section class=" pure-u-1 pure-u-lg-14-24">
+		<div class="contentbarheader">
+			<a href="#" class="post-category-label"><?php echo esc_attr( $category->name ); ?></a>
+			<h1 class="entry-title"><?php echo get_the_title(); ?></h1>
+			<div class="byline">
+				<img src="http://cpt.test.rda.net/wp-content/uploads/sites/9/2018/10/Blue-Makeup-MAC-1200x675.jpg" class="author-image" alt="img"></img>
+				<span class="author-name">Amrita</span>
+			</div>
+			<section class="social-share-bar-mobile">
+				<ul class="pure-menu-list social-menu">
+					<li class="pure-menu-item"><a href="#" class="pure-menu-link"><img class="social-icons" src="<?php echo esc_url( get_stylesheet_directory_uri() ); ?>/images/envelope-regular.svg" /></a></li>
+					<li class="pure-menu-item"><a href="#" class="pure-menu-link"><img class="social-icons" src="<?php echo esc_url( get_stylesheet_directory_uri() ); ?>/images/facebook-f-brands.svg" /></a></li>
+					<li class="pure-menu-item"><a href="#" class="pure-menu-link"><img class="social-icons" src="<?php echo esc_url( get_stylesheet_directory_uri() ); ?>/images/pinterest-p-brands.svg" /></a></li>
+				</ul>
+			</section>
+			<div class="dek"><?php the_excerpt(); ?></div>
+		</div>
+	</section>
+	<section class="sidebar pure-u-1 pure-u-lg-8-24"></section>
+</section>
+
+	<?php
+	the_content();
+	?>
+</main>
+	<?php
 	get_footer();
 	?>
