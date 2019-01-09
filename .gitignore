@@ -50,7 +50,6 @@ web/private/*
 !web/private/config/
 !web/private/scripts/
 web/private/scripts/quicksilver
-!web/wp-content/plugins/a3-lazy-load/
 
 # Add directories containing build assets below.
 # Keep all additions above the "cut" line.
