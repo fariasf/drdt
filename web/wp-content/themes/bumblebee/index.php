@@ -11,10 +11,11 @@
  *
  * @package bumblebee
  */
+
 ?>
 <?php get_header(); ?>
 	<style type="text/css">
-		<?php require get_stylesheet_directory() . '/homepage.css' ; ?>
+		<?php require get_stylesheet_directory() . '/homepage.css'; ?>
 	</style>
 	<main class="home-page">
 

@@ -8,6 +8,7 @@
  *
  * @package bumblebee
  */
+
 ?>
 <!doctype html>
 <html <?php language_attributes(); ?>>
@@ -18,8 +19,8 @@
 
 	<?php wp_head(); ?>
 	<style type="text/css">
-		<?php require get_stylesheet_directory() . '/style_main.css' ; ?>
-		<?php require get_stylesheet_directory() . '/header.css' ; ?>
+		<?php require get_stylesheet_directory() . '/style_main.css'; ?>
+		<?php require get_stylesheet_directory() . '/header.css'; ?>
 	</style>
 </head>
 
