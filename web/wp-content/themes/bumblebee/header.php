@@ -69,10 +69,10 @@ wp_enqueue_style( 'bumblebee-style-header', get_stylesheet_directory_uri() . '/h
 	}
 	?>
 			<div class="search-form">
-				<form class="pure-form" action=" <?php echo esc_url( site_url() ); ?>/search/index ">
+				<form class="pure-form" id="searchform" role="search" method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>">
 					<fieldset>
-						<input type="text" placeholder="Search">
-						<button class="search-button"></button>
+						<input type="text" value="" name="s" id="s" placeholder="Search" />
+						<input type="submit" id="searchsubmit" class="search-button" value="Search" />
 					</fieldset>
 				</form>
 			</div>

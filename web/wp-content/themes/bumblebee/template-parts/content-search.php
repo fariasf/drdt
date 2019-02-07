@@ -10,26 +10,23 @@
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+	<div class="post-image">
+		<?php bumblebee_post_thumbnail( 'medium' ); ?>
+	</div>
 	<header class="entry-header">
-	<?php the_title( sprintf( '<h2 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h2>' ); ?>
-
-	<?php if ( 'post' === get_post_type() ) : ?>
-		<div class="entry-meta">
-			<?php
-			bumblebee_posted_on();
-			bumblebee_posted_by();
-			?>
-		</div><!-- .entry-meta -->
-	<?php endif; ?>
+	<?php
+	if ( 'post' === get_post_type() ) {
+		$categories_list = get_the_category_list( esc_html__( ', ', 'bumblebee' ) );
+		if ( $categories_list ) {
+			/* translators: 1: list of categories. */
+			printf( '<span class="cat-links">' . esc_html__( '%1$s', 'bumblebee' ) . '</span>', $categories_list ); // phpcs:ignore WordPress.Security.EscapeOutput
+		}
+	}
+		the_title( sprintf( '<h3 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h3>' );
+	?>
 	</header><!-- .entry-header -->
-
-	<?php bumblebee_post_thumbnail(); ?>
 
 	<div class="entry-summary">
 	<?php the_excerpt(); ?>
 	</div><!-- .entry-summary -->
-
-	<footer class="entry-footer">
-	<?php bumblebee_entry_footer(); ?>
-	</footer><!-- .entry-footer -->
 </article><!-- #post-<?php the_ID(); ?> -->

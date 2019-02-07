@@ -1,0 +1,31 @@
+.search {
+
+	main {
+		clear: both;
+		margin: 0 auto;
+		max-width: 1260px;
+		padding: 40px 15px;
+	}
+
+	article {
+
+		.cat-links {
+			float: left;
+
+			a {
+				color: $black;
+			}
+		}
+
+		.entry-title {
+			float: left;
+			font-size: 30px;
+		}
+		.post-image {
+			display: block;
+			float: left;
+			margin-right: 1em;
+			width: calc(50% - 1em);
+		}
+	}
+}
