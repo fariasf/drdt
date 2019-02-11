@@ -20,9 +20,7 @@
 			$categories_list = get_the_category_list( esc_html__( ', ', 'bumblebee' ) );
 			if ( $categories_list ) {
 				/* translators: 1: list of categories. */
-				?>
-				<span class="cat-links"><?php printf( esc_html__( '%1$s', 'bumblebee' ), $categories_list ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
-				<?php
+				printf( '<span class="cat-links">' . esc_html__( _n( '%1$s', 'bumblebee' ) ) . '</span>', $categories_list ); // phpcs:ignore WordPress.Security.EscapeOutput
 			}
 		}
 			the_title( sprintf( '<h3 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h3>' );
