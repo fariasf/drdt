@@ -19,8 +19,7 @@
 		if ( 'post' === get_post_type() ) {
 			$categories_list = get_the_category_list( esc_html__( ', ', 'bumblebee' ) );
 			if ( $categories_list ) {
-				/* translators: 1: list of categories. */
-				printf( '<span class="cat-links">' . esc_html__( '%1$s', 'bumblebee' ) . '</span>', $categories_list ); // phpcs:ignore WordPress.Security.EscapeOutput
+				printf( '<span class="cat-links">' . __( esc_html( '%1$s', 'bumblebee' ) ) . '</span>', $categories_list );
 			}
 		}
 			the_title( sprintf( '<h3 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h3>' );
@@ -31,5 +30,4 @@
 		<?php the_excerpt(); ?>
 		</div><!-- .entry-summary -->
 	</div><!-- .content-container -->
-	
 </article><!-- #post-<?php the_ID(); ?> -->
