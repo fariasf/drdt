@@ -5,27 +5,48 @@
 		margin: 0 auto;
 		max-width: 1260px;
 		padding: 40px 15px;
-	}
 
-	article {
+		header {
+			display: block;
+			overflow: hidden;
+			padding-top: .5em;
 
-		.cat-links {
-			float: left;
-
-			a {
-				color: #000;
+			hr {
+				border: 0;
+				border-collapse: collapse;
+				border-top: 1px solid #ddd;
+				clear: both;
+				margin: 1em 0;
 			}
 		}
 
-		.entry-title {
-			float: left;
-			font-size: 30px;
-		}
-		.post-image {
-			display: block;
-			float: left;
-			margin-right: 1em;
-			width: calc(50% - 1em);
+		article {
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+
+			> div {
+				width: calc(1/2*100% - (1 - 1/2)*10px);
+			}
+
+			.content-container {
+
+				.entry-header {
+					margin-top: 12px;
+				}
+
+				.cat-links {
+					display: block;
+
+					a {
+						color: #000;
+					}
+				}
+
+				.entry-title {
+					font-size: 30px;
+				}
+			}
 		}
 	}
 }
