@@ -41,8 +41,8 @@ wp_enqueue_style( 'bumblebee-style-header', get_stylesheet_directory_uri() . '/h
 		<div class="pure-u-1-4 mobile-hide">
 		</div>
 		<div class="pure-u-md-3-5 newsletter-signup-header mobile-hide">
-			<a class="subscribe-header" target="_blank" rel="noopener" href="https://www.constructionprotips.com/newsletters/">
-				<img class="subscribe-logo initial loaded" alt="Subscribe" src="<?php echo esc_url( get_stylesheet_directory_uri() ); ?>/images/cpt-newsletter-header.svg" data-was-processed="true" style="width:180px">
+			<a class="subscribe-header" target="_blank" rel="noopener" href="<?php echo esc_html( get_theme_mod( 'bumblebee_header_subscribe_url' ) ); ?>">
+				<img src="<?php echo esc_html( get_theme_mod( 'bumblebee_header_subscribe_image' ) ); ?>" alt="" style="width:<?php echo esc_html( get_theme_mod( 'bumblebee_header_subscribe_width' ) ); ?>px"></img>
 			</a>
 		</div>
 	</div>
@@ -76,6 +76,12 @@ wp_enqueue_style( 'bumblebee-style-header', get_stylesheet_directory_uri() . '/h
 					</fieldset>
 				</form>
 			</div>
+			<div class="sticky-nl-img">
+				<a class="subscribe-header" target="_blank" rel="noopener" href="<?php echo esc_html( get_theme_mod( 'bumblebee_header_subscribe_url' ) ); ?>">
+				<img src="<?php echo esc_html( get_theme_mod( 'bumblebee_header_subscribe_image_sticky' ) ); ?>" alt="" style="width:<?php echo esc_html( get_theme_mod( 'bumblebee_header_subscribe_width' ) ); ?>px"></img>
+			</a>
+			</div>
+
 		</div>
 	</nav>
 </header>
