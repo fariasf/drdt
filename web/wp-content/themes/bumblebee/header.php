@@ -12,12 +12,13 @@
 wp_enqueue_style( 'bumblebee-style-header', get_stylesheet_directory_uri() . '/header.css', [], '1.0.2' );
 ?>
 <!doctype html>
-<html <?php language_attributes(); ?>>
+<html <?php language_attributes(); ?> class="no-js">
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="profile" href="https://gmpg.org/xfn/11">
 	<?php wp_head(); ?>
+	<script>var root = document.getElementsByTagName( 'html' )[0]; root.className = root.className.replace("no-js","");</script>
 </head>
 
 <body <?php body_class(); ?>>
@@ -50,7 +51,7 @@ wp_enqueue_style( 'bumblebee-style-header', get_stylesheet_directory_uri() . '/h
 			<div class="hamburger-wrapper mobile-hide">
 				<?php get_hamburger_markup(); ?>
 				<ul class="pure-menu-list ">
-					<li class="pure-menu-item menu-text pure-menu-has-children"><a href="#menu" onclick="toggleMenu();">MENU</a>
+					<li class="pure-menu-item menu-text pure-menu-has-children"><a href="#menu" class="menu-toggle">MENU</a>
 					</li>
 				</ul>
 				<a href="/" class="sticky-logo">
@@ -92,16 +93,23 @@ wp_enqueue_style( 'bumblebee-style-header', get_stylesheet_directory_uri() . '/h
 	</nav>
 </header>
 
-<div class="pure-g newsletter-sign-below-header hide-on-mobile">
-	<div class="pure-u-sm-1 pure-u-md-1 pure-u-lg-1 pure-u-xl-1 nl-signup-link">
-		<a href="<?php echo esc_url( get_theme_mod( 'bumblebee_banner_url' ) ); ?>">
-			<h4><?php echo esc_html( get_theme_mod( 'bumblebee_banner_text' ) ); ?> 
-				<svg aria-hidden="true" data-prefix="fas" data-icon="chevron-right" class="nl-right-arrow svg-inline--fa fa-chevron-right fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
-					<path fill="" d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"></path></svg>
-			</h4>
-		</a>
+
+<?php $bumblebee_banner_url = get_theme_mod( 'bumblebee_banner_url' ); ?>
+<?php $bumblebee_banner_text = get_theme_mod( 'bumblebee_banner_text' ); ?>
+<?php if ( ! empty( $bumblebee_banner_text ) ) : ?>
+	<div class="pure-g newsletter-sign-below-header hide-on-mobile">
+		<div class="pure-u-sm-1 pure-u-md-1 pure-u-lg-1 pure-u-xl-1 nl-signup-link">
+			<a href="<?php echo esc_url( $bumblebee_banner_url ); ?>">
+				<h4>
+					<?php echo esc_html( $bumblebee_banner_text ); ?>
+					<svg aria-hidden="true" data-prefix="fas" data-icon="chevron-right" class="nl-right-arrow svg-inline--fa fa-chevron-right fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+						<path fill="" d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"></path>
+					</svg>
+				</h4>
+			</a>
+		</div>
 	</div>
-</div>
+<?php endif; ?>
 <!-- #site-navigation -->
 
 <?php
@@ -110,7 +118,7 @@ wp_enqueue_style( 'bumblebee-style-header', get_stylesheet_directory_uri() . '/h
  *  Getting hamburger markup
  */
 function get_hamburger_markup() {
-	$hamburger  = '<div class="hamburger">';
+	$hamburger  = '<div class="hamburger menu-toggle">';
 	$hamburger .= '<div class="hamburger-menu"></div>';
 	$hamburger .= '<div class="hamburger-menu"></div>';
 	$hamburger .= '<div class="hamburger-menu"></div>';
