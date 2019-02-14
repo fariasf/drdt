@@ -36,7 +36,7 @@ wp_enqueue_style( 'bumblebee-style-header', get_stylesheet_directory_uri() . '/h
 			</ul>
 		</div>
 		<a href="/" class="pure-u-sm-1 pure-u-md-2-5 logo">
-			<img src="<?php echo esc_html( get_theme_mod( 'bumblebee_header_logo' ) ); ?>" alt="<?php echo esc_html( get_bloginfo( 'name' ) ); ?>" style="width:<?php echo esc_html( get_theme_mod( 'bumblebee_header_logo_width' ) ); ?>px"></img>
+			<img src="<?php echo esc_html( get_theme_mod( 'bumblebee_header_logo' ) ); ?>" alt="<?php echo esc_html( get_bloginfo( 'name' ) ); ?>" style="width:<?php echo esc_html( get_theme_mod( 'bumblebee_header_logo_width', '208' ) ); ?>px; height: 110px;"></img>
 		</a>
 
 		<div class="pure-u-1-4 mobile-hide">
