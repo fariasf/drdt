@@ -24,6 +24,7 @@
 				printf( esc_html__( '%1$s', 'bumblebee' ), $categories_list ); // phpcs:ignore WordPress.Security.EscapeOutput
 				echo '</span>';
 			}
+			the_title( sprintf( '<h3 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h3>' );
 		}
 		?>
 		</header><!-- .entry-header -->
