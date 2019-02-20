@@ -44,7 +44,7 @@ class TMBI_Nativo {
 	 * Add nativo script to all the pages.
 	 */
 	public function render_nativo_script() {
-		wp_enqueue_script( 'nativo-script', '//s.ntv.io/serve/load.js', array( 'jquery' ), '1.0', true );
+		wp_enqueue_script( 'nativo-script-async', '//s.ntv.io/serve/load.js', array( 'jquery' ), '1.0', true );
 	}
 
 	/**
@@ -52,15 +52,16 @@ class TMBI_Nativo {
 	 *
 	 * @param string $tag script tag.
 	 * @param string $handle script handle.
-	 * @param string $src script source.
 	 * @return string
 	 */
-	public function nativo_async_tag( $tag, $handle, $src ) {
-		if ( 'nativo-script' !== $handle ) {
+	public function nativo_async_tag( $tag, $handle ) {
+		// if the unique handle/name of the registered script has 'async' in it.
+		if ( strpos( $handle, 'async' ) !== false ) {
+			// return the tag with the async attribute.
+			return str_replace( '<script ', '<script async ', $tag );
+		} else {
 			return $tag;
 		}
-		$async_tag = "<script src='$src' async></script>";
-		return $async_tag;
 	}
 
 	/**
