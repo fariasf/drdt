@@ -52,6 +52,7 @@ class TMBI_Salesforce_DMP {
 	public static function init() {
 		add_action( 'wp_head', array( __CLASS__, 'render_salesforce_dmp_tags' ), self::PRIORITY );
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'load_krux_click_tracking' ) );
+		add_action( 'wp_footer', array( __CLASS__, 'remove_krux_tracking' ), 1 );
 	}
 
 	/**
@@ -122,7 +123,10 @@ class TMBI_Salesforce_DMP {
 			],
 		];
 		$interchage_tag = sprintf( PHP_EOL . self::INTERCHANGE_SCRIPT_TAG, $interchage_tag_script );
-		echo wp_kses( $contol_tag . $interchage_tag, $allowed_html );
+		$variant        = get_query_var( 'variant' );
+		if ( 'noads' !== $variant ) {
+			echo wp_kses( $contol_tag . $interchage_tag, $allowed_html );
+		}
 	}
 
 	/**
@@ -324,6 +328,15 @@ class TMBI_Salesforce_DMP {
 		}
 		$value = format_data( $tag_string );
 		return ( $value );
+	}
+	/**
+	 * Remove Krux (for ?variant=noads).
+	 */
+	public static function remove_krux_tracking() {
+		$variant = get_query_var( 'variant' );
+		if ( 'noads' === $variant ) {
+			wp_dequeue_script( self::SCRIPT_SLUG );
+		}
 	}
 }
 
