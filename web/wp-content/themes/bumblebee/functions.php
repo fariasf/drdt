@@ -444,3 +444,11 @@ function enable_svg_upload( $existing_mimes = array() ) {
 	return $existing_mimes;
 }
 add_filter( 'upload_mimes', 'enable_svg_upload' );
+
+/**
+ * Enqueue Krux script.
+ */
+function krux_scripts() {
+	wp_enqueue_script( 'krux-click-tracking', get_template_directory_uri() . '/js/krux-click-traking.js', array( 'jquery' ), '20190221', true );
+}
+add_action( 'wp_enqueue_scripts', 'krux_scripts' );
