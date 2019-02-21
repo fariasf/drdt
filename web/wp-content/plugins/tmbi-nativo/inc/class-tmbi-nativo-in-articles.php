@@ -40,7 +40,7 @@ class TMBI_Nativo_In_Articles {
 			$paragraph          .= '</p>';  // restore the closing </p> tag.
 			$paragraph_number    = $i + 1;
 			$nativo_flag_and_tag = apply_filters( 'in_article_nativo', $word_count, $paragraph_number, $total_paragraphs );
-			if ( true === $nativo_flag_and_tag['flag'] ) {
+			if ( '' !== $nativo_flag_and_tag['nativo_tag'] ) {
 				$paragraph .= $nativo_flag_and_tag['nativo_tag'];
 				break;
 			}
@@ -57,18 +57,14 @@ class TMBI_Nativo_In_Articles {
 	 * @return array()
 	 */
 	public function inject_nativo( $word_count, $paragraph_number, $total_paragraphs ) {
-		$flag              = false;
 		$nativo_ad_tag     = '';
 		$is_last_paragraph = $paragraph_number === $total_paragraphs;
-		if ( 3 === $paragraph_number && 100 >= $word_count ) {
+		if ( self::CADENCE === $paragraph_number && 100 >= $word_count ) {
 			$nativo_ad_tag = $this->get_in_article_ad_markup( '1' );
-			$flag          = true;
-		} elseif ( 3 > $paragraph_number && 100 >= $word_count && ! $is_last_paragraph ) {
+		} elseif ( self::CADENCE > $paragraph_number && 100 >= $word_count && ! $is_last_paragraph ) {
 			$nativo_ad_tag = $this->get_in_article_ad_markup( '1' );
-			$flag          = true;
 		}
 		return array(
-			'flag'       => $flag,
 			'nativo_tag' => $nativo_ad_tag,
 		);
 	}
