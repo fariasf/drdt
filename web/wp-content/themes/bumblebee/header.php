@@ -91,11 +91,6 @@ $fbid = get_theme_mod( 'fbid', false );
 			</div>
 			<div class="sticky-nl-img">
 				<a class="subscribe-header" target="_blank" rel="noopener" href="<?php echo esc_html( get_theme_mod( 'bumblebee_header_subscribe_url' ) ); ?>">
-					<img src="<?php echo esc_html( get_theme_mod( 'bumblebee_header_subscribe_image_sticky' ) ); ?>" alt="" style="width:<?php echo esc_html( get_theme_mod( 'bumblebee_header_subscribe_width' ) ); ?>px"></img>
-				</a>
-			</div>
-			<div class="sticky-nl-img">
-				<a class="subscribe-header" target="_blank" rel="noopener" href="<?php echo esc_html( get_theme_mod( 'bumblebee_header_subscribe_url' ) ); ?>">
 				<img src="<?php echo esc_html( get_theme_mod( 'bumblebee_header_subscribe_image_sticky' ) ); ?>" alt="" style="width:<?php echo esc_html( get_theme_mod( 'bumblebee_header_subscribe_width' ) ); ?>px"></img>
 			</a>
 			</div>
