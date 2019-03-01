@@ -10,10 +10,14 @@
  */
 
 wp_enqueue_style( 'bumblebee-style-header', get_stylesheet_directory_uri() . '/header.css', [], '1.0.2' );
+$fbid = get_theme_mod( 'fbid', false );
 ?>
 <!doctype html>
 <html <?php language_attributes(); ?> class="no-js">
 <head>
+	<?php if ( ! empty( $fbid ) ) : ?>
+		<meta property="fb:pages" content="<?php echo $fbid; ?>"/>
+	<?php endif; ?>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="profile" href="https://gmpg.org/xfn/11">
@@ -38,8 +42,9 @@ wp_enqueue_style( 'bumblebee-style-header', get_stylesheet_directory_uri() . '/h
 		<a data-analytics-metrics='{"name":"home logo","module":"header","position":"secondary navigation"}' href="/" class="pure-u-sm-1 pure-u-md-2-5 logo">
 			<img src="<?php echo esc_html( get_theme_mod( 'bumblebee_header_logo' ) ); ?>" alt="<?php echo esc_html( get_bloginfo( 'name' ) ); ?>" style="width:<?php echo esc_html( get_theme_mod( 'bumblebee_header_logo_width' ) ); ?>px"></img>
 		</a>
-		<div class="pure-u-1-4 mobile-hide"></div>
-		<div class="pure-u-md-2-5"></div>
+		<div class="pure-u-1-4 mobile-hide">
+		</div>
+		<div class="pure-u-sm-1 pure-u-md-2-5 logo"></div>
 		<div class="pure-u-md-1-5 newsletter-signup-header mobile-hide">
 			<a class="subscribe-header" target="_blank" rel="noopener" href="<?php echo esc_html( get_theme_mod( 'bumblebee_header_subscribe_url' ) ); ?>">
 				<img src="<?php echo esc_html( get_theme_mod( 'bumblebee_header_subscribe_image' ) ); ?>" alt="" style="width:<?php echo esc_html( get_theme_mod( 'bumblebee_header_subscribe_width' ) ); ?>px"></img>
@@ -76,13 +81,18 @@ wp_enqueue_style( 'bumblebee-style-header', get_stylesheet_directory_uri() . '/h
 							<input type="text" value="" name="s" id="s" placeholder="Search" />
 							<input type="submit" id="searchsubmit" class="search-button" value="Search" />
 						</fieldset>
+						<div class="close-btn"></div>
 					</div>
-					<div class="close-btn"></div>
 					<div id="mob-search-toggle" class="mobile-search-toggle"></div>
 				</form>
 				<button class="sticky-search-button" id="search-toggle">
 					<span class="screen-reader-text">Toggle Search</span>
 				</button>
+			</div>
+			<div class="sticky-nl-img">
+				<a class="subscribe-header" target="_blank" rel="noopener" href="<?php echo esc_html( get_theme_mod( 'bumblebee_header_subscribe_url' ) ); ?>">
+					<img src="<?php echo esc_html( get_theme_mod( 'bumblebee_header_subscribe_image_sticky' ) ); ?>" alt="" style="width:<?php echo esc_html( get_theme_mod( 'bumblebee_header_subscribe_width' ) ); ?>px"></img>
+				</a>
 			</div>
 			<div class="sticky-nl-img">
 				<a class="subscribe-header" target="_blank" rel="noopener" href="<?php echo esc_html( get_theme_mod( 'bumblebee_header_subscribe_url' ) ); ?>">

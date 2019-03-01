@@ -18,6 +18,7 @@ function remove_customizer_options_sections() {
 	$wp_customize->remove_section( 'static_front_page' );
 }
 add_action( 'customize_register', 'remove_customizer_options_sections', 20 );
+
 /**
  * Custom fonts
  */
