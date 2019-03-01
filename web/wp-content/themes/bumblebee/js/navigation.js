@@ -185,5 +185,9 @@
 		$( '#search-form-wrapper' ).toggleClass( 'visible' );
 	});
 
+	if( $(window).width() < 567 ) {
+		$('header').addClass('fixed');
+	}
+
 	/* global jQuery */
 })(jQuery);
