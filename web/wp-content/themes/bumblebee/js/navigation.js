@@ -185,9 +185,23 @@
 		$( '#search-form-wrapper' ).toggleClass( 'visible' );
 	});
 
-	if( $(window).width() < 567 ) {
-		$('header').addClass('fixed');
+	if( $(window).width() < 767 ) {
+		$(window).scroll(function() {
+			var scroll = $(window).scrollTop();
+			if (scroll >= 140) {
+				$('header').addClass('fixed');
+				$('nav').removeClass('sticky');
+			} else {
+				$('header').removeClass('fixed');
+			}
+		});
+
+		$('#mob-search-toggle').on('click', function(){
+			$( '#search-form-wrapper' ).toggleClass( 'visible' );
+		});
 	}
+
+
 
 	/* global jQuery */
 })(jQuery);

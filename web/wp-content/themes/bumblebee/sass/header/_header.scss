@@ -203,6 +203,10 @@ body.wp-customize {
 		fieldset {
 			margin-top: 4px;
 			padding: 5px 0 5px 0;
+
+			input[type=text] {
+				border-radius: 0;
+			}
 		}
 
 		.close-btn {
@@ -473,8 +477,9 @@ body.wp-customize {
 				input[type=text] {
 					background-color: #fff;
 					border: 1px solid #ddd;
+					border-radius: 0;
 					color: #333;
-					padding: 8px 10px;
+					padding: 7px 10px;
 					width: 100%;
 				}
 
@@ -600,6 +605,14 @@ body.wp-customize {
 			}
 		}
 	}
+}
+
+header.fixed {
+	background-color: #fff;
+	position: fixed;
+		top: 0; left: 0;
+	width: 100%;
+	z-index: 99;
 }
 
 @media (max-width: 768px) {

@@ -21,25 +21,12 @@
 			if ( $categories_list ) {
 				echo '<span class="cat-links">';
 				/* translators: 1: list of categories. */
-<<<<<<< HEAD
-				printf( esc_html__( '%1$s', 'bumblebee' ), $categories_list ); // phpcs:ignore WordPress.Security.EscapeOutput
-=======
 				printf( esc_html( '%1$s' ), $categories_list ); // phpcs:ignore WordPress.Security.EscapeOutput
->>>>>>> 36e8eb10b14f732f48d9e4a7f2bb6e242c5b696f
 				echo '</span>';
 			}
 			the_title( sprintf( '<h3 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h3>' );
 		}
 		?>
-<<<<<<< HEAD
-		</header><!-- .entry-header -->
-
-		<div class="entry-summary">
-		<?php the_excerpt(); ?>
-		</div><!-- .entry-summary -->
-	</div><!-- .content-container -->
-</article><!-- #post-<?php the_ID(); ?> -->
-=======
 
 		</header><!-- .entry-header -->
 
@@ -48,6 +35,3 @@
 		</div><!-- .entry-summary -->
 	</div>
 </article><!-- #post-<?php the_ID(); ?> -->
-
-
->>>>>>> 36e8eb10b14f732f48d9e4a7f2bb6e242c5b696f
