@@ -439,12 +439,12 @@ function bumblebee_custom_customize_register( $wp_customize ) {
 		)
 	);
 
-	$wp_customize->add_setting(
-		'bumblebee_header_logo_width',
-		array(
-			'sanitize_callback' => 'absint',
-		)
-	);
+		$wp_customize->add_setting(
+			'bumblebee_header_logo_width',
+			array(
+				'sanitize_callback' => 'absint',
+			)
+		);
 
 	$wp_customize->add_control(
 		'bumblebee_header_logo_width',
@@ -452,7 +452,7 @@ function bumblebee_custom_customize_register( $wp_customize ) {
 			'type'        => 'number',
 			'section'     => 'bumblebee_logos',
 			'label'       => __( 'Header Logo Width' ),
-			'description' => __( 'Enter only numbers, i.e: 200' ),
+			'description' => __( 'Enter only numbers, i.e: 100' ),
 			'settings'    => 'bumblebee_header_logo_width',
 		)
 	);
@@ -490,17 +490,17 @@ function bumblebee_custom_customize_register( $wp_customize ) {
 		)
 	);
 
-	$wp_customize->add_setting( 'bumblebee_footer_logo' );
+	$wp_customize->add_setting( 'bumblebee_footer_nl_subscribe_image' );
 
 	$wp_customize->add_control(
 		new WP_Customize_Image_Control(
 			$wp_customize,
-			'bumblebee_footer_logo',
+			'bumblebee_footer_nl_subscribe_image',
 			array(
-				'title'    => __( 'Footer Logo', 'bumblebee' ),
-				'label'    => __( 'Upload a footer logo', 'bumblebee' ),
+				'title'    => __( 'Header Newsletter Image', 'bumblebee' ),
+				'label'    => __( 'Upload an image', 'bumblebee' ),
 				'section'  => 'bumblebee_logos',
-				'settings' => 'bumblebee_footer_logo',
+				'settings' => 'bumblebee_footer_nl_subscribe_image',
 			)
 		)
 	);
@@ -754,6 +754,97 @@ function bumblebee_custom_customize_register( $wp_customize ) {
 			'priority'    => '35',
 			'input_attrs' => array(
 				'placeholder' => __( 'https://www.tmbi.com' ),
+			),
+		)
+	);
+
+	$wp_customize->add_panel(
+		'homepage_marquee',
+		array(
+			'priority'       => 35,
+			'capability'     => 'edit_theme_options',
+			'theme_supports' => '',
+			'title'          => __( 'Home Page Options', 'bumblebee' ),
+			'description'    => __( 'Home Page Options for the Hero Area', 'bumblebee' ),
+		)
+	);
+
+	$wp_customize->add_section(
+		'bumblebee_home_marquee',
+		array(
+			'title'       => __( 'Home Page (Marquee)', 'bumblebee' ),
+			'description' => __( 'Add the content for the large hero section, to the left' ),
+			'panel'       => 'homepage_marquee',
+		)
+	);
+
+	$wp_customize->add_setting( 'bumblebee_home_marquee_image' );
+
+	$wp_customize->add_control(
+		new WP_Customize_Image_Control(
+			$wp_customize,
+			'bumblebee_home_marquee_image',
+			array(
+				'title'    => __( 'Marquee Image', 'bumblebee' ),
+				'label'    => __( 'Upload an image (600 x 600 at least)', 'bumblebee' ),
+				'section'  => 'bumblebee_home_marquee',
+				'settings' => 'bumblebee_home_marquee_image',
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'bumblebee_home_marquee_heading_text',
+		array(
+			'capability'        => 'edit_theme_options',
+			'sanitize_callback' => 'sanitize_text_field',
+		)
+	);
+
+	$wp_customize->add_control(
+		'bumblebee_home_marquee_heading_text',
+		array(
+			'type'     => 'text',
+			'section'  => 'bumblebee_home_marquee',
+			'label'    => __( 'Marquee Heading Text' ),
+			'settings' => 'bumblebee_home_marquee_heading_text',
+		)
+	);
+
+	$wp_customize->add_setting(
+		'bumblebee_home_marquee_textarea',
+		array(
+			'capability'        => 'edit_theme_options',
+			'sanitize_callback' => 'sanitize_text_field',
+		)
+	);
+
+	$wp_customize->add_control(
+		'bumblebee_home_marquee_textarea',
+		array(
+			'type'     => 'textarea',
+			'section'  => 'bumblebee_home_marquee',
+			'label'    => __( 'Marquee Excerpt' ),
+			'settings' => 'bumblebee_home_marquee_textarea',
+		)
+	);
+
+	$wp_customize->add_setting(
+		'bumblebee_home_marquee_url',
+		array(
+			'sanitize_callback' => 'esc_url_raw',
+		)
+	);
+
+	$wp_customize->add_control(
+		'bumblebee_home_marquee_url',
+		array(
+			'type'        => 'url',
+			'section'     => 'bumblebee_home_marquee',
+			'label'       => __( 'Link URL' ),
+			'description' => __( 'Add the URL to link to the article' ),
+			'input_attrs' => array(
+				'placeholder' => __( 'https://www.example.com' ),
 			),
 		)
 	);
