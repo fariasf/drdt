@@ -825,6 +825,10 @@ function bumblebee_add_customizer_styles() {
 			fill: <?php echo esc_html( $banner_text_color ); ?>;
 		}
 
+		.header #search-form-wrapper {
+			background-color: <?php echo esc_html( $nav_bg_color ); ?>;
+		}
+
 		main {
 			font-family: "<?php echo esc_html( $font_body_option ); ?>" !important;
 		}
