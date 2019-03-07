@@ -505,6 +505,21 @@ function bumblebee_custom_customize_register( $wp_customize ) {
 		)
 	);
 
+	$wp_customize->add_setting( 'bumblebee_footer_logo' );
+
+	$wp_customize->add_control(
+		new WP_Customize_Image_Control(
+			$wp_customize,
+			'bumblebee_footer_logo',
+			array(
+				'title'    => __( 'Footer Logo', 'bumblebee' ),
+				'label'    => __( 'Upload a footer logo', 'bumblebee' ),
+				'section'  => 'bumblebee_logos',
+				'settings' => 'bumblebee_footer_logo',
+			)
+		)
+	);
+
 	$wp_customize->add_setting(
 		'bumblebee_footer_logo_width',
 		array(
