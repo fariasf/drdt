@@ -62,7 +62,7 @@ add_filter(
 				$post = get_marquee_post();
 				if ( $post ) {
 					setup_postdata( $post );
-					get_template_part( 'template-parts/content', 'hero' );
+					get_template_part( 'template-parts/content', 'hero-custom' );
 				}
 
 				$post = get_marquee_post( 2 );
