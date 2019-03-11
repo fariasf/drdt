@@ -156,6 +156,19 @@ function bumblebee_widgets_init() {
 			'after_title'   => '</h3>',
 		)
 	);
+
+	register_sidebar(
+		array(
+			'name'          => __( '404 Widget', 'bumblebee' ),
+			'id'            => 'not-found-widget',    // ID should be LOWERCASE  ! ! !
+			'description'   => 'Add Custom Content for 404 Page Here',
+			'class'         => '',
+			'before_widget' => '<section id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</section>',
+			'before_title'  => '<h3>',
+			'after_title'   => '</h3>',
+		)
+	);
 }
 
 add_action( 'widgets_init', 'bumblebee_widgets_init' );
