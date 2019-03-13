@@ -10,7 +10,7 @@
  */
 
 wp_enqueue_style( 'bumblebee-style-header', get_stylesheet_directory_uri() . '/header.css', [], '1.0.2' );
-$fbid = get_theme_mod( 'fbid', false );
+$fbid = get_theme_mod( 'bumblebee_facebook_id_string', false );
 ?>
 <!doctype html>
 <html <?php language_attributes(); ?> class="no-js">
