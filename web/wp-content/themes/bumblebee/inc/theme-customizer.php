@@ -774,7 +774,7 @@ function bumblebee_custom_customize_register( $wp_customize ) {
 	);
 
 	$wp_customize->add_panel(
-		'homepage_marquee',
+		'homepage_options',
 		array(
 			'priority'       => 35,
 			'capability'     => 'edit_theme_options',
@@ -789,7 +789,7 @@ function bumblebee_custom_customize_register( $wp_customize ) {
 		array(
 			'title'       => __( 'Home Page (Marquee)', 'bumblebee' ),
 			'description' => __( 'Add the content for the large hero section, to the left' ),
-			'panel'       => 'homepage_marquee',
+			'panel'       => 'homepage_options',
 		)
 	);
 
@@ -863,6 +863,131 @@ function bumblebee_custom_customize_register( $wp_customize ) {
 			),
 		)
 	);
+
+	$wp_customize->add_section(
+		'bumblebee_home_featured1',
+		array(
+			'title'       => __( 'Home Page (1st Featured Post)', 'bumblebee' ),
+			'description' => __( 'Add the content for the 1st featured section, in the middle' ),
+			'panel'       => 'homepage_options',
+		)
+	);
+
+	$wp_customize->add_setting( 'bumblebee_home_featured_image1' );
+
+	$wp_customize->add_control(
+		new WP_Customize_Image_Control(
+			$wp_customize,
+			'bumblebee_home_featured_image1',
+			array(
+				'title'    => __( 'Featured Image', 'bumblebee' ),
+				'label'    => __( 'Upload an image (600 x 600 at least)', 'bumblebee' ),
+				'section'  => 'bumblebee_home_featured1',
+				'settings' => 'bumblebee_home_featured_image1',
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'bumblebee_home_featured_text1',
+		array(
+			'capability'        => 'edit_theme_options',
+			'sanitize_callback' => 'sanitize_text_field',
+		)
+	);
+
+	$wp_customize->add_control(
+		'bumblebee_home_featured_text1',
+		array(
+			'type'     => 'text',
+			'section'  => 'bumblebee_home_featured1',
+			'label'    => __( 'Featured Text' ),
+			'settings' => 'bumblebee_home_featured_text1',
+		)
+	);
+
+	$wp_customize->add_setting(
+		'bumblebee_home_featured_url1',
+		array(
+			'sanitize_callback' => 'esc_url_raw',
+		)
+	);
+
+	$wp_customize->add_control(
+		'bumblebee_home_featured_url1',
+		array(
+			'type'        => 'url',
+			'section'     => 'bumblebee_home_featured1',
+			'label'       => __( 'Link URL' ),
+			'description' => __( 'Add the URL to link to the article' ),
+			'input_attrs' => array(
+				'placeholder' => __( 'https://www.example.com' ),
+			),
+		)
+	);
+
+	$wp_customize->add_section(
+		'bumblebee_home_featured2',
+		array(
+			'title'       => __( 'Home Page (2nd Featured Post)', 'bumblebee' ),
+			'description' => __( 'Add the content for the 2nd featured section, to the right' ),
+			'panel'       => 'homepage_options',
+		)
+	);
+
+	$wp_customize->add_setting( 'bumblebee_home_featured_image2' );
+
+	$wp_customize->add_control(
+		new WP_Customize_Image_Control(
+			$wp_customize,
+			'bumblebee_home_featured_image2',
+			array(
+				'title'    => __( 'Featured Image', 'bumblebee' ),
+				'label'    => __( 'Upload an image (600 x 600 at least)', 'bumblebee' ),
+				'section'  => 'bumblebee_home_featured2',
+				'settings' => 'bumblebee_home_featured_image2',
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'bumblebee_home_featured_text2',
+		array(
+			'capability'        => 'edit_theme_options',
+			'sanitize_callback' => 'sanitize_text_field',
+		)
+	);
+
+	$wp_customize->add_control(
+		'bumblebee_home_featured_text2',
+		array(
+			'type'     => 'text',
+			'section'  => 'bumblebee_home_featured2',
+			'label'    => __( 'Featured Text' ),
+			'settings' => 'bumblebee_home_featured_text2',
+		)
+	);
+
+	$wp_customize->add_setting(
+		'bumblebee_home_featured_url2',
+		array(
+			'sanitize_callback' => 'esc_url_raw',
+		)
+	);
+
+	$wp_customize->add_control(
+		'bumblebee_home_featured_url2',
+		array(
+			'type'        => 'url',
+			'section'     => 'bumblebee_home_featured2',
+			'label'       => __( 'Link URL' ),
+			'description' => __( 'Add the URL to link to the article' ),
+			'input_attrs' => array(
+				'placeholder' => __( 'https://www.example.com' ),
+			),
+		)
+	);
+
 }
 add_action( 'customize_register', 'bumblebee_custom_customize_register' );
 

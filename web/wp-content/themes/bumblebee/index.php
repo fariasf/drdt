@@ -58,24 +58,9 @@ add_filter(
 		<?php if ( function_exists( 'get_marquee_post' ) ) : ?>
 			<section class="archive-content pure-g">
 				<?php
-				// @todo: The templates should accept a $post argument to avoid overriding globals.
-				$post = get_marquee_post();
-				if ( $post ) {
-					setup_postdata( $post );
-					get_template_part( 'template-parts/content', 'hero-custom' );
-				}
+				get_template_part( 'template-parts/content', 'hero-custom' );
 
-				$post = get_marquee_post( 2 );
-				if ( have_posts() ) {
-					setup_postdata( $post );
-					get_template_part( 'template-parts/content', 'featured' );
-				}
-
-				$post = get_marquee_post( 3 );
-				if ( $post ) {
-					setup_postdata( $post );
-					get_template_part( 'template-parts/content', 'featured' );
-				}
+				get_template_part( 'template-parts/content', 'featured-custom' );
 				?>
 			</section>
 		<?php endif; ?>
