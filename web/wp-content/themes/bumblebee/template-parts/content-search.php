@@ -35,5 +35,3 @@
 		</div><!-- .entry-summary -->
 	</div>
 </article><!-- #post-<?php the_ID(); ?> -->
-
-
