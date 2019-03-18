@@ -4,6 +4,19 @@
   args:
       chdir: "/vagrant"
 
+#- name: Symlink wp-content in place
+#  file:
+#    src: /vagrant/web/wp-content  
+#    path: /vagrant/web/wp/wp-content
+#    state: link
+#  ignore_errors: yes
+#  register: symlink_wpcontent
+
+#- name: Copy wp-content to right repo.
+#  command: cp -r /vagrant/web/wp-content  /vagrant/web/wp/
+#  ignore_errors: yes
+#  when: symlink_wpcontent.failed is defined
+
 - name: Install Composer's dependencies
   composer:
     working_dir: /vagrant/
@@ -11,16 +24,11 @@
 
 - name: Symlink wp-content in place
   file:
-    src: /vagrant/web/wp-content  
+    src: /vagrant/web/wp-content
     path: /vagrant/web/wp/wp-content
     state: link
   ignore_errors: yes
   register: symlink_wpcontent
-
-- name: Copy wp-content to right repo.
-  command: cp -r /vagrant/web/wp-content  /vagrant/web/wp/
-  ignore_errors: yes
-  when: symlink_wpcontent.failed is defined
 
 - name: Create database for WordPress
   mysql_db:
