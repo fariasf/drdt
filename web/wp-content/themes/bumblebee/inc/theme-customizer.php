@@ -844,10 +844,20 @@ function bumblebee_add_customizer_styles() {
 			border-bottom: 2px dotted <?php echo esc_html( $nav_text_color ); ?>;
 		}
 
+		.header .main-navigation.sticky #search-form-wrapper.visible,
+		.header .main-navigation.sticky #search-form-wrapper.visible .close-btn {
+			background-color: <?php echo esc_html( $nav_bg_color ); ?>;
+		}
+		.header .main-navigation.sticky #search-form-wrapper.visible .search-button {
+			background-color: <?php echo esc_html( $button_bg_color ); ?>;
+		}
 		.newsletter-sign-below-header.hide-on-mobile .nl-signup-link h4,
 		.newsletter-sign-below-header.hide-on-mobile .nl-signup-link h4 .nl-right-arrow {
 			color: <?php echo esc_html( $banner_text_color ); ?>;
 			fill: <?php echo esc_html( $banner_text_color ); ?>;
+		}
+		.header #search-form-wrapper {
+			background-color: <?php echo esc_html( $nav_bg_color ); ?>;
 		}
 
 		main {

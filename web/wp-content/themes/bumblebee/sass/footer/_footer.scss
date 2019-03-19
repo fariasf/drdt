@@ -111,14 +111,12 @@
 		display: flex;
 
 		ul {
-			columns: 2;
-			-webkit-columns: 2;
-			-moz-columns: 2;
 			flex-direction: column;
 			flex-wrap: wrap;
 			margin-bottom: 10px;
 			margin-top: 0;
 			padding-left: 0;
+			width: 50%;
 
 			li {
 				display: inline-block;

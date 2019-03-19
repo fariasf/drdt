@@ -1,3 +1,4 @@
+
 body.logged-in {
 	.header .main-navigation.sticky {
 		top: 32px;
@@ -178,7 +179,6 @@ body.wp-customize {
 	}
 
 	.search-button {
-		background-color: transparent;
 		background-image: url(images/search-icon-light.svg);
 		background-color: transparent;
 		background-size: 22px 25px;
@@ -217,7 +217,7 @@ body.wp-customize {
 		background-repeat: no-repeat;
 		height: 23px;
 		position: absolute;
-			top: 18px; right: -27px;
+			top: 20px; right: -27px;
 		text-align: center;
 		width: 23px;
 	}
@@ -322,6 +322,14 @@ body.wp-customize {
 			}
 		}
 	}
+}
+
+header.fixed {
+	background-color: #fff;
+	position: fixed;
+		top: 0; left: 0;
+	width: 100%;
+	z-index: 99;
 }
 
 // Required Styles
@@ -440,15 +448,6 @@ body.wp-customize {
 			height: 60px;
 		}
 	}
-
-	header.sticky {
-		background-color: #fff;
-		position: fixed;
-		top: 0;
-		left: 0;
-		width: 100%;
-		z-index: 2;
-	}
 }
 
 @media (min-width: 767px) {
@@ -460,98 +459,14 @@ body.wp-customize {
 @media (max-width: 768px) {
 	.header {
 
-		.search-form {
-			position: absolute;
-				top: 30px; right: 0;
-			margin-left: 0;
-			margin-right: 0;
+		form {
 
-			fieldset {
-				margin: 0;
-				padding: 0 20px;
-
-				input[type=text] {
-					background-color: #fff;
-					border: 1px solid #ddd;
-					color: #333;
-					padding: 8px 10px;
-					width: 100%;
-				}
-
-				.search-button {
-					background-color: #ffc10e;
-					background-image: url(images/search-icon-light.svg);
-					background-repeat: no-repeat;
-					background-position: 50%;
-					background-size: 18px 18px;
-					border: none;
-					height: 40px;
-					position: absolute;
-						right: 30px;
-					text-indent: -9999px;
-					vertical-align: middle;
-					width: 40px;
-				}
+			button {
+				background-image: url(images/search-icon.svg);
+				position: absolute;
+				top: -46px;
+				right: -50px;
 			}
-		}
-
-		.close-btn {
-			display: none;
-		}
-
-		.main-navigation {
-
-			.sticky-nl-img {
-				display: none;
-			}
-		}
-
-		#search-form-wrapper {
-			background-color: #000;
-			border-bottom: 1px solid #cbcbca;
-			box-shadow: 0 2px 7px 0 hsla(0,0%,58%,.35);
-			display: none;
-			position: absolute;
-				top: 40px; right: 0;
-			max-width: none;
-			padding: 10px;
-			width: 100vw;
-
-			.search-form {
-
-				form {
-					.search-button {
-						background-image: url(images/search-icon.svg);
-						position: relative;
-					}
-
-					.close-btn {
-						display: none;
-					}
-				}
-			}
-		}
-
-		#search-form-wrapper.visible {
-			display: block;
-		}
-
-		.mobile-search-toggle {
-			background-image: url(images/search-icon.svg);
-			background-repeat: no-repeat;
-			background-position: 50%;
-			background-size: 18px 18px;
-			border: none;
-			cursor: pointer;
-			color: black;
-			height: 40px;
-			text-indent: -9999px;
-			vertical-align: middle;
-			width: 40px;
-		}
-
-		.menu-desktop-focus-menu-container {
-			margin: 0 auto;
 		}
 
 		.hamburger-wrapper {
@@ -571,8 +486,7 @@ body.wp-customize {
 		}
 
 		.content-wrapper {
-			margin: 0 auto;
-			padding-top: 10px;
+			margin: 10px auto 0;
 		}
 
 		a.logo {
@@ -586,24 +500,14 @@ body.wp-customize {
 	.newsletter-sign-below-header.hide-on-mobile {
 		display: none;
 	}
-
-	header.sticky {
-		.main-navigation {
-			position: relative;
-		}
-
-		.search-form {
-			top: -40px;
-
-			.close-btn {
-				display: none;
-			}
-		}
-	}
 }
 
 @media (max-width: 768px) {
 	.header {
+
+		#search-form-wrapper.visible {
+			display: block;
+		}
 
 		.search-form {
 			position: absolute;
@@ -618,8 +522,9 @@ body.wp-customize {
 				input[type=text] {
 					background-color: #fff;
 					border: 1px solid #ddd;
+					border-radius: 0;
 					color: #333;
-					padding: 8px 10px;
+					padding: 8px 10px 7px;
 					width: 100%;
 				}
 
