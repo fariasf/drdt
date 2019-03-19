@@ -57,7 +57,7 @@ __________________
 
 	11 ) exit
 
-	12 ) varnish provision    *that should complete the build and the site will be up and running.
+	12 ) vagrant provision    *that should complete the build and the site will be up and running.
 
 Access information:
 ___________________
