@@ -439,12 +439,12 @@ function bumblebee_custom_customize_register( $wp_customize ) {
 		)
 	);
 
-	$wp_customize->add_setting(
-		'bumblebee_header_logo_width',
-		array(
-			'sanitize_callback' => 'absint',
-		)
-	);
+		$wp_customize->add_setting(
+			'bumblebee_header_logo_width',
+			array(
+				'sanitize_callback' => 'absint',
+			)
+		);
 
 	$wp_customize->add_control(
 		'bumblebee_header_logo_width',
@@ -452,7 +452,7 @@ function bumblebee_custom_customize_register( $wp_customize ) {
 			'type'        => 'number',
 			'section'     => 'bumblebee_logos',
 			'label'       => __( 'Header Logo Width' ),
-			'description' => __( 'Enter only numbers, i.e: 200' ),
+			'description' => __( 'Enter only numbers, i.e: 100' ),
 			'settings'    => 'bumblebee_header_logo_width',
 		)
 	);
@@ -490,17 +490,17 @@ function bumblebee_custom_customize_register( $wp_customize ) {
 		)
 	);
 
-	$wp_customize->add_setting( 'bumblebee_footer_logo' );
+	$wp_customize->add_setting( 'bumblebee_footer_nl_subscribe_image' );
 
 	$wp_customize->add_control(
 		new WP_Customize_Image_Control(
 			$wp_customize,
-			'bumblebee_footer_logo',
+			'bumblebee_footer_nl_subscribe_image',
 			array(
-				'title'    => __( 'Footer Logo', 'bumblebee' ),
-				'label'    => __( 'Upload a footer logo', 'bumblebee' ),
+				'title'    => __( 'Header Newsletter Image', 'bumblebee' ),
+				'label'    => __( 'Upload an image', 'bumblebee' ),
 				'section'  => 'bumblebee_logos',
-				'settings' => 'bumblebee_footer_logo',
+				'settings' => 'bumblebee_footer_nl_subscribe_image',
 			)
 		)
 	);

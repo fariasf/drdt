@@ -42,7 +42,6 @@ $fbid = get_theme_mod( 'fbid', false );
 		<a data-analytics-metrics='{"name":"home logo","module":"header","position":"secondary navigation"}' href="/" class="pure-u-sm-1 pure-u-md-2-5 logo">
 			<img src="<?php echo esc_html( get_theme_mod( 'bumblebee_header_logo' ) ); ?>" alt="<?php echo esc_html( get_bloginfo( 'name' ) ); ?>" style="width:<?php echo esc_html( get_theme_mod( 'bumblebee_header_logo_width' ) ); ?>px"></img>
 		</a>
-
 		<div class="pure-u-1-4 mobile-hide">
 		</div>
 		<div class="pure-u-sm-1 pure-u-md-2-5 logo"></div>
@@ -84,7 +83,6 @@ $fbid = get_theme_mod( 'fbid', false );
 						</fieldset>
 						<div class="close-btn"></div>
 					</div>
-					
 					<div id="mob-search-toggle" class="mobile-search-toggle"></div>
 				</form>
 				<button class="sticky-search-button" id="search-toggle">

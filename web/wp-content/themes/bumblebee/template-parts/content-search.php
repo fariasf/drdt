@@ -27,7 +27,6 @@
 			the_title( sprintf( '<h3 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h3>' );
 		}
 		?>
-
 		</header><!-- .entry-header -->
 
 		<div class="entry-summary">
@@ -35,5 +34,4 @@
 		</div><!-- .entry-summary -->
 	</div>
 </article><!-- #post-<?php the_ID(); ?> -->
-
 
