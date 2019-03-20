@@ -1,4 +1,6 @@
 
+$logo-lm: calc(50% - 50px);
+
 body.logged-in {
 	.header .main-navigation.sticky {
 		top: 32px;
@@ -64,7 +66,7 @@ body.wp-customize {
 
 				li {
 					list-style-type: none;
-					padding: 15px;
+					padding: 8px 14px;
 
 					a {
 						color: #ffc10e;
@@ -512,14 +514,13 @@ header.fixed {
 		}
 
 		.content-wrapper {
-			margin: 10px auto 0;
+			margin: 0 auto;
+			padding-top: 10px;
 		}
 
 		a.logo {
-			text-align: center;
-			margin: 0 auto;
-			max-width: 100px;
-			width: 100px;
+			margin-left: $logo-lm;
+			width: 200px;
 		}
 
 		#search-form-wrapper.visible {
@@ -528,7 +529,7 @@ header.fixed {
 
 		.search-form {
 			position: absolute;
-				top: 30px; right: 0;
+				top: 20px; right: 0;
 			margin-left: 0;
 			margin-right: 0;
 
@@ -614,18 +615,6 @@ header.fixed {
 				padding-bottom: 5px;
 			}
 		}
-
-		.content-wrapper {
-			margin: 0 auto;
-			padding-top: 10px;
-		}
-
-		a.logo {
-			text-align: center;
-			margin: 0 auto;
-			max-width: 100px;
-			width: 100px;
-		}
 	}
 
 	.newsletter-sign-below-header.hide-on-mobile {
@@ -664,5 +653,14 @@ header.fixed {
 				padding: 8px;
 			}
 		}
+	}
+}
+
+@media screen and (max-width: 567px) {
+	a.logo {
+		text-align: center;
+		margin: 0 auto;
+		max-width: 100px;
+		width: 100px;
 	}
 }
