@@ -596,14 +596,8 @@ header.fixed {
 			width: 40px;
 		}
 
-		.menu-desktop-focus-menu-container {
-			margin: 0 auto;
-
-			ul {
-				li {
-					padding: 8px 14px;
-				}
-			}
+		.main-navigation .menu-desktop-focus-menu-container ul li {
+			padding: 8px 14px;
 		}
 
 		.hamburger-wrapper {
