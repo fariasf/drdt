@@ -109,7 +109,7 @@ get_header();
 			);
 			?>
 		</section>
-		<div class="pure-g recipes">
+		<div class="pure-g recipes bottom-space">
 			<?php
 			$i = 0;
 			// Row of 8 posts
@@ -149,7 +149,7 @@ get_header();
 			);
 			?>
 		</section>
-		<div class="pure-g recipes">
+		<div class="pure-g recipes bottom-space">
 			<?php
 			$i = 0;
 			// Row of 8 posts

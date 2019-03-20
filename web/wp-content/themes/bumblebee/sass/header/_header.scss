@@ -27,10 +27,11 @@ body.wp-customize {
 	}
 
 	.content-wrapper {
-		width: 100%;
-		margin: 10px auto;
-		display: flex;
-		align-items: center;
+		width       : 100%;
+		margin      : 10px auto;
+		display     : flex;
+		align-items : center;
+		max-width   : 1260px;
 	}
 
 	.newsletter-signup-header {

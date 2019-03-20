@@ -3,6 +3,11 @@
 	position: relative;
 	z-index: 0;
 
+	div.bottom-space {
+		.category-card {
+			margin-bottom : 0.7em;
+		}
+	}
 	ul {
 		padding-left: 0;
 		list-style-type: none;

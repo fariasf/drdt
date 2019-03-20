@@ -8,7 +8,7 @@ $archive_grid_analytics = 'data-analytics-metrics=\'{"name":"' . get_the_title()
 
 
 ?>
-<div class="pure-u-1 pure-u-sm-1-4">
+<div class="pure-u-1 pure-u-sm-1-4 category-card">
 	<div class="single-recipe">
 		<?php bumblebee_post_thumbnail( 'grid-thumbnail', 'individual content well', 'content navigation' ); ?>
 		<div class="recipe-content">
