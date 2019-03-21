@@ -50,6 +50,18 @@ get_header();
 		?>
 	</section>
 	<section class="archive-content">
+		<div class="tag-cloud">
+			<?php
+			if ( ! is_author() ) {
+				get_partial(
+					'inc/archive-tax-list-buttons',
+					array(
+						'terms' => render_first_level_child_of_parent_tax( get_queried_object() ),
+					)
+				);
+			}
+			?>
+		</div>
 		<div class="archive-headings">
 			<div class="breadcrumbs">
 			<?php if ( function_exists( 'yoast_breadcrumb' ) ) : ?>
@@ -60,118 +72,156 @@ get_header();
 			<?php the_archive_description( '<div class="archive-description">', '</div>' ); ?>
 		</div>
 	</section>
-	<section class="archive-content">
+	<?php if ( ! is_paged() ) { ?>
+		<section class="archive-content">
 
-		<?php
-			// Hero post
-		if ( have_posts() ) {
-			the_post();
-			get_template_part( 'template-parts/archive/content', 'hero' );
-		}
-		?>
-		<ul class="featured-posts">
 			<?php
+			// Hero post
+			if ( have_posts() ) {
+				the_post();
+				get_template_part( 'template-parts/archive/content', 'hero' );
+			}
+			?>
+			<ul class="featured-posts">
+				<?php
 				// Row of 5 posts
 				$i = 0;
-			while ( have_posts() && $i++ < 5 ) :
+				while ( have_posts() && $i ++ < 5 ) :
+					the_post();
+					get_template_part( 'template-parts/archive/content', 'featured' );
+				endwhile;
+				?>
+			</ul>
+			<section class="ad">
+				<?php
+				$slot_name = 'scroll';
+				$tf_slot   = 'btf';
+				if ( 1 === $section_num ) {
+					$slot_name = 'top';
+					$tf_slot   = 'atf';
+				} elseif ( 2 === $section_num ) {
+					$slot_name = 'middle';
+					$tf_slot   = 'atf';
+				}
+				bumblebee_render_ad(
+					uniqid( 'ad' ),
+					[
+						'slot-name'        => $slot_name,
+						'responsive-sizes' => [
+							'mobile'       => [ [ 300, 250 ], [ 320, 50 ], [ 3, 3 ] ],
+							'tablet'       => [ [ 300, 250 ], [ 320, 50 ], [ 3, 3 ] ],
+							'desktop'      => [ [ 728, 90 ], [ 300, 250 ], [ 3, 3 ] ],
+							'large_screen' => [
+								[ 970, 550 ],
+								[ 970, 250 ],
+								[ 970, 90 ],
+								[ 728, 90 ],
+								[ 300, 250 ],
+								[ 3, 3 ],
+							],
+						],
+						'targeting'        => [
+							'tf'       => $tf_slot,
+							'pos'      => $slot_name,
+							'location' => $slot_name,
+						],
+					]
+				);
+				?>
+			</section>
+			<div class="pure-g recipes bottom-space">
+				<?php
+				$i = 0;
+				// Row of 8 posts
+				while ( have_posts() && $i ++ < 8 ) :
+					the_post();
+					get_template_part( 'template-parts/archive/content', 'grid' );
+				endwhile;
+				?>
+			</div>
+			<section class="">
+				<?php
+				$slot_name = 'scroll';
+				$tf_slot   = 'btf';
+				if ( 1 === $section_num ) {
+					$slot_name = 'top';
+					$tf_slot   = 'atf';
+				} elseif ( 2 === $section_num ) {
+					$slot_name = 'middle';
+					$tf_slot   = 'atf';
+				}
+				bumblebee_render_ad(
+					uniqid( 'ad' ),
+					[
+						'slot-name'        => $slot_name,
+						'responsive-sizes' => [
+							'mobile'       => [ [ 300, 250 ], [ 320, 50 ], [ 3, 3 ] ],
+							'tablet'       => [ [ 300, 250 ], [ 320, 50 ], [ 3, 3 ] ],
+							'desktop'      => [ [ 728, 90 ], [ 300, 250 ], [ 3, 3 ] ],
+							'large_screen' => [
+								[ 970, 550 ],
+								[ 970, 250 ],
+								[ 970, 90 ],
+								[ 728, 90 ],
+								[ 300, 250 ],
+								[ 3, 3 ],
+							],
+						],
+						'targeting'        => [
+							'tf'       => $tf_slot,
+							'pos'      => $slot_name,
+							'location' => $slot_name,
+						],
+					]
+				);
+				?>
+			</section>
+			<div class="pure-g recipes bottom-space">
+				<?php
+				$i = 0;
+				// Row of 8 posts
+				while ( have_posts() && $i ++ < 8 ) :
+					the_post();
+					get_template_part( 'template-parts/archive/content', 'grid' );
+				endwhile;
+				?>
+			</div>
+		</section>
+		<?php
+		get_template_part( 'template-parts/archive/content', 'newsletter' );
+	}
+	?>
+	<section class="archive-content">
+		<?php if ( ! is_paged() ) { ?>
+		<div class="pure-g recipes bottom-space">
+			<?php
+
+				$i = 0;
+				// Row of 8 posts
+			while ( have_posts() && $i ++ < 4 ) :
 				the_post();
-				get_template_part( 'template-parts/archive/content', 'featured' );
+				get_template_part( 'template-parts/archive/content', 'grid' );
 				endwhile;
 			?>
-		</ul>
-		<section class="ad">
+		</div>
 			<?php
-			$slot_name = 'scroll';
-			$tf_slot   = 'btf';
-			if ( 1 === $section_num ) {
-				$slot_name = 'top';
-				$tf_slot   = 'atf';
-			} elseif ( 2 === $section_num ) {
-				$slot_name = 'middle';
-				$tf_slot   = 'atf';
+		} else {
+			for ( $i = 4; $i > 0; $i-- ) {
+				?>
+				<div class="pure-g recipes bottom-space">
+					<?php
+						$j = 0;
+						// Row of 8 posts
+					while ( have_posts() && $j ++ < 8 ) :
+						the_post();
+						get_template_part( 'template-parts/archive/content', 'grid' );
+						endwhile;
+					?>
+				</div>
+				<?php
 			}
-			bumblebee_render_ad(
-				uniqid( 'ad' ),
-				[
-					'slot-name'        => $slot_name,
-					'responsive-sizes' => [
-						'mobile'       => [ [ 300, 250 ], [ 320, 50 ], [ 3, 3 ] ],
-						'tablet'       => [ [ 300, 250 ], [ 320, 50 ], [ 3, 3 ] ],
-						'desktop'      => [ [ 728, 90 ], [ 300, 250 ], [ 3, 3 ] ],
-						'large_screen' => [ [ 970, 550 ], [ 970, 250 ], [ 970, 90 ], [ 728, 90 ], [ 300, 250 ], [ 3, 3 ] ],
-					],
-					'targeting'        => [
-						'tf'       => $tf_slot,
-						'pos'      => $slot_name,
-						'location' => $slot_name,
-					],
-				]
-			);
-			?>
-		</section>
-		<div class="pure-g recipes bottom-space">
-			<?php
-			$i = 0;
-			// Row of 8 posts
-			while ( have_posts() && $i++ < 8 ) :
-				the_post();
-				get_template_part( 'template-parts/archive/content', 'grid' );
-			endwhile;
-			?>
-		</div>
-		<section class="">
-			<?php
-			$slot_name = 'scroll';
-			$tf_slot   = 'btf';
-			if ( 1 === $section_num ) {
-				$slot_name = 'top';
-				$tf_slot   = 'atf';
-			} elseif ( 2 === $section_num ) {
-				$slot_name = 'middle';
-				$tf_slot   = 'atf';
-			}
-			bumblebee_render_ad(
-				uniqid( 'ad' ),
-				[
-					'slot-name'        => $slot_name,
-					'responsive-sizes' => [
-						'mobile'       => [ [ 300, 250 ], [ 320, 50 ], [ 3, 3 ] ],
-						'tablet'       => [ [ 300, 250 ], [ 320, 50 ], [ 3, 3 ] ],
-						'desktop'      => [ [ 728, 90 ], [ 300, 250 ], [ 3, 3 ] ],
-						'large_screen' => [ [ 970, 550 ], [ 970, 250 ], [ 970, 90 ], [ 728, 90 ], [ 300, 250 ], [ 3, 3 ] ],
-					],
-					'targeting'        => [
-						'tf'       => $tf_slot,
-						'pos'      => $slot_name,
-						'location' => $slot_name,
-					],
-				]
-			);
-			?>
-		</section>
-		<div class="pure-g recipes bottom-space">
-			<?php
-			$i = 0;
-			// Row of 8 posts
-			while ( have_posts() && $i++ < 8 ) :
-				the_post();
-				get_template_part( 'template-parts/archive/content', 'grid' );
-			endwhile;
-			?>
-		</div>
-	</section>
-	<?php get_template_part( 'template-parts/archive/content', 'newsletter' ); ?>
-	<section class="archive-content">
-		<div class="pure-g recipes">
-			<?php
-			$i = 0;
-			// Row of 8 posts
-			while ( have_posts() && $i++ < 4 ) :
-				the_post();
-				get_template_part( 'template-parts/archive/content', 'grid' );
-			endwhile;
-			?>
-		</div>
+		}
+		?>
 
 		<div class="pagination">
 			<?php
@@ -195,3 +245,76 @@ get_header();
 </main>
 <?php
 get_footer();
+
+/**
+ * get the first level children of taxonomy
+ *
+ * @param WP_Term|null
+ *
+ * @return array|false WP_Terms
+ */
+function render_first_level_child_of_parent_tax( $term = null ) {
+	if ( ! $term && $this->term ) {
+		$term = $this->term;
+	} else {
+		$term = get_queried_object();
+	}
+
+	// checking if partner-recipes taxonomy
+	$partner_recipe_flag = false;
+	if ( $term->name == 'partner-recipes' ) {
+		$partner_recipe_flag = true;
+	}
+
+	if ( $term && is_a( $term, 'WP_Term' ) ) {
+		$args = array(
+			'parent'     => $term->term_id,
+			'hide_empty' => false,
+		);
+
+		$child_terms = get_terms( $term->taxonomy, $args ); // get the first level terms
+
+		if ( $child_terms && ! is_wp_error( $child_terms ) ) {
+			$term_array = array();
+			foreach ( $child_terms as $child_term ) {
+				$term_array[] = (object) array(
+					'name' => $child_term->name,
+					'link' => get_term_link( $child_term->term_id ),
+				);
+			}
+			return $term_array;
+		}
+	}
+
+	if ( get_query_var( 'custom_tax' ) ) {
+		$terms = get_terms(
+			array(
+				'taxonomy'   => get_query_var( 'custom_tax' ),
+				'parent'     => 0,
+				'hide_empty' => false,
+			)
+		);
+
+		if ( $terms ) {
+			$term_array = array();
+			foreach ( $terms as $term ) {
+				if ( $partner_recipe_flag ) {
+					if ( $term->count > 0 ) {
+						$term_array[] = (object) array(
+							'name' => $term->name,
+							'link' => get_term_link( $term->term_id ),
+						);
+					}
+				} else {
+					$term_array[] = (object) array(
+						'name' => $term->name,
+						'link' => get_term_link( $term->term_id ),
+					);
+				}
+			}
+			return $term_array;
+		}
+	}
+
+	return false;
+}

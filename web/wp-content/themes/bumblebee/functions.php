@@ -227,6 +227,11 @@ require get_template_directory() . '/inc/ads.php';
  */
 require get_template_directory() . '/inc/menu-walker-tagging.php';
 
+/**
+ * Load menu tagging through walker
+ */
+require get_template_directory() . '/inc/archive-tax-list-buttons.php';
+
 
 register_nav_menu( 'v2-footer-site-links', 'V2 Footer Site Links' );
 register_nav_menu( 'v2-footer-social-links', 'V2 Footer Social Links' );
@@ -451,7 +456,7 @@ add_filter( 'upload_mimes', 'enable_svg_upload' );
  * @param  content $content Append NL to the_content
  */
 function newsletter_after_the_content( $content ) {
-	$after = newsletter_module();
+	$after   = newsletter_module();
 	$content = $content . $after;
 
 	return $content;
@@ -474,4 +479,42 @@ function newsletter_module() { ?>
 		</a>
 	</div>
 	<?php
+}
+
+/**
+ * New Theme functionality ahead
+ */
+
+
+/**
+ * "Pass" arguments into get_template_part by setting a global variable,
+ * calling get_template_part, and then unsetting the variable so the
+ * global namespace does not stay polluted.
+ *
+ * @param string $path    Path to the template part.
+ * @param array  $options Option values to pass into the template part.
+ */
+function get_partial( $path, array $options = array() ) {
+	$GLOBALS['get_partial_options'] = $options;
+	get_template_part( $path, '' );
+	unset( $GLOBALS['get_partial_options'] );
+}
+
+/**
+ * Get an option value passed into a template part via get_partial.
+ *
+ * Requires get_partial. The option will not be present via get_template_part
+ * directly.
+ *
+ * @param string $option Option to get from the options passed to the partial.
+ *
+ * @return mixed The value stored in the partial option.
+ */
+function get_partial_option( $option ) {
+	if ( ! empty( $GLOBALS['get_partial_options'] ) &&
+		 ! empty( $GLOBALS['get_partial_options'][ $option ] ) ) {
+		return $GLOBALS['get_partial_options'][ $option ];
+	}
+
+	return null;
 }
