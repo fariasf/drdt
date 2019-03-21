@@ -7,17 +7,17 @@ function TMBI_Ad_Stack( ) {
 
 	// Add GPT code.
 	(function() {
-		var gads = document.createElement('script'),
-			postScribe = document.createElement('script');
+		var gads = document.createElement('script');
+			//postScribe = document.createElement('script');
 		gads.async = true;
 		gads.type = 'text/javascript';
 		var useSSL = 'https:' == document.location.protocol;
 		gads.src = (useSSL ? 'https:' : 'http:') + '//www.googletagservices.com/tag/js/gpt.js';
-		postScribe.src = (useSSL ? 'https:' : 'http:') + '//cdnjs.cloudflare.com/ajax/libs/postscribe/2.0.8/postscribe.min.js';
+		//postScribe.src = (useSSL ? 'https:' : 'http:') + '//cdnjs.cloudflare.com/ajax/libs/postscribe/2.0.8/postscribe.min.js';
 		var node =document.getElementsByTagName('script')[0];
 		//node.parentNode.insertBefore(gads, node);
-		window.nodePostScribe = node;
-		node.parentNode.insertBefore(postScribe, node);
+		//window.nodePostScribe = node;
+		node.parentNode.insertBefore(gads, node);
 		device = getCurrentBreakPoint();
 	})();
 
@@ -175,10 +175,11 @@ var ad_stack = new TMBI_Ad_Stack();
 
 // event callback on load
 window.addEventListener('load', function() {
-	postscribe('#gpt-postcribe','<script src="https://www.googletagservices.com/tag/js/gpt.js"></script>',function () {
-		//global targeting params
-		window.ads_global_targeting = typeof tmbi_ad_data !== 'undefined' && tmbi_ad_data && (tmbi_ad_data.global_targeting || {});
-		ad_stack.init();
-		ad_stack.fetch_and_render_all();
-	});
+	// postscribe('#gpt-postcribe','<script src="https://www.googletagservices.com/tag/js/gpt.js"></script>',function () {
+	//
+	// });
+	//global targeting params
+	window.ads_global_targeting = typeof tmbi_ad_data !== 'undefined' && tmbi_ad_data && (tmbi_ad_data.global_targeting || {});
+	ad_stack.init();
+	ad_stack.fetch_and_render_all();
 });
