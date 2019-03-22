@@ -75,7 +75,7 @@ class Hero_Video_Widget extends WP_Widget {
 					<h2><?php echo $playlist_title; ?></h2>
 				</div>
 				<div id="the-playlist" class="playlist" data-playlist="<?php echo $default_playlist_id; ?>">
-					<script type="text/x-template"><div class="item" data-media-id="%media_id%" data-playlist-id="%playlist_id%" data-playlist-title="<?php echo $playlist_title; ?>"><img alt="Image Snap" src="%image%"><h4>%title%</h4></script>
+                    <script type="text/x-template"><div class="item" data-media-id="%media_id%" data-playlist-id="%playlist_id%" data-playlist-title="<?php echo $playlist_title; ?>"><img src="%image%"><h4>%title%</h4></div></script>
 				</div>
 			</div> <!-- /.player-container -->
 		</div>

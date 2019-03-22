@@ -1,5 +1,6 @@
+/* global jQuery*/
 jQuery(document).ready(function ($) {
-	$("[data-playlist]").each(function(){
+	$('[data-playlist]').each(function(){
 		var $self = $(this);
 		var playlist_id = $self.attr('data-playlist');
 		var template = $self.find('script[type="text/x-template"]').html();

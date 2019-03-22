@@ -475,3 +475,14 @@ function newsletter_module() { ?>
 	</div>
 	<?php
 }
+
+require_once 'video/video-hub.php'; // Custom video archive page.
+function my_plugin_body_class($classes) {
+	//if( is_page_template('archive-videos.php') )
+		$classes[] = 'video-hub-archive';
+	return $classes;
+}
+
+add_filter('body_class', 'my_plugin_body_class');
+
+
