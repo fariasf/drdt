@@ -453,7 +453,8 @@ add_filter( 'upload_mimes', 'enable_svg_upload' );
 /**
  * Add In Content NL Module AFTER the_content
  *
- * @param  content $content Append NL to the_content
+ * @param string $content Append NL to the_content.
+ * @return string|array
  */
 function newsletter_after_the_content( $content ) {
 	$after   = newsletter_module();
@@ -469,14 +470,21 @@ function newsletter_module() { ?>
 	<div class="newsletter">
 		<h3><?php echo esc_html( get_theme_mod( 'bumblebee_footer_nl_heading_text' ) ); ?></h3>
 		<form action="<?php echo esc_url( get_site_url() ); ?>/newslettersignuppage/" method="post" data-analytics-metrics='{"name":"newsletter signup","module":"newsletter signup","position":"footer"}' >
-			<input type="text" id="email" placeholder="Email Address"></input>
+			<input type="text" id="email" placeholder="Email Address">
 			<button type="submit" id="subscribe">Sign Up</button>
 		</form>
 	</div>
 	<div class="diyu-logo">
-		<a data-analytics-metrics='{"name":"Subscribe link","module":"footer","position":"magazine subscription"}' href="<?php echo esc_html( get_theme_mod( 'bumblebee_footer_nl_subscribe_url' ) ); ?>" target="_blank" rel="noopener noreferrer">
-			<img src="<?php echo esc_html( get_theme_mod( 'bumblebee_footer_nl_subscribe_image' ) ); ?>" alt="" style="width:<?php echo esc_html( get_theme_mod( 'bumblebee_footer_nl_subscribe_image_width' ) ); ?>px"></img>
-		</a>
+		<div class="diyu-text">
+			<?php
+			echo esc_html( get_theme_mod( 'bumblebee_diy_university_text' ) );
+			?>
+		</div>
+		<div class="diyu-img">
+			<a data-analytics-metrics='{"name":"Subscribe link","module":"footer","position":"magazine subscription"}' href="<?php echo esc_html( get_theme_mod( 'bumblebee_footer_nl_subscribe_url' ) ); ?>" target="_blank" rel="noopener noreferrer">
+				<img src="<?php echo esc_html( get_theme_mod( 'bumblebee_footer_nl_subscribe_image' ) ); ?>" alt="" style="width:<?php echo esc_html( get_theme_mod( 'bumblebee_footer_nl_subscribe_image_width' ) ); ?>px">
+			</a>
+		</div>
 	</div>
 	<?php
 }
@@ -511,10 +519,32 @@ function get_partial( $path, array $options = array() ) {
  * @return mixed The value stored in the partial option.
  */
 function get_partial_option( $option ) {
-	if ( ! empty( $GLOBALS['get_partial_options'] ) &&
-		 ! empty( $GLOBALS['get_partial_options'][ $option ] ) ) {
+	if ( ! empty( $GLOBALS['get_partial_options'] ) && ! empty( $GLOBALS['get_partial_options'][ $option ] ) ) {
 		return $GLOBALS['get_partial_options'][ $option ];
 	}
-
 	return null;
 }
+
+/**
+ * Remove the prefix like Category:, Tax:, Author: etc from the archive title.
+ *
+ * @param string $title archive title.
+ *
+ * @return string
+ */
+function bumblebee_archive_title( $title ) {
+	if ( is_category() ) {
+		$title = single_cat_title( '', false );
+	} elseif ( is_tag() ) {
+		$title = single_tag_title( '', false );
+	} elseif ( is_author() ) {
+		$title = '<h1 class="page-title">' . get_the_author() . '</h1>';
+	} elseif ( is_post_type_archive() ) {
+		$title = post_type_archive_title( '', false );
+	} elseif ( is_tax() ) {
+		$title = single_term_title( '', false );
+	}
+
+	return $title;
+}
+add_filter( 'get_the_archive_title', 'bumblebee_archive_title' );

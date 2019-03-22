@@ -50,6 +50,15 @@ get_header();
 		?>
 	</section>
 	<section class="archive-content">
+		<div class="archive-headings">
+			<div class="breadcrumbs">
+			<?php if ( function_exists( 'yoast_breadcrumb' ) ) : ?>
+				<?php yoast_breadcrumb( '<p id="breadcrumbs">', '</p>' ); ?>
+			<?php endif; ?>
+			</div>
+			<?php the_archive_title( '<h1 class="page-title">', '</h1>' ); ?>
+			<?php the_archive_description( '<div class="archive-description">', '</div>' ); ?>
+		</div>
 		<div class="tag-cloud">
 			<?php
 			if ( ! is_author() ) {
@@ -62,21 +71,12 @@ get_header();
 			}
 			?>
 		</div>
-		<div class="archive-headings">
-			<div class="breadcrumbs">
-			<?php if ( function_exists( 'yoast_breadcrumb' ) ) : ?>
-				<?php yoast_breadcrumb( '<p id="breadcrumbs">', '</p>' ); ?>
-			<?php endif; ?>
-			</div>
-			<?php the_archive_title( '<h1 class="page-title">', '</h1>' ); ?>
-			<?php the_archive_description( '<div class="archive-description">', '</div>' ); ?>
-		</div>
 	</section>
 	<?php if ( ! is_paged() ) { ?>
 		<section class="archive-content">
 
 			<?php
-			// Hero post
+			// Hero post.
 			if ( have_posts() ) {
 				the_post();
 				get_template_part( 'template-parts/archive/content', 'hero' );
@@ -84,7 +84,7 @@ get_header();
 			?>
 			<ul class="featured-posts">
 				<?php
-				// Row of 5 posts
+				// Row of 5 posts.
 				$i = 0;
 				while ( have_posts() && $i ++ < 5 ) :
 					the_post();
@@ -132,7 +132,7 @@ get_header();
 			<div class="pure-g recipes bottom-space">
 				<?php
 				$i = 0;
-				// Row of 8 posts
+				// Row of 8 posts.
 				while ( have_posts() && $i ++ < 8 ) :
 					the_post();
 					get_template_part( 'template-parts/archive/content', 'grid' );
@@ -179,7 +179,7 @@ get_header();
 			<div class="pure-g recipes bottom-space">
 				<?php
 				$i = 0;
-				// Row of 8 posts
+				// Row of 8 posts.
 				while ( have_posts() && $i ++ < 8 ) :
 					the_post();
 					get_template_part( 'template-parts/archive/content', 'grid' );
@@ -197,7 +197,7 @@ get_header();
 			<?php
 
 				$i = 0;
-				// Row of 8 posts
+				// Row of 8 posts.
 			while ( have_posts() && $i ++ < 4 ) :
 				the_post();
 				get_template_part( 'template-parts/archive/content', 'grid' );
@@ -211,7 +211,7 @@ get_header();
 				<div class="pure-g recipes bottom-space">
 					<?php
 						$j = 0;
-						// Row of 8 posts
+						// Row of 8 posts.
 					while ( have_posts() && $j ++ < 8 ) :
 						the_post();
 						get_template_part( 'template-parts/archive/content', 'grid' );
@@ -227,16 +227,18 @@ get_header();
 			<?php
 			global $wp_query;
 
-			$big = 999999999; // need an unlikely integer
+			$big = 999999999; // need an unlikely integer.
 
-			echo paginate_links(
-				array(
-					'base'      => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
-					'format'    => 'page/%#%',
-					'current'   => max( 1, get_query_var( 'paged' ) ),
-					'total'     => $wp_query->max_num_pages,
-					'prev_text' => __( '&laquo; Prev Page' ),
-					'next_text' => __( 'Next Page &raquo;' ),
+			echo wp_kses_post(
+				paginate_links(
+					array(
+						'base'      => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
+						'format'    => 'page/%#%',
+						'current'   => max( 1, get_query_var( 'paged' ) ),
+						'total'     => $wp_query->max_num_pages,
+						'prev_text' => __( '&laquo; Prev Page' ),
+						'next_text' => __( 'Next Page &raquo;' ),
+					)
 				)
 			);
 			?>
@@ -247,9 +249,9 @@ get_header();
 get_footer();
 
 /**
- * get the first level children of taxonomy
+ * Get the first level children of taxonomy
  *
- * @param WP_Term|null
+ * @param WP_Term|null $term post term.
  *
  * @return array|false WP_Terms
  */
@@ -260,9 +262,9 @@ function render_first_level_child_of_parent_tax( $term = null ) {
 		$term = get_queried_object();
 	}
 
-	// checking if partner-recipes taxonomy
+	// checking if partner-recipes taxonomy.
 	$partner_recipe_flag = false;
-	if ( $term->name == 'partner-recipes' ) {
+	if ( 'partner-recipes' === $term->name ) {
 		$partner_recipe_flag = true;
 	}
 
@@ -272,7 +274,7 @@ function render_first_level_child_of_parent_tax( $term = null ) {
 			'hide_empty' => false,
 		);
 
-		$child_terms = get_terms( $term->taxonomy, $args ); // get the first level terms
+		$child_terms = get_terms( $term->taxonomy, $args ); // get the first level terms.
 
 		if ( $child_terms && ! is_wp_error( $child_terms ) ) {
 			$term_array = array();

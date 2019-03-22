@@ -702,6 +702,26 @@ function bumblebee_custom_customize_register( $wp_customize ) {
 		)
 	);
 
+	$wp_customize->add_setting(
+		'bumblebee_diy_university_text',
+		array(
+			'capability'        => 'edit_theme_options',
+			'default'           => 'DIY UNIVERSITY Online Courses',
+			'sanitize_callback' => 'sanitize_text_field',
+		)
+	);
+
+	$wp_customize->add_control(
+		'bumblebee_diy_university_text',
+		array(
+			'type'        => 'text',
+			'section'     => 'bumblebee_nl',
+			'label'       => __( 'DIY University Text' ),
+			'description' => __( 'Enter the text here, i.e: DIY UNIVERSITY Online Courses' ),
+			'settings'    => 'bumblebee_diy_university_text',
+		)
+	);
+
 	$wp_customize->add_setting( 'bumblebee_footer_nl_subscribe_image' );
 
 	$wp_customize->add_control(

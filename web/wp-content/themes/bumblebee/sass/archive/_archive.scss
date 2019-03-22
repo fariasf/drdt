@@ -108,7 +108,7 @@
 	}
 
 	.recipe-content {
-		padding-left: 10px;
+		padding: 10px;
 		text-overflow: ellipsis;
 		.entry-title {
 			a:hover, a:focus {
@@ -141,16 +141,16 @@
 					width: 100%;
 
 					input {
-						background-color: #fff;
-						border: 1px solid #ddd;
-						border-right: 0;
-						color: #333;
-						float: left;
-						font-family: $font__main;
-						font-size: 16px;
-						font-weight: 300;
-						padding: 14px 16px 13px;
-						width: 76%;
+						background-color : #ffffff;
+						border           : 1px solid #dddddd;
+						border-right     : 0;
+						color            : #333333;
+						float            : left;
+						font-family      : $font__main;
+						font-size        : 16px;
+						font-weight      : 300;
+						padding          : 14px 16px 15px;
+						width            : 76%;
 
 						@media screen and (max-width: 567px) {
 							width: 50%;
@@ -158,25 +158,49 @@
 					}
 
 					button {
-						background-color: #ffc10e;
-						color: #000;
-						font-family: $font__main;
-						float: left;
-						padding: 10px 15px;
-						text-transform: uppercase;
-						transition: background .3s;
-						width: 19%;
+						background-color : #ffc10e;
+						color            : #000000;
+						font-family      : $font__main;
+						float            : left;
+						padding          : 9px 15px;
+						text-transform   : uppercase;
+						transition       : background .3s;
+						width            : 19%;
+						border           : 1px solid #ffc10e;
+						font-size        : 16px;
 
 						@media screen and (max-width: 567px) {
 							width: 40%;
 						}
 					}
+					button:hover {
+						background-color: #daa200;
+					}
 				}
 			}
 
 			.diyu-logo {
+				display : flex;
 				margin-top: 100px;
 				text-align: center;
+				position : relative;
+				.diyu-text {
+					flex-grow : 12;
+					color     : #999999;
+				}
+				.diyu-img {
+					flex-grow: 1;
+				}
+				.diyu-img:before {
+					content     : "";
+					position    : absolute;
+					background  : #aaaaaa;
+					height      : 80%;
+					width       : 2px;
+					top         : 50%;
+					transform   : translateY(-50%);
+					margin-left : -1em;
+				}
 			}
 
 			@media screen and (max-width: 567px) {

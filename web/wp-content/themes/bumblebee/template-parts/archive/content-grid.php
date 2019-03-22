@@ -21,7 +21,7 @@ $excerpt = strip_shortcodes( $excerpt );
 		<?php bumblebee_post_thumbnail( 'grid-thumbnail', 'individual content well', 'content navigation' ); ?>
 		<div class="recipe-content">
 			<?php the_title( '<h5 class="entry-title"><a ' . $archive_grid_analytics . ' href="' . esc_url( get_permalink() ) . '" rel="bookmark">', '</a></h5>' ); ?>
-			<?php echo $excerpt; ?>
+			<div class="recipe-excerpt"><?php echo wp_kses_post( $excerpt ); ?></div>
 		</div>
 
 	</div>
