@@ -1,7 +1,7 @@
 <?php
 // Add a custom widgetized video hub page, to replace the default archive template
 
-require_once( 'widgets/hero-video.php' );
+require_once( 'widgets/class-hero-video.php' );
 require_once( 'widgets/carousel.php' );
 
 /**

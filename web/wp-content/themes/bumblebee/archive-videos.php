@@ -1,5 +1,18 @@
 
 <?php
+add_filter(
+	'ad_unit_path_2',
+	function () {
+		return 'video';
+	}
+);
+
+add_filter(
+	'ad_unit_path_3',
+	function () {
+		return 'videocategory';
+	}
+);
 get_header();
 /**
  * Add JS dependcies (Owl Carousel and styles).
