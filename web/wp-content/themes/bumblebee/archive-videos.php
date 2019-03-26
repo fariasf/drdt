@@ -1,5 +1,12 @@
-
 <?php
+/**
+ * The template for video hub pages.
+ *
+ * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
+ *
+ * @package bumblebee
+ */
+
 add_filter(
 	'ad_unit_path_2',
 	function () {
@@ -29,7 +36,9 @@ wp_enqueue_script( 'owl-carousel-js', get_stylesheet_directory_uri() . '/js/util
 /**
  * Add custom JS
  */
-wp_enqueue_script( 'video-hub-js', get_stylesheet_directory_uri() . '/js/video-hub.js', array( 'jquery' ), '1.0.0', false );
+wp_enqueue_script( 'video-hub-js', get_stylesheet_directory_uri() . '/js/src/video-hub.js', array( 'jquery' ), '1.0.0', false );
+
+wp_enqueue_script( 'video-hover-js', get_stylesheet_directory_uri() . '/js/src/video-hover-play.js', array( 'jquery' ), '1.0.0', false );
 
 
 echo '<div class="contain">';
