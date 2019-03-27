@@ -2,7 +2,7 @@
 body.logged-in {
 	.header .main-navigation.sticky {
 		top: 32px;
-
+		z-index: 2;
 		@media screen and (max-width: 767px) {
 			top: 46px;
 		}
