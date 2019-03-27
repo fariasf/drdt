@@ -452,7 +452,7 @@ function bumblebee_custom_customize_register( $wp_customize ) {
 			'type'        => 'number',
 			'section'     => 'bumblebee_logos',
 			'label'       => __( 'Header Logo Width' ),
-			'description' => __( 'Enter only numbers, i.e: 200' ),
+			'description' => __( 'Enter only numbers, i.e: 100' ),
 			'settings'    => 'bumblebee_header_logo_width',
 		)
 	);
@@ -520,6 +520,21 @@ function bumblebee_custom_customize_register( $wp_customize ) {
 			'label'       => __( 'Footer Logo Width' ),
 			'description' => __( 'Enter only numbers, i.e: 100' ),
 			'settings'    => 'bumblebee_footer_logo_width',
+		)
+	);
+
+	$wp_customize->add_setting( 'bumblebee_footer_nl_subscribe_image' );
+
+	$wp_customize->add_control(
+		new WP_Customize_Image_Control(
+			$wp_customize,
+			'bumblebee_footer_nl_subscribe_image',
+			array(
+				'title'    => __( 'Header Newsletter Image', 'bumblebee' ),
+				'label'    => __( 'Upload an image', 'bumblebee' ),
+				'section'  => 'bumblebee_logos',
+				'settings' => 'bumblebee_footer_nl_subscribe_image',
+			)
 		)
 	);
 
@@ -844,10 +859,20 @@ function bumblebee_add_customizer_styles() {
 			border-bottom: 2px dotted <?php echo esc_html( $nav_text_color ); ?>;
 		}
 
+		.header .main-navigation.sticky #search-form-wrapper.visible,
+		.header .main-navigation.sticky #search-form-wrapper.visible .close-btn {
+			background-color: <?php echo esc_html( $nav_bg_color ); ?>;
+		}
+		.header .main-navigation.sticky #search-form-wrapper.visible .search-button {
+			background-color: <?php echo esc_html( $button_bg_color ); ?>;
+		}
 		.newsletter-sign-below-header.hide-on-mobile .nl-signup-link h4,
 		.newsletter-sign-below-header.hide-on-mobile .nl-signup-link h4 .nl-right-arrow {
 			color: <?php echo esc_html( $banner_text_color ); ?>;
 			fill: <?php echo esc_html( $banner_text_color ); ?>;
+		}
+		.header #search-form-wrapper {
+			background-color: <?php echo esc_html( $nav_bg_color ); ?>;
 		}
 
 		main {
