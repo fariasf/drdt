@@ -73,12 +73,12 @@ class Hero_Video_Widget extends WP_Widget {
 	 */
 	public function widget( $args, $instance ) {
 		$player_id           = $instance['player_id'];
-		$default_playlist_id = isset( $_GET['playlist_id'] ) ? sanitize_text_field( $_GET['playlist_id'] ) : sanitize_text_field( $instance['default_playlist_id'] );
-		$default_video_id    = isset( $_GET['video_id'] ) ? sanitize_text_field( $_GET['video_id'] ) : sanitize_text_field( $instance['default_video_id'] );
+		$default_playlist_id = isset( $_GET['playlist_id'] ) ? sanitize_text_field( wp_unslash( $_GET['playlist_id'] ) ) : sanitize_text_field( wp_unslash( $instance['default_playlist_id'] ) );
+		$default_video_id    = isset( $_GET['video_id'] ) ? sanitize_text_field( wp_unslash( $_GET['video_id'] ) ) : sanitize_text_field( wp_unslash( $instance['default_video_id'] ) );
 		if ( empty( $default_video_id ) ) {
 			$default_video_id = $default_playlist_id;
 		}
-		$playlist_title = isset( $_GET['playlist_title'] ) ? sanitize_title( $_GET['playlist_title'] ) : 'Featured Playlist';
+		$playlist_title = isset( $_GET['playlist_title'] ) ? sanitize_title( wp_unslash( $_GET['playlist_title'] ) ) : 'Featured Playlist';
 		?>
 		<div id="wrapper">
 			<div class="player-header">

@@ -40,7 +40,7 @@ class Ad_Stack {
 	 *  Script register.
 	 */
 	public static function register_scripts() {
-		wp_register_script( 'ad-stack', plugins_url() . '/tmbi-ad-stack/js/ad-stack.js', [], self::VERSION, true );
+		wp_register_script( 'ad-stack', plugins_url() . '/ad-stack/js/ad-stack.js', [], self::VERSION, true );
 	}
 
 	/**

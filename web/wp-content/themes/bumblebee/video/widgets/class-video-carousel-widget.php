@@ -39,9 +39,7 @@ class Video_Carousel_Widget extends WP_Widget {
 		<?php $playlist_id = ! empty( $instance['playlist_id'] ) ? $instance['playlist_id'] : ''; ?>
 		<p>
 			<label for="<?php echo wp_kses_post( $this->get_field_id( 'playlist_id' ) ); ?>">Playlist ID:</label>
-			<input class="widefat" type="text" id="<?php echo wp_kses_post( $this->get_field_id( 'playlist_id' ) ); ?>"
-				   name="<?php echo wp_kses_post( $this->get_field_name( 'playlist_id' ) ); ?>"
-				   value="<?php echo wp_kses_post( esc_attr( $playlist_id ) ); ?>"/>
+			<input class="widefat" type="text" id="<?php echo wp_kses_post( $this->get_field_id( 'playlist_id' ) ); ?>" name="<?php echo wp_kses_post( $this->get_field_name( 'playlist_id' ) ); ?>" value="<?php echo wp_kses_post( esc_attr( $playlist_id ) ); ?>"/>
 		</p>
 
 		<?php
@@ -79,9 +77,13 @@ class Video_Carousel_Widget extends WP_Widget {
 			<div class="video-playlist-container">
 				<div class="owl-carousel owl-theme" data-playlist="<?php echo wp_kses_post( $playlist_id ); ?>" data-carousel="true">
 					<script type="text/x-template">
-						<div class="item" data-media-id="%media_id%" data-playlist-id="%playlist_id%"
-							 data-playlist-title="<?php echo wp_kses_post($title); ?>"><img src="%image%"><h4>%title%</h4>
-							<?php echo apply_filters( 'add_preview_content', '' ); ?>
+						<div class="item" data-media-id="%media_id%" data-playlist-id="%playlist_id%" data-playlist-title="<?php echo wp_kses_post( $title ); ?>"><img src="%image%"><h4>%title%</h4>
+							<video class="video-preview" preload="metadata" crossorigin>
+								<source src=""  id="src-attr" type="video/mp4">
+								<track src="" id="track-attr" kind="metadata" default>
+							</video>
+							<div class="thumb"></div>
+							<div class="gif"><img alt="loader" src=""/></div>
 						</div>
 					</script>
 				</div>
@@ -98,16 +100,3 @@ add_action(
 	}
 );
 
-add_filter(
-	'add_preview_content',
-	function () {
-		$html  = '<video class="video-preview" preload="metadata" crossorigin>';
-		$html .= '<source src=""  id="src-attr" type="video/mp4">';
-		$html .= '<track src="" id="track-attr" kind="metadata" default>';
-		$html .= '</video>';
-		$html .= '<div class="thumb"></div>';
-		$html .= '<div class="gif"><img src=""/></div>';
-
-		return $html;
-	}
-);
