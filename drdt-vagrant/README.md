@@ -33,7 +33,7 @@ __________________
 
 	3 ) Latest version of VirtualBox
 
-	4 ) The vagrant diskresize plugin is required.
+	4 ) The vagrant disksize plugin is required.
 
 		To install :
 
