@@ -33,11 +33,11 @@ __________________
 
 	3 ) Latest version of VirtualBox
 
-	4 ) The vagrant diskresize plugin is required.
+	4 ) The vagrant disksize plugin is required.
 
 		To install :
 
-		vagrant plugin install vagrant-diskresize
+		vagrant plugin install vagrant-disksize
 
 	5 ) You will need a valid copy of the CPT database you can download one here :
 
