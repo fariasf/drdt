@@ -16,7 +16,7 @@ $fbid = get_theme_mod( 'fbid', false );
 <html <?php language_attributes(); ?> class="no-js">
 <head>
 	<?php if ( ! empty( $fbid ) ) : ?>
-		<meta property="fb:pages" content="<?php echo $fbid; ?>"/>
+		<meta property="fb:pages" content="<?php echo wp_kses_post( $fbid ); ?>"/>
 	<?php endif; ?>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -40,7 +40,13 @@ $fbid = get_theme_mod( 'fbid', false );
 			</ul>
 		</div>
 		<a data-analytics-metrics='{"name":"home logo","module":"header","position":"secondary navigation"}' href="/" class="pure-u-sm-1 pure-u-md-2-5 logo">
-			<img src="<?php echo esc_html( get_theme_mod( 'bumblebee_header_logo' ) ); ?>" alt="<?php echo esc_html( get_bloginfo( 'name' ) ); ?>" style="width:<?php echo esc_html( get_theme_mod( 'bumblebee_header_logo_width' ) ); ?>px"></img>
+			<?php
+			$img_src  = esc_html( get_theme_mod( 'bumblebee_header_logo' ) );
+			$width    = esc_html( get_theme_mod( 'bumblebee_header_logo_width' ) );
+			$img      = '<img src="' . $img_src . '" alt="" style="width:' . $width . 'px">';
+			$img_html = apply_filters( 'a3_lazy_load_images', $img );
+			echo wp_kses_post( $img_html );
+			?>
 		</a>
 
 		<div class="pure-u-1-4 mobile-hide">
@@ -48,7 +54,13 @@ $fbid = get_theme_mod( 'fbid', false );
 		<div class="pure-u-sm-1 pure-u-md-2-5 logo"></div>
 		<div class="pure-u-md-1-5 newsletter-signup-header mobile-hide">
 			<a class="subscribe-header" target="_blank" rel="noopener" href="<?php echo esc_html( get_theme_mod( 'bumblebee_header_subscribe_url' ) ); ?>">
-				<img src="<?php echo esc_html( get_theme_mod( 'bumblebee_header_subscribe_image' ) ); ?>" alt="" style="width:<?php echo esc_html( get_theme_mod( 'bumblebee_header_subscribe_width' ) ); ?>px"></img>
+				<?php
+				$img_src  = esc_html( get_theme_mod( 'bumblebee_header_subscribe_image' ) );
+				$width    = esc_html( get_theme_mod( 'bumblebee_header_subscribe_width' ) );
+				$img      = '<img src="' . $img_src . '" alt="" style="width:' . $width . 'px">';
+				$img_html = apply_filters( 'a3_lazy_load_images', $img );
+				echo wp_kses_post( $img_html );
+				?>
 			</a>
 		</div>
 	</div>
@@ -61,7 +73,13 @@ $fbid = get_theme_mod( 'fbid', false );
 					</li>
 				</ul>
 				<a href="/" class="sticky-logo">
-					<img src="<?php echo esc_html( get_theme_mod( 'bumblebee_sticky_logo' ) ); ?>" alt="<?php echo esc_html( get_bloginfo( 'name' ) ); ?>" style="width:<?php echo esc_html( get_theme_mod( 'bumblebee_sticky_logo_width' ) ); ?>px"></img>
+					<?php
+					$img_src  = esc_html( get_theme_mod( 'bumblebee_sticky_logo' ) );
+					$width    = esc_html( get_theme_mod( 'bumblebee_sticky_logo_width' ) );
+					$img      = '<img src="' . $img_src . '" alt="" style="width:' . $width . 'px">';
+					$img_html = apply_filters( 'a3_lazy_load_images', $img );
+					echo wp_kses_post( $img_html );
+					?>
 				</a>
 			</div>
 	<?php
@@ -84,7 +102,6 @@ $fbid = get_theme_mod( 'fbid', false );
 						</fieldset>
 						<div class="close-btn"></div>
 					</div>
-					
 					<div id="mob-search-toggle" class="mobile-search-toggle"></div>
 				</form>
 				<button class="sticky-search-button" id="search-toggle">
