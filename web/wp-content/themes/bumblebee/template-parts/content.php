@@ -29,6 +29,14 @@
 		<div class="pure-g social-menu-mobile">
 			<?php get_template_part( 'template-parts/social-share', 'none' ); ?>
 		</div>
+		<div class="featured-image">
+			<?php
+			$hide_featured_value = get_post_meta( get_the_ID(), 'hide_featured_image', true );
+			if ( has_post_thumbnail() && ( ! ( $hide_featured_value ) ) ) {
+				the_post_thumbnail();
+			}
+			?>
+		</div>
 		<div class="post-body">
 			<?php the_content(); ?>
 		</div>
