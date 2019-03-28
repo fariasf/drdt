@@ -5,7 +5,7 @@
  */
 
 ?>
-<div class="pure-u-1 pure-u-sm-1-5">
+<div class="pure-u-1 pure-u-sm-1-2 pure-u-md-1-5">
 	<div class="single-recipe single-item">
 		<?php bumblebee_post_thumbnail( 'homepage-featured-small', 'marquee', 'content navigation' ); ?>
 		<div class="recipe-content">

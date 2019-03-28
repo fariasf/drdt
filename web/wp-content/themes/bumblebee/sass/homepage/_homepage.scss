@@ -51,6 +51,10 @@
 
 	.recipes {
 		margin: 10px;
+
+		.single-container {
+			margin-bottom: 10px;
+		}
 	}
 
 	.sidebar {
@@ -74,10 +78,15 @@
 	}
 }
 
-@media screen and (max-width: 567px) {
+@media screen and (max-width: 767px) {
 	.home-page {
 		.hero-container {
 			margin: 5px 15px 10px;
+
+			.hero-image {
+				width: 100%;
+			}
+
 			.hero-text {
 				padding: 0 10px;
 			}
