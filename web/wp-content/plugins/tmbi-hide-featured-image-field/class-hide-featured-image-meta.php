@@ -43,7 +43,7 @@ class Hide_Featured_Image_Meta {
 	/**
 	 * Use to add the hide feautred image metabox.
 	 *
-	 * @param mixed[] $post post content.
+	 * @param string $post post content.
 	 */
 	public static function hide_featured_image_metabox( $post ) {
 		$meta = get_post_meta( $post->ID );
@@ -68,7 +68,7 @@ class Hide_Featured_Image_Meta {
 	/**
 	 * Use to save the hide feautred image metabox.
 	 *
-	 * @param mixed[] $post_id is post id.
+	 * @param int $post_id post id.
 	 */
 	public static function hide_featured_save_metabox( $post_id ) {
 		if ( ! isset( $_POST['hide_featured_image_meta_box_nonce'] ) || ! wp_verify_nonce( sanitize_key( $_POST['hide_featured_image_meta_box_nonce'] ), 'hide_featured_image_meta_box' ) ) {
