@@ -548,3 +548,14 @@ function bumblebee_archive_title( $title ) {
 	return $title;
 }
 add_filter( 'get_the_archive_title', 'bumblebee_archive_title' );
+
+/**
+ * Removing the scripts that are not required.
+ */
+function dequeue_scripts_from_hubpages() {
+	if ( is_archive() ) {
+		wp_dequeue_script( 'dailymotion_js_player' );
+		wp_dequeue_script( 'dailymotion_api' );
+	}
+}
+add_action( 'wp_print_scripts', 'dequeue_scripts_from_hubpages' );
