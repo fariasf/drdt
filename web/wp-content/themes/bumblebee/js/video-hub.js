@@ -26,7 +26,7 @@ jQuery(document).ready(function ($) {
 					loop: true,
 					margin: 40,
 					nav: true,
-					navText: ['<span class="dashicons dashicons-arrow-left-alt2"></span>', '<span class="dashicons dashicons-arrow-right-alt2"></span>'],
+					navText: ['<svg xmlns="http://www.w3.org/2000/svg" fill="#444444" width="200" height="200" viewBox="0 0 48 48"><path d="M30.83 14.83L28 12 16 24l12 12 2.83-2.83L21.66 24z"/></svg>', '<svg xmlns="http://www.w3.org/2000/svg" fill="#444444" width="200" height="200" viewBox="0 0 48 48"><path d="M20 12l-2.83 2.83L26.34 24l-9.17 9.17L20 36l12-12z"/></svg>'],
 					responsive: {
 						0: {
 							items: 1

@@ -331,21 +331,14 @@ body.post-type-archive-video {
         }
 
         .owl-prev {
-          top: 50px;
-          left: -120px;
-
-          span.dashicons.dashicons-arrow-left-alt2 {
-            font-size: 0.9em;
-          }
+          top: 30px;
+          left: -160px;
         }
 
         .owl-next {
-          top: 50px;
-          right: 5px;
+          top: 30px;
+          right: -160px;
 
-          span.dashicons.dashicons-arrow-right-alt2 {
-            font-size: 0.9em;
-          }
         }
       }
 
