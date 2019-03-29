@@ -2,10 +2,12 @@
 
 
 /**
- * Including file for the settings.
+ * Including file to load krux tracking.
  *
  * @file
  */
+
+add_action( 'wp_enqueue_scripts', 'load_krux_tracking' );
 
 /**
  * To load the krux script.

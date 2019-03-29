@@ -36,31 +36,25 @@ License: GPL
 */
 
 require 'inc/load-krux-tracking.php';
+require 'inc/register-acf-long-pin-image-field.php';
 
 /**
  * Class TMBI_Custom_Social_Share
  */
 class TMBI_Custom_Social_Share {
 
-	const TOH_LONGPIN_FILE_SLUG = 'field_toh_long_pin_image_upload';
-	const TMBI_LONGPIN_SLUG     = 'field_fhm_long_pin_image';
-
-
-	public static $support_post_type   = array( 'post', 'listicle', 'project', 'collection' );
 	public static $default_share_icons = array( 'FACEBOOK', 'TWITTER', 'PINTEREST', 'EMAIL' );
 	private static $meta_title         = '';
 	private static $meta_desc          = '';
 
 	/**
-	 * TMBI_Custom_Social_Share constructor.
+	 * Init the custom social share.
 	 */
 	public static function init() {
 		add_action( 'print_custom_social_share', array( __CLASS__, 'render_social_sharing_icons' ) );
 		add_filter( 'wpseo_opengraph_title', array( __CLASS__, 'tmbi_override_og_twitter_pinterest_title' ), 9 );
 		add_filter( 'wpseo_twitter_title', array( __CLASS__, 'tmbi_override_og_twitter_pinterest_title' ), 9 );
 		add_filter( 'wpseo_opengraph_desc', array( __CLASS__, 'tmbi_override_og_description' ), 11 );
-		add_action( 'acf/init', array( __CLASS__, 'tmbi_register_acf_long_pin_image_fields' ) );
-		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'load_krux_tracking' ) );
 	}
 
 	/**
@@ -240,52 +234,6 @@ class TMBI_Custom_Social_Share {
 		}
 		self::$meta_desc = $sf_og_desc ?? $title;
 		return self::$meta_desc;
-	}
-
-	/**
-	 * To register the acf long pin image fields.
-	 */
-	public static function tmbi_register_acf_long_pin_image_fields() {
-		acf_add_local_field_group(
-		array(
-			'key'      => 'group_fhm_longpin_fields',
-			'title'    => 'Long Pin Image',
-			'fields'   => array(
-				array(
-					'key'       => self::TMBI_LONGPIN_SLUG,
-					'label'     => '<p>Legacy Pin Image URL - (The default legacy long pin image - if field is blank, no legacy image exists. Please use "Add long Pin Image" field to update or choose a new Long Pin Image)</p>',
-					'name'      => 'long_pin',
-					'type'      => 'text',
-					'disabled'  => 'true',
-				),
-				array(
-					'key'   => self::TOH_LONGPIN_FILE_SLUG,
-					'label' => '<p>Add long Pin Image to post item.</p>',
-					'name'  => 'long_pin_file',
-					'type'  => 'image',
-				),
-			),
-			'location' => self::set_post_type_array( self::$support_post_type ),
-		)
-		);
-	}
-
-	/**
-     * To set the post type.
-	 * @param array $post_type_array post type array.
-	 */
-	public function set_post_type_array( $post_type_array ) {
-		$post_types = array();
-		foreach ( $post_type_array as $post_type ) {
-			$post_types[] = array(
-			array(
-				'param'    => 'post_type',
-				'operator' => '==',
-				'value'    => $post_type,
-			),
-			);
-		}
-		return ( $post_types );
 	}
 
 	/**
