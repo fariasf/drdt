@@ -27,14 +27,17 @@ window.addEventListener('load', function () {
 function createObserver() {
 	//check for intersection observer for lazy load of taboola
 	if (typeof IntersectionObserver !== 'undefined') {
+		//options to lazy load
 		var options = {
 				root: null,
 				rootMargin: '0px',
 				threshold: 0.01
 			},
 			observer = new IntersectionObserver(handleIntersect, options);
+		//observe the taboola element
 		observer.observe(boxElement);
 	} else {
+		//if browser doesnot support Observer object
 		loadTaboola();
 	}
 }
