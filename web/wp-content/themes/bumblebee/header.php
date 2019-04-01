@@ -28,9 +28,6 @@ $fbid = get_theme_mod( 'fbid', false );
 <body <?php body_class(); ?>>
 <a class="skip-link screen-reader-text" href="#content"></a>
 <header class="header">
-<!--	<div id="gpt-postcribe">-->
-<!---->
-<!--	</div>-->
 	<div class="content-wrapper">
 		<div class="hamburger-wrapper desktop-hide">
 			<?php get_hamburger_markup(); ?>
