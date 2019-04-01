@@ -1,0 +1,32 @@
+.post-type-archive-video {
+  video {
+    &.video-preview {
+      height: 0px;
+      display: none;
+    }
+  }
+
+  .thumb {
+    display: block;
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    height: 216px;
+    visibility: hidden;
+  }
+
+  .gif {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: none;
+  }
+
+  h4 {
+    &.title {
+      font-size: 24px;
+      line-height: 1.25;
+    }
+  }
+}

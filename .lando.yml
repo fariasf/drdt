@@ -19,15 +19,13 @@ proxy:
 services:
   # Spin up a node service so we can run gulp
   node:
-    type: node:custom
+    type: node
     ssl: true
+    services:
+      ports:
+        - "3000:3000"
     overrides:
-      services:
-        ports:
-          # expose port 3000 for BrowserSync
-          - "3000:3000"
-        # use a custom Docker image
-        image: ataylorme/docker-node-advanced-wordpress-on-pantheon:latest
+     image: ataylorme/docker-node-advanced-wordpress-on-pantheon:latest
 
 # Additional "lando" commands
 tooling:

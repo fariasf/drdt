@@ -16,11 +16,11 @@ gulp.task('sass', function () {
 		.pipe(gulp.dest('./'));
 });
 
-var component = ['header', 'homepage', 'listicle', 'article', 'archive', 'page', 'footer', 'search'];
+var component = ['header', 'homepage', 'listicle', 'article', 'archive', 'page', 'footer', 'search', 'video'];
 
 sass.compiler = require('node-sass');
 
-var bundles = ['./js/customizer.js', './js/navigation.js', './js/skip-link-focus-fix.js'];
+var bundles = ['./js/*.js'];
 
 gulp.task('sass:watch', function () {
 	gulp.watch('./sass/**/*.scss', ['sass']);
@@ -54,13 +54,13 @@ gulp.task('js:linting', function () {
 });
 
 gulp.task('js:task', ['js:linting', 'clean:scripts'], function () {
-	return bundles.map(function (item) {
-		return gulp.src(item)
-		//.pipe(sourcemaps.init())
-			.pipe(uglify())
-			//.pipe(sourcemaps.write('.'))
-			.pipe(gulp.dest('./js/src'));
-	});
+	//return bundles.map(function (item) {
+	return gulp.src(bundles)
+	//.pipe(sourcemaps.init())
+		.pipe(uglify())
+		//.pipe(sourcemaps.write('.'))
+		.pipe(gulp.dest('./js/src'));
+	//});
 });
 
 gulp.task('clean:scripts', function () {

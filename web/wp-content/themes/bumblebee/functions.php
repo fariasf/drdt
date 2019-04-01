@@ -169,6 +169,8 @@ function bumblebee_scripts() {
 
 	wp_enqueue_script( 'bumblebee-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20151215', true );
 
+//	wp_enqueue_script( 'cutom-lazy-loader', get_template_directory_uri() . '/js/custom-lazy-loader.js', array( 'jquery' ), '20190329', false );
+
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
@@ -226,6 +228,11 @@ require get_template_directory() . '/inc/ads.php';
  * Load menu tagging through walker
  */
 require get_template_directory() . '/inc/menu-walker-tagging.php';
+
+/**
+ * Load menu tagging through walker
+ */
+require get_template_directory() . '/inc/archive-tax-list-buttons.php';
 
 
 register_nav_menu( 'v2-footer-site-links', 'V2 Footer Site Links' );
@@ -448,10 +455,11 @@ add_filter( 'upload_mimes', 'enable_svg_upload' );
 /**
  * Add In Content NL Module AFTER the_content
  *
- * @param  content $content Append NL to the_content
+ * @param string $content Append NL to the_content.
+ * @return string|array
  */
 function newsletter_after_the_content( $content ) {
-	$after = newsletter_module();
+	$after   = newsletter_module();
 	$content = $content . $after;
 
 	return $content;
@@ -464,14 +472,122 @@ function newsletter_module() { ?>
 	<div class="newsletter">
 		<h3><?php echo esc_html( get_theme_mod( 'bumblebee_footer_nl_heading_text' ) ); ?></h3>
 		<form action="<?php echo esc_url( get_site_url() ); ?>/newslettersignuppage/" method="post" data-analytics-metrics='{"name":"newsletter signup","module":"newsletter signup","position":"footer"}' >
-			<input type="text" id="email" placeholder="Email Address"></input>
+			<input type="text" id="email" placeholder="Email Address">
 			<button type="submit" id="subscribe">Sign Up</button>
 		</form>
 	</div>
 	<div class="diyu-logo">
-		<a data-analytics-metrics='{"name":"Subscribe link","module":"footer","position":"magazine subscription"}' href="<?php echo esc_html( get_theme_mod( 'bumblebee_footer_nl_subscribe_url' ) ); ?>" target="_blank" rel="noopener noreferrer">
-			<img src="<?php echo esc_html( get_theme_mod( 'bumblebee_footer_nl_subscribe_image' ) ); ?>" alt="" style="width:<?php echo esc_html( get_theme_mod( 'bumblebee_footer_nl_subscribe_image_width' ) ); ?>px"></img>
-		</a>
+		<div class="diyu-text">
+			<?php
+			echo esc_html( get_theme_mod( 'bumblebee_diy_university_text' ) );
+			?>
+		</div>
+		<div class="diyu-img">
+			<a data-analytics-metrics='{"name":"Subscribe link","module":"footer","position":"magazine subscription"}' href="<?php echo esc_html( get_theme_mod( 'bumblebee_footer_nl_subscribe_url' ) ); ?>" target="_blank" rel="noopener noreferrer">
+				<img src="<?php echo esc_html( get_theme_mod( 'bumblebee_footer_nl_subscribe_image' ) ); ?>" alt="" style="width:<?php echo esc_html( get_theme_mod( 'bumblebee_footer_nl_subscribe_image_width' ) ); ?>px">
+			</a>
+		</div>
 	</div>
 	<?php
 }
+
+
+/**
+ * New Theme functionality ahead
+ */
+
+
+/**
+ * "Pass" arguments into get_template_part by setting a global variable,
+ * calling get_template_part, and then unsetting the variable so the
+ * global namespace does not stay polluted.
+ *
+ * @param string $path    Path to the template part.
+ * @param array  $options Option values to pass into the template part.
+ */
+function get_partial( $path, array $options = array() ) {
+	$GLOBALS['get_partial_options'] = $options;
+	get_template_part( $path, '' );
+	unset( $GLOBALS['get_partial_options'] );
+}
+
+/**
+ * Get an option value passed into a template part via get_partial.
+ *
+ * Requires get_partial. The option will not be present via get_template_part
+ * directly.
+ *
+ * @param string $option Option to get from the options passed to the partial.
+ *
+ * @return mixed The value stored in the partial option.
+ */
+function get_partial_option( $option ) {
+	if ( ! empty( $GLOBALS['get_partial_options'] ) && ! empty( $GLOBALS['get_partial_options'][ $option ] ) ) {
+		return $GLOBALS['get_partial_options'][ $option ];
+	}
+	return null;
+}
+
+/**
+ * Remove the prefix like Category:, Tax:, Author: etc from the archive title.
+ *
+ * @param string $title archive title.
+ *
+ * @return string
+ */
+function bumblebee_archive_title( $title ) {
+	if ( is_category() ) {
+		$title = single_cat_title( '', false );
+	} elseif ( is_tag() ) {
+		$title = single_tag_title( '', false );
+	} elseif ( is_author() ) {
+		$title = '<h1 class="page-title">' . get_the_author() . '</h1>';
+	} elseif ( is_post_type_archive() ) {
+		$title = post_type_archive_title( '', false );
+	} elseif ( is_tax() ) {
+		$title = single_term_title( '', false );
+	}
+
+	return $title;
+}
+add_filter( 'get_the_archive_title', 'bumblebee_archive_title' );
+
+/**
+ * Removing the scripts that are not required.
+ */
+function dequeue_scripts_from_hubpages() {
+	if ( is_archive() ) {
+		wp_dequeue_script( 'dailymotion_js_player' );
+		wp_dequeue_script( 'dailymotion_api' );
+	}
+}
+add_action( 'wp_print_scripts', 'dequeue_scripts_from_hubpages' );
+
+/**
+ * Limiting the excerpt length to 50.
+ *
+ * @param string $length The excerpt content.
+ *
+ * @return int|string
+ */
+function bumblebee_custom_excerpt_length( $length ) {
+	if ( is_archive() ) {
+		return 35;
+	}
+	return $length;
+}
+add_filter( 'excerpt_length', 'bumblebee_custom_excerpt_length', 999 );
+
+/**
+ * Changing the ellipsis of excerpt content.
+ *
+ * @param string $more excerpt content.
+ *
+ * @return string
+ */
+function bumblebee_excerpt_more( $more ) {
+	return '...';
+}
+add_filter( 'excerpt_more', 'bumblebee_excerpt_more' );
+
+require_once 'video/video-hub.php';  // Custom video archive page.
