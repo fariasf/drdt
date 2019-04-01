@@ -475,3 +475,8 @@ function newsletter_module() { ?>
 	</div>
 	<?php
 }
+
+require_once 'video/video-hub.php';  // Custom video archive page.
+
+
+
