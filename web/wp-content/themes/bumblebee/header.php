@@ -45,7 +45,6 @@ $fbid = get_theme_mod( 'fbid', false );
 			echo wp_kses_post( $img_html );
 			?>
 		</a>
-
 		<div class="pure-u-1-4 mobile-hide">
 		</div>
 		<div class="pure-u-sm-1 pure-u-md-2-5 logo"></div>
