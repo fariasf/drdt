@@ -3,7 +3,6 @@
  * BlogPosting Markup Settings
  *
  * @package     BlogPosting Markup Settings
- *  This is for Blogposting schema mark up.
  */
 
 /**
@@ -15,36 +14,19 @@ class BlogPosting_Schema_Markup {
 	const SMT            = "\n<script type=\"application/ld+json\">\n%s\n</script>";
 
 	/**
-	 * This will have the value of the logo url
-	 *
-	 * @var String
-	 */
-	public $site_logo_url = 'https://www.constructionprotips.com/wp-content/uploads/sites/9/2017/11/cropped-cpt-logo-1.png';
-
-	/**
 	 * This will have the value of blogpostdata
 	 *
 	 * @var array
 	 */
-	public $blogposting_data;
-
-	/**
-	 * Blogposting constructor.
-	 */
-	public function __construct() {
-		if ( ! is_admin() ) {
-			add_action( 'wp_head', array( $this, 'blog_posting_schema_mark_up' ) );
-		}
-	}
+	public static $blogposting_data;
 
 	/**
 	 * Creating the array format of blogposting schema
 	 */
-	public function blog_posting_schema_mark_up() {
-		if ( is_archive() || is_front_page() || is_home() || is_page() ) {
+	public static function blog_posting_schema_mark_up() {
+		if ( ! is_singular() ) {
 			return;
 		}
-		$schema_data = new Schema_Data();
 		global $post;
 		$post_id = $post->ID;
 		// Date and time at which the post gets created.
@@ -52,9 +34,9 @@ class BlogPosting_Schema_Markup {
 
 		// Date and time at which the post gets modified.
 		$modified_date = get_the_modified_date( 'Y-m-d' );
-		$description   = $schema_data->get_schema_description();
+		$description   = Schema_Data::get_schema_description();
 		// Get image details.
-		$image             = $schema_data->get_schema_image();
+		$image             = Schema_Data::get_schema_image();
 		$post_image        = '';
 		$post_image_width  = '';
 		$post_image_height = '';
@@ -68,9 +50,10 @@ class BlogPosting_Schema_Markup {
 		}
 		$post_url               = wp_get_canonical_url();
 		$title                  = $post->post_title;
-		$publisher_details      = Schema_Data::DEFAULT_AUTHOR;
-		$author_details         = $schema_data->get_the_authors();
-		$this->blogposting_data = array(
+		$author_details         = Schema_Data::get_the_authors();
+		$publisher_details      = Schema_Data::get_publisher_details();
+		$site_name              = esc_html( get_bloginfo( 'name' ) );
+		$default_schema         = array(
 			'@context'         => self::CONTEXT,
 			'@type'            => self::BLOG_POST_TYPE,
 			'headline'         => $title,
@@ -88,19 +71,11 @@ class BlogPosting_Schema_Markup {
 				'height' => $post_image_height,
 				'width'  => $post_image_width,
 			),
-			'publisher'        => array(
-				'@type' => $publisher_details['@type'],
-				'name'  => $publisher_details['name'],
-				'logo'  => array(
-					'@type'  => 'ImageObject',
-					'url'    => $this->site_logo_url,
-					'width'  => 198,
-					'height' => 60,
-				),
-			),
+			'publisher'        => $publisher_details,
 		);
-		if ( ! empty( $this->blogposting_data ) ) {
-			$json         = wp_json_encode( $this->blogposting_data, JSON_PRETTY_PRINT );
+		self::$blogposting_data = apply_filters( 'blogposting_schema_marup', $default_schema );
+		if ( ! empty( self::$blogposting_data ) ) {
+			$json         = wp_json_encode( self::$blogposting_data, JSON_PRETTY_PRINT );
 			$allowed_html = [
 				'script' => [
 					'type' => [],
