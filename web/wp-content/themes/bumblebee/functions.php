@@ -491,6 +491,7 @@ function newsletter_module() { ?>
 	<?php
 }
 
+
 /**
  * New Theme functionality ahead
  */
@@ -588,3 +589,5 @@ function bumblebee_excerpt_more( $more ) {
 	return '...';
 }
 add_filter( 'excerpt_more', 'bumblebee_excerpt_more' );
+
+require_once 'video/video-hub.php';  // Custom video archive page.

@@ -100,6 +100,7 @@
     "automattic/co-authors-plus": "dev-master",
     "composer/installers": "v1.5.0",
     "pantheon-systems/wordpress-composer": "4.*",
+    "php-amqplib/php-amqplib": "^2.8",
     "roots/wp-password-bcrypt": "^1.0.0",
     "rvtraveller/qs-composer-installer": "^1.1",
     "vlucas/phpdotenv": "2.*",
