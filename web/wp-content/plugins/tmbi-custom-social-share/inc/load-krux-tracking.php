@@ -1,10 +1,8 @@
 <?php
-
-
 /**
  * Including file to load krux tracking.
  *
- * @file
+ * @package  Krux tracking
  */
 
 add_action( 'wp_enqueue_scripts', 'load_krux_tracking' );
@@ -14,9 +12,9 @@ add_action( 'wp_enqueue_scripts', 'load_krux_tracking' );
  */
 function load_krux_tracking() {
 
-	$script_url            = 'js/krux-tracking.js';
-	$script_slug           = 'krux-tracking';
-	$version               = '1.0.0';
+	$script_url  = 'js/krux-tracking.js';
+	$script_slug = 'krux-tracking';
+	$version     = '1.0.0';
 	wp_register_script(
 		$script_slug,
 		plugins_url( $script_url, __FILE__ ),

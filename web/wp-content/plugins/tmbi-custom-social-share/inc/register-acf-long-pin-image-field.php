@@ -1,9 +1,8 @@
 <?php
-
 /**
  * Including file to register acf long pin image fields.
  *
- * @file
+ * @package  Register acf long pin image fields
  */
 
 add_action( 'acf/init', 'tmbi_register_acf_long_pin_image_fields', 12 );
@@ -22,11 +21,11 @@ function tmbi_register_acf_long_pin_image_fields() {
 			'title'    => 'Long Pin Image',
 			'fields'   => array(
 				array(
-					'key'       => $toh_longpin_file_slug,
-					'label'     => '<p>Legacy Pin Image URL - (The default legacy long pin image - if field is blank, no legacy image exists. Please use "Add long Pin Image" field to update or choose a new Long Pin Image)</p>',
-					'name'      => 'long_pin',
-					'type'      => 'text',
-					'disabled'  => 'true',
+					'key'      => $toh_longpin_file_slug,
+					'label'    => '<p>Legacy Pin Image URL - (The default legacy long pin image - if field is blank, no legacy image exists. Please use "Add long Pin Image" field to update or choose a new Long Pin Image)</p>',
+					'name'     => 'long_pin',
+					'type'     => 'text',
+					'disabled' => 'true',
 				),
 				array(
 					'key'   => $tmbi_longpin_slug,
@@ -42,6 +41,7 @@ function tmbi_register_acf_long_pin_image_fields() {
 
 /**
  * To set the post type.
+ *
  * @param array $post_type_array post type array.
  */
 function set_post_type_array( $post_type_array ) {
