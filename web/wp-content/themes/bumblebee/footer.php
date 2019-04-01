@@ -18,7 +18,15 @@
 		<div class="pure-g">
 			<div class="pure-u-1 pure-u-md-3-5 left-foot">
 				<div class="ipad-hide logo-socials">
-					<a data-analytics-metrics='{"name":"footer logo","module":"navigation","position":"footer"}' href=" <?php echo esc_url( site_url() ); ?> " class="footer-logo"><img src="<?php echo esc_html( get_theme_mod( 'bumblebee_footer_logo' ) ); ?>" alt="" style="width:<?php echo esc_html( get_theme_mod( 'bumblebee_footer_logo_width' ) ); ?>px"></img></a>
+					<a data-analytics-metrics='{"name":"footer logo","module":"navigation","position":"footer"}' href=" <?php echo esc_url( site_url() ); ?> " class="footer-logo">
+						<?php
+						$img_src  = esc_html( get_theme_mod( 'bumblebee_footer_logo' ) );
+						$width    = esc_html( get_theme_mod( 'bumblebee_footer_logo_width' ) );
+						$img      = '<img src="' . $img_src . '" alt="" style="width:' . $width . 'px">';
+						$img_html = apply_filters( 'a3_lazy_load_images', $img );
+						echo wp_kses_post( $img_html );
+						?>
+					</a>
 					<?php
 					if ( has_nav_menu( 'v2-footer-social-links' ) ) {
 						wp_nav_menu(
