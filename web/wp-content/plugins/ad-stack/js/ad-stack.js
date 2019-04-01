@@ -1,4 +1,4 @@
-/* global tmbi_ad_data postscribe ads_global_targeting*/
+/* global tmbi_ad_data ads_global_targeting*/
 /*eslint no-console: "error"*/
 var googletag = googletag || {}, device;
 googletag.cmd = googletag.cmd || [];
@@ -8,15 +8,11 @@ function TMBI_Ad_Stack( ) {
 	// Add GPT code.
 	(function() {
 		var gads = document.createElement('script');
-			//postScribe = document.createElement('script');
 		gads.async = true;
 		gads.type = 'text/javascript';
 		var useSSL = 'https:' == document.location.protocol;
 		gads.src = (useSSL ? 'https:' : 'http:') + '//www.googletagservices.com/tag/js/gpt.js';
-		//postScribe.src = (useSSL ? 'https:' : 'http:') + '//cdnjs.cloudflare.com/ajax/libs/postscribe/2.0.8/postscribe.min.js';
 		var node =document.getElementsByTagName('script')[0];
-		//node.parentNode.insertBefore(gads, node);
-		//window.nodePostScribe = node;
 		node.parentNode.insertBefore(gads, node);
 		device = getCurrentBreakPoint();
 	})();
@@ -123,7 +119,7 @@ function refresh_ads(ad_elements) {
  */
 function headerBidding(ad_elements, arr_ads) {
 	var bidders = [];
-	if ( typeof Promise !== "undefined" && typeof wp !== 'undefined') {
+	if ( typeof Promise !== 'undefined' && typeof wp !== 'undefined') {
 		bidders = wp.hooks.applyFilters( 'header_bidders', [], window.ads_global_targeting );
 	} else {
 		console.warn( 'Ad Stack', 'Browser does not support Promises! Can\'t run header bidders.' );
@@ -175,9 +171,6 @@ var ad_stack = new TMBI_Ad_Stack();
 
 // event callback on load
 window.addEventListener('load', function() {
-	// postscribe('#gpt-postcribe','<script src="https://www.googletagservices.com/tag/js/gpt.js"></script>',function () {
-	//
-	// });
 	//global targeting params
 	window.ads_global_targeting = typeof tmbi_ad_data !== 'undefined' && tmbi_ad_data && (tmbi_ad_data.global_targeting || {});
 	ad_stack.init();
