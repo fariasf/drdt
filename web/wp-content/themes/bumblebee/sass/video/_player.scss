@@ -1,0 +1,15 @@
+.jw-flag-floating .jw-wrapper {
+	min-width: 400px !important;
+	z-index: 3 !important;
+	@media screen and (max-width: $large-down) {
+		display: none;
+	}
+}
+
+.jw-flag-floating {
+  .jw-wrapper.jw-reset {
+    @media screen and (min-width: $large) {
+      bottom: 240px !important; // raising the float sticky player
+    }
+  }
+}
