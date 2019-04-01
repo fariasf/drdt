@@ -8,13 +8,9 @@ $archive_grid_analytics = 'data-analytics-metrics=\'{"name":"' . get_the_title()
 
 $excerpt = get_post_meta( $post_id, 'dek', true );
 if ( ! $excerpt ) {
-	$excerpt = get_post( $post_id )->post_excerpt;
-	/*-- Use post content if neither Dek nor the Excerpt is present for a content type ---*/
-	if ( ! $excerpt ) {
-		$excerpt = get_post( $post_id )->post_content;
-	}
+	$excerpt = get_the_excerpt( $post_id );
 }
-$excerpt = strip_shortcodes( $excerpt );
+
 ?>
 <div class="pure-u-1 pure-u-sm-1-4 category-card">
 	<div class="single-recipe">
