@@ -3,6 +3,43 @@
 	position: relative;
 	z-index: 0;
 
+	.entry-title a {
+		font-weight: 300;
+	}
+
+	.tag-cloud {
+		margin-bottom : 60px;
+		ul {
+			display    : flex;
+			overflow   : auto;
+			margin-top : 15px;
+			flex-wrap  : wrap;
+			li {
+				font-size:16px;
+				margin-bottom : 10px;
+				padding: 0 5px;
+				a {
+					background-color : #245f91;
+					border-radius    : 3px;
+					color            : #ffffff;
+					display          : block;
+					padding          : 10px;
+					transition       : background 0.3s;
+					white-space      : nowrap;
+				}
+				a:focus, a:hover {
+					background-color: #1a4468;
+					text-decoration : none;
+				}
+			}
+		}
+	}
+
+	div.bottom-space {
+		.category-card {
+			margin-bottom : 20px;
+		}
+	}
 	ul {
 		padding-left: 0;
 		list-style-type: none;
@@ -20,46 +57,68 @@
 	.hero-container {
 		box-shadow: 0 2px 7px 0 hsla(0,0%,57%,.35);
 		margin: 10px;
-		margin-bottom: 10px;
-
 		.hero-text {
-			padding: 0 30px;
+			padding: 60px;
+			.entry-title {
+				a {
+					font-size : 38px;
+				}
+				a:hover {
+					text-decoration : underline;
+				}
+			}
 		}
 	}
 
 	.archive-content {
-		margin: 0 auto;
+		margin: 0 auto 40px;
 		max-width: $size__site-max-width;
 		position: relative;
 		z-index: 3;
 	}
+	.archive-description {
+		p {
+			margin-top: 8px;
+		}
+	}
 
 	.featured-posts {
 		display: flex;
-		margin: 0 5px;
+		margin: 0 10px;
 	}
 
+	.featured-container:first-child {
+		margin-left : 0 !important;
+	}
+	.featured-container:last-child {
+		margin-right : 0 !important;
+	}
 	.featured-container {
 		background: $color__white;
 		box-shadow: 0 2px 7px 0 hsla(0,0%,57%,.35);
 		width: calc(33% - 10px);
-		margin: 0 5px;
-	}
-
-	.recipes {
 		margin: 10px;
 	}
 
+	.recipes {
+		margin: 10px 0;
+	}
+
 	.single-recipe {
-		margin: 5px;
+		margin:0 10px;
 		box-shadow: 0 2px 7px 0 hsla(0,0%,57%,.35);
 		height: 100%;
 		background: $color__white;
 	}
 
 	.recipe-content {
-		padding-left: 10px;
+		padding: 10px;
 		text-overflow: ellipsis;
+		.entry-title {
+			a:hover, a:focus {
+				text-decoration : underline;
+			}
+		}
 	}
 
 	.full-width-nl {
@@ -86,16 +145,16 @@
 					width: 100%;
 
 					input {
-						background-color: #fff;
-						border: 1px solid #ddd;
-						border-right: 0;
-						color: #333;
-						float: left;
-						font-family: $font__main;
-						font-size: 16px;
-						font-weight: 300;
-						padding: 14px 16px 13px;
-						width: 76%;
+						background-color : #ffffff;
+						border           : 1px solid #dddddd;
+						border-right     : 0;
+						color            : #333333;
+						float            : left;
+						font-family      : $font__main;
+						font-size        : 16px;
+						font-weight      : 300;
+						padding          : 14px 16px 15px;
+						width            : 76%;
 
 						@media screen and (max-width: 567px) {
 							width: 50%;
@@ -103,25 +162,49 @@
 					}
 
 					button {
-						background-color: #ffc10e;
-						color: #000;
-						font-family: $font__main;
-						float: left;
-						padding: 10px 15px;
-						text-transform: uppercase;
-						transition: background .3s;
-						width: 19%;
+						background-color : #ffc10e;
+						color            : #000000;
+						font-family      : $font__main;
+						float            : left;
+						padding          : 9px 15px;
+						text-transform   : uppercase;
+						transition       : background .3s;
+						width            : 19%;
+						border           : 1px solid #ffc10e;
+						font-size        : 16px;
 
 						@media screen and (max-width: 567px) {
 							width: 40%;
 						}
 					}
+					button:hover {
+						background-color: #daa200;
+					}
 				}
 			}
 
 			.diyu-logo {
+				display : flex;
 				margin-top: 100px;
 				text-align: center;
+				position : relative;
+				.diyu-text {
+					flex-grow : 12;
+					color     : #999999;
+				}
+				.diyu-img {
+					flex-grow: 1;
+				}
+				.diyu-img:before {
+					content     : "";
+					position    : absolute;
+					background  : #aaaaaa;
+					height      : 80%;
+					width       : 2px;
+					top         : 50%;
+					transform   : translateY(-50%);
+					margin-left : -1em;
+				}
 			}
 
 			@media screen and (max-width: 567px) {
@@ -170,6 +253,17 @@
 
 		.featured-posts {
 			overflow-x: scroll;
+		}
+		.diyu-logo {
+			flex-wrap: wrap;
+			.diyu-img:before {
+				height : 1px !important;
+				width  : 40% !important;
+				left   : 0 !important;
+				right  : 0 !important;
+				margin : 0 auto !important;
+				top    : 12% !important;
+			}
 		}
 	}
 }

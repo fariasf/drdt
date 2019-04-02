@@ -16,6 +16,7 @@ Text Domain: tmbi-ad-stack
  * @file
  */
 require 'inc/ads-global-targeting.php';
+require 'inc/video-ads-widget.php';
 
 
 /**
