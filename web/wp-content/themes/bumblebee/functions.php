@@ -169,8 +169,6 @@ function bumblebee_scripts() {
 
 	wp_enqueue_script( 'bumblebee-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20151215', true );
 
-//	wp_enqueue_script( 'cutom-lazy-loader', get_template_directory_uri() . '/js/custom-lazy-loader.js', array( 'jquery' ), '20190329', false );
-
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
@@ -484,7 +482,13 @@ function newsletter_module() { ?>
 		</div>
 		<div class="diyu-img">
 			<a data-analytics-metrics='{"name":"Subscribe link","module":"footer","position":"magazine subscription"}' href="<?php echo esc_html( get_theme_mod( 'bumblebee_footer_nl_subscribe_url' ) ); ?>" target="_blank" rel="noopener noreferrer">
-				<img src="<?php echo esc_html( get_theme_mod( 'bumblebee_footer_nl_subscribe_image' ) ); ?>" alt="" style="width:<?php echo esc_html( get_theme_mod( 'bumblebee_footer_nl_subscribe_image_width' ) ); ?>px">
+				<?php
+				$img_src  = esc_html( get_theme_mod( 'bumblebee_footer_nl_subscribe_image' ) );
+				$width    = esc_html( get_theme_mod( 'bumblebee_footer_nl_subscribe_image_width' ) );
+				$img      = '<img src="' . $img_src . '" alt="" style="width:' . $width . 'px">';
+				$img_html = apply_filters( 'a3_lazy_load_images', $img );
+				echo wp_kses_post( $img_html );
+				?>
 			</a>
 		</div>
 	</div>
