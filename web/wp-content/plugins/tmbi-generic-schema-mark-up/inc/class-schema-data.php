@@ -12,6 +12,13 @@
 class Schema_Data {
 
 	/**
+	 * Logo url
+	 *
+	 * @var string
+	 */
+	public static $logo_url = 'https://www.constructionprotips.com/wp-content/uploads/sites/9/2017/11/cropped-cpt-logo-1.png';
+
+	/**
 	 * Get author data.
 	 *
 	 * @return array|string
@@ -80,7 +87,7 @@ class Schema_Data {
 		if ( has_post_thumbnail( $post_id ) ) {
 			$image = wp_get_attachment_image_src( get_post_thumbnail_id( $post_id ), 'single-post-thumbnail' );
 		} else {
-			$image = esc_html( get_theme_mod( 'bumblebee_header_logo' ) );
+			$image = self::$logo_url;
 		}
 		return $image;
 
@@ -96,7 +103,7 @@ class Schema_Data {
 			'name'  => $site_name,
 			'logo'  => array(
 				'@type'  => 'ImageObject',
-				'url'    => esc_html( get_theme_mod( 'bumblebee_header_logo' ) ),
+				'url'    => self::$logo_url,
 				'width'  => 198,
 				'height' => 60,
 			),
