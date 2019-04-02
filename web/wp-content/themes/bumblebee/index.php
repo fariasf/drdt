@@ -86,18 +86,18 @@ add_filter(
 				<?php $section_num++; ?>
 				<section class="archive-content">
 					<div class="pure-g">
-						<section class="pure-u-1 pure-u-sm-3-4 homepage-article">
+						<section class="pure-u-1 pure-u-md-3-4 homepage-article">
 							<div class="pure-g recipes">
 								<?php for ( $i = 0; $i < 6; $i++ ) : ?>
 									<?php the_post(); ?>
 									<?php get_template_part( 'template-parts/content', 'grid' ); ?>
-									<?php if ( 2 === $i ) : ?>
+									<?php if ( 6 === $i ) : ?>
 										</div><div class="pure-g recipes">
 									<?php endif; ?>
 								<?php endfor; ?>
 							</div>
 						</section>
-						<section class="pure-u-sm-1-4">
+						<section class="pure-u-md-1-4">
 							<aside class="sidebar">
 								<?php
 								$slot_name = 'scroll';
