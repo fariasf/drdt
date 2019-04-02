@@ -183,6 +183,7 @@ function bumblebee_scripts() {
 	wp_enqueue_script( 'bumblebee-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20151215', true );
 
 	// wp_enqueue_script( 'cutom-lazy-loader', get_template_directory_uri() . '/js/custom-lazy-loader.js', array( 'jquery' ), '20190329', false );
+
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
@@ -242,10 +243,13 @@ require get_template_directory() . '/inc/ads.php';
 require get_template_directory() . '/inc/menu-walker-tagging.php';
 
 /**
+ * Print schema in head
+ */
+require get_template_directory() . '/inc/schema.php';
+/**
  * Load menu tagging through walker
  */
 require get_template_directory() . '/inc/archive-tax-list-buttons.php';
-
 
 register_nav_menu( 'v2-footer-site-links', 'V2 Footer Site Links' );
 register_nav_menu( 'v2-footer-social-links', 'V2 Footer Social Links' );
@@ -496,7 +500,13 @@ function newsletter_module() { ?>
 		</div>
 		<div class="diyu-img">
 			<a data-analytics-metrics='{"name":"Subscribe link","module":"footer","position":"magazine subscription"}' href="<?php echo esc_html( get_theme_mod( 'bumblebee_footer_nl_subscribe_url' ) ); ?>" target="_blank" rel="noopener noreferrer">
-				<img src="<?php echo esc_html( get_theme_mod( 'bumblebee_footer_nl_subscribe_image' ) ); ?>" alt="" style="width:<?php echo esc_html( get_theme_mod( 'bumblebee_footer_nl_subscribe_image_width' ) ); ?>px">
+				<?php
+				$img_src  = esc_html( get_theme_mod( 'bumblebee_footer_nl_subscribe_image' ) );
+				$width    = esc_html( get_theme_mod( 'bumblebee_footer_nl_subscribe_image_width' ) );
+				$img      = '<img src="' . $img_src . '" alt="" style="width:' . $width . 'px">';
+				$img_html = apply_filters( 'a3_lazy_load_images', $img );
+				echo wp_kses_post( $img_html );
+				?>
 			</a>
 		</div>
 	</div>
@@ -603,3 +613,15 @@ function bumblebee_excerpt_more( $more ) {
 add_filter( 'excerpt_more', 'bumblebee_excerpt_more' );
 
 require_once 'video/video-hub.php';  // Custom video archive page.
+
+/**
+ * Remove schema data coming from yoast.
+ *
+ * @param array $data schema data.
+ * @return array
+ */
+function disable_yoast_schema_data( $data ) {
+	$data = array();
+	return $data;
+}
+add_filter( 'wpseo_json_ld_output', 'disable_yoast_schema_data', 10, 1 );
