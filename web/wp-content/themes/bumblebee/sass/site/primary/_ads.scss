@@ -2,6 +2,12 @@
   margin-top: 20px;
   text-align: center;
   width: 100%;
+
+  .ad {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
 
 .ad ::before {
