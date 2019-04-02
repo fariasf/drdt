@@ -598,3 +598,15 @@ function bumblebee_excerpt_more( $more ) {
 add_filter( 'excerpt_more', 'bumblebee_excerpt_more' );
 
 require_once 'video/video-hub.php';  // Custom video archive page.
+
+/**
+ * Remove schema data coming from yoast.
+ *
+ * @param array $data schema data.
+ * @return array
+ */
+function disable_yoast_schema_data( $data ) {
+	$data = array();
+	return $data;
+}
+add_filter( 'wpseo_json_ld_output', 'disable_yoast_schema_data', 10, 1 );
