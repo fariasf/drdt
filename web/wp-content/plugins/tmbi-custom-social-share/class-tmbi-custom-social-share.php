@@ -92,7 +92,8 @@ class TMBI_Custom_Social_Share extends WPSEO_Opengraph_Twitter_Title {
 				print( '<li class="social-share-item">' );
 				switch ( strtoupper( trim( $social_icons ) ) ) {
 					case 'FACEBOOK':
-						echo wp_kses( '<a class="pure-menu-link" data-analytics-metrics=' . self::tmbi_adobe_analytics( 'facebook', $position_prop ) . ' id="fb-share" onClick="window.open(\'https://www.facebook.com/sharer/sharer.php?u=' . rawurlencode( $page_url ) . '&t' . rawurlencode( $page_title ) . '=&v=3\',\'sharer\',\'toolbar=0,status=0,width=548,height=325\');" href="javascript: void(0)"><img class="social-icons" src="' . plugin_dir_url( __FILE__ ) . '/images/facebook-letter-logo.svg" alt="facebook" /></a>', $allowed_tags );
+						$custom_js = 'window.open(\'https://www.facebook.com/sharer/sharer.php?u=' . rawurlencode( $page_url ) . '&t' . rawurlencode( $page_title ) . '=&v=3\',\'sharer\',\'toolbar=0,status=0,width=548,height=325\');';
+						echo wp_kses( '<a class="pure-menu-link" data-analytics-metrics=' . esc_attr( self::tmbi_adobe_analytics( 'facebook', $position_prop ) ) . ' id="fb-share" onClick="' . esc_js( $custom_js ) . '" href="javascript: void(0)"><img class="social-icons" src="' . plugin_dir_url( __FILE__ ) . '/images/facebook-letter-logo.svg" alt="facebook" /></a>', $allowed_tags );
 
 						break;
 
