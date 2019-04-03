@@ -156,6 +156,19 @@ function bumblebee_widgets_init() {
 			'after_title'   => '</h3>',
 		)
 	);
+
+	register_sidebar(
+		array(
+			'name'          => __( '404 Widget', 'bumblebee' ),
+			'id'            => 'not-found-widget',    // ID should be LOWERCASE  ! ! !
+			'description'   => 'Add Custom Content for 404 Page Here',
+			'class'         => '',
+			'before_widget' => '<section id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</section>',
+			'before_title'  => '<h3>',
+			'after_title'   => '</h3>',
+		)
+	);
 }
 
 add_action( 'widgets_init', 'bumblebee_widgets_init' );
@@ -485,7 +498,13 @@ function newsletter_module() { ?>
 		</div>
 		<div class="diyu-img">
 			<a data-analytics-metrics='{"name":"Subscribe link","module":"footer","position":"magazine subscription"}' href="<?php echo esc_html( get_theme_mod( 'bumblebee_footer_nl_subscribe_url' ) ); ?>" target="_blank" rel="noopener noreferrer">
-				<img src="<?php echo esc_html( get_theme_mod( 'bumblebee_footer_nl_subscribe_image' ) ); ?>" alt="" style="width:<?php echo esc_html( get_theme_mod( 'bumblebee_footer_nl_subscribe_image_width' ) ); ?>px">
+				<?php
+				$img_src  = esc_html( get_theme_mod( 'bumblebee_footer_nl_subscribe_image' ) );
+				$width    = esc_html( get_theme_mod( 'bumblebee_footer_nl_subscribe_image_width' ) );
+				$img      = '<img src="' . $img_src . '" alt="" style="width:' . $width . 'px">';
+				$img_html = apply_filters( 'a3_lazy_load_images', $img );
+				echo wp_kses_post( $img_html );
+				?>
 			</a>
 		</div>
 	</div>
@@ -592,3 +611,15 @@ function bumblebee_excerpt_more( $more ) {
 add_filter( 'excerpt_more', 'bumblebee_excerpt_more' );
 
 require_once 'video/video-hub.php';  // Custom video archive page.
+
+/**
+ * Remove schema data coming from yoast.
+ *
+ * @param array $data schema data.
+ * @return array
+ */
+function disable_yoast_schema_data( $data ) {
+	$data = array();
+	return $data;
+}
+add_filter( 'wpseo_json_ld_output', 'disable_yoast_schema_data', 10, 1 );

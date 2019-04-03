@@ -1,0 +1,86 @@
+// 404 Widget & Page Styles
+
+.error404 {
+	background: none;
+	background-color: #fff;
+
+	.page-content {
+		margin: 0 auto;
+		max-width: 1160px;
+		padding: 40px 15px;
+
+		.content {
+			display: flex;
+			flex-wrap: wrap;
+
+			h3 {
+				font-size: 2em;
+			}
+
+			h2 {
+				font-size: 1.6em;
+			}
+
+			input {
+				-webkit-appearance: none;
+				border-radius: 0;
+			}
+
+			.search-form {
+
+				.screen-reader-text {
+					display: none;
+				}
+
+				input[type="search"] {
+					background-color: #fff;
+					border: 1px solid #ddd;
+					-webkit-appearance: none;
+					border-radius: 0;
+					font-weight: 300;
+					float: left;
+					padding: 16px;
+					width: calc(100% - 200px);
+				}
+
+				input[type="submit"] {
+					position: relative;
+					background-color: $color__accent;
+					border: 0;
+					color: #fff;
+					cursor: pointer;
+					float: left;
+					font-size: 16px;
+					font-weight: 700;
+					padding: 18px 24px;
+					text-transform: uppercase;
+					white-space: normal;
+					width: 150px;
+				}
+
+				input[type=submit]:focus {
+					box-shadow: none;
+				}
+			}
+
+			section {
+				font-size: 14px;
+				flex-grow: 1;
+				margin: 0 2% 2% 0;
+				padding: 15px;
+				width: 45%;
+
+				@media screen and (max-width: 767px) {
+					margin: 1% 0;
+					width: 100%;
+				}
+			}
+
+			section:first-of-type,
+			section:nth-of-type(2) {
+				margin: 0 0 2% 0;
+				width: 100%;
+			}
+		}
+	}
+}
