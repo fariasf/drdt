@@ -1,4 +1,11 @@
 <?php
+/**
+ * Video cpt
+ *
+ * Register Video Custom post type.
+ *
+ * @package video class
+ */
 
 /**
  * Class Video_CPT
@@ -75,10 +82,10 @@ class Video_CPT {
 		);
 
 		/**
-		 * rewrite base
+		 * Rewrite base
 		 */
 		$rewrite = array(
-			'slug'       => self::REST_BASE,
+			'slug'       => 'videos',
 			'with_front' => false,
 			'feeds'      => true,
 		);
@@ -109,7 +116,7 @@ class Video_CPT {
 			'rest_base'           => self::REST_BASE,
 		);
 
-		// Calling WordPress native register post function
+		// Calling WordPress native register post function.
 		register_post_type( self::REST_BASE, $args );
 	}
 }
