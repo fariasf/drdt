@@ -610,3 +610,217 @@ function disable_yoast_schema_data( $data ) {
 	return $data;
 }
 add_filter( 'wpseo_json_ld_output', 'disable_yoast_schema_data', 10, 1 );
+
+function is_post() {
+	if ( get_post_type( get_the_ID() ) === 'post' ) {
+		return ( true );
+	}
+
+	return ( false );
+}
+
+function is_collection() {
+	if ( get_post_type( get_the_ID() ) === 'collection' ) {
+		return( true );
+	}
+	return( false );
+}
+
+/**
+ * check queried slideshow/listicle/collection is a paginated version.
+ * supports from Main Query
+ * @return bool
+ */
+function is_paginated() {
+	global $wp_query;
+
+	if ( get_query_var( 'page' ) > 0 ) {
+		return ( true );
+	}
+	return ( false );
+}
+
+/**
+ * This condition will be true for all Slideshow types
+ * using global query to determine the post-type
+ * @param WP_Post|null
+ *
+ * @return true|false
+ */
+function is_listicle( $post = null ) {
+	$check_archive = is_archive();
+	if ( $post && ( is_string( $post ) || $post instanceof WP_Post ) ) {
+		$post_type = $post;
+		if ( $post instanceof WP_Post ) {
+			$post_type = $post->post_type;
+		}
+		$check_archive = false;
+	} else {
+		$post_type = get_post_type( get_the_ID() );
+	}
+
+	if ( ! ( $check_archive ) && ( $post_type === 'listicle' || $post_type === 'slicklist' || $post_type == 'collection' ) ) {
+		return( true );
+	}
+
+	return ( false );
+}
+
+/**
+ * @return bool
+ */
+function is_card() {
+	if ( is_listicle() && is_paginated() ) {
+		return ( true );
+	}
+
+	return ( false );
+}
+
+/**
+ * Ultimately this construct needs o be refactored and simplified by
+ * utilizing the static $post_type var.
+ * @return bool
+ */
+function is_slideshow() {
+	if ( get_post_type( get_the_ID() ) === 'slideshows' ) {
+		return ( true );
+	}
+	return ( false );
+}
+
+/**
+ * @return bool
+ */
+function is_slide() {
+	if ( is_slideshow() && is_paginated() ) {
+		return ( true );
+	}
+
+	return ( false );
+}
+
+function is_joke() {
+	if ( get_post_type( get_the_ID() ) === 'joke' ) {
+		return ( true );
+	}
+
+	return ( false );
+}
+
+function is_quiz() {
+	if ( get_post_type( get_the_ID() ) === 'quiz' ) {
+		return ( true );
+	}
+
+	return ( false );
+}
+
+function is_video() {
+	if ( get_post_type( get_the_ID() ) === 'video' ) {
+		return ( true );
+	}
+
+	return ( false );
+}
+
+function is_project() {
+	if ( get_post_type( get_the_ID() ) === 'project' ) {
+		return( true );
+	}
+	return( false );
+}
+
+function is_recipe() {
+	if ( get_post_type( get_the_ID() ) === 'recipe' ) {
+		return( true );
+	}
+	return( false );
+}
+
+function is_video_recipe() {
+	$pid = get_the_ID();
+	if ( get_post_type( $pid ) === 'recipe' ) {
+		$recipe_data = new RD_Toh\Resource\RecipeResource();
+		$video_code = $recipe_data->get_recipe_video();
+		if ( $video_code ) {
+			return true;
+		}
+	}
+	return( false );
+}
+
+function is_video_project() {
+	$pid = get_the_ID();
+	if ( class_exists( 'TMBI_Video_Meta_Box' ) ) {
+		$vshortcode = TMBI_Video_Meta_Box::get_video_shortcode( $pid );
+		if ( $vshortcode ) {
+			return true;
+		}
+	}
+	return( false );
+}
+
+/**
+ * Get page type.
+ * 
+ * @return string
+ */
+function page_type( ) {
+	global $wp_query;
+    $page_type = 'default';
+
+    if ( $wp_query->is_home || $wp_query->is_front_page ) {
+        $page_type = 'homepage';
+    } elseif ( $wp_query->is_archive ) {
+		if ( $wp_query->is_category ) {
+			$page_type = 'category';
+		} elseif ( $wp_query->is_tag ) {
+			$page_type = 'tag';
+		} else {
+			$page_type = 'archive';
+		}
+	} elseif ( $wp_query->is_search ) {
+		$page_type = 'search';
+	} elseif ( $wp_query->is_page ) {
+		$page_type = 'page';
+	} elseif ( $wp_query->is_404 ) {
+		$page_type = '404page';
+	} elseif ( is_post() ) {
+		$page_type = 'article';
+	} elseif ( is_collection() ) {
+		if ( is_paginated() ) {
+			$page_type = 'card';
+		} else {
+			$page_type = 'listicle';
+		}
+	} elseif ( is_listicle() ) {
+		$page_type = 'listicle';
+		if ( is_card() ) {
+			$page_type = 'card';
+		}
+	} elseif ( is_slideshow() ) {
+		$page_type = 'slideshow';
+		if ( is_slide() ) {
+			$page_type = 'slide';
+		}
+	} elseif ( is_joke() ) {
+		$page_type = 'joke';
+	} elseif ( is_video() ) {
+		$page_type = 'video';
+	} elseif ( is_quiz() ) {
+		$page_type = 'quiz';
+	} elseif ( is_recipe() ) {
+		$page_type = 'recipe';
+		if ( is_video_recipe() ) {
+			$page_type = 'videorecipe';
+		}
+	} elseif ( is_project() ) {
+		$page_type = 'projectdetail';
+		if ( is_video_project() ) {
+			$page_type = 'videoproject';
+		}
+	}
+
+	return $page_type;
+}
