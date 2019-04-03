@@ -33,5 +33,5 @@ Vagrant.configure("2") do |local|
   #  vb.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
   #  vb.customize ["modifyvm", :id, "--uartmode1", "disconnected" ]
   #end
-  local.vm.synced_folder "..", "/vagrant", owner:"www-data", group:"www-data", mount_options:["dmode=775", "fmode=775"]
+  local.vm.synced_folder "..", "/vagrant", owner:"vagrant", group:"www-data", mount_options:["dmode=775", "fmode=775"]
 end
