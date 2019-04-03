@@ -40,73 +40,79 @@ fi
 BRANCHES+=("master")
 URLS+=($LIVE_SITE_URL)
 
+VARIANTS=()
+VARIANTS+=("?variant=noads")
+VARIANTS+=("") # Normal page with ads
 
 # Track the performance metrics for all pages in `key_pages.json`
 KEY_PAGES=$(cat key_pages.json)
 PAGE_LABELS=(`echo $KEY_PAGES | jq '.[].label'`)
 PAGE_URLS=(`echo $KEY_PAGES | jq '.[].url'`)
 declare -A RESULTS=()
-for ((b=0;b<${#BRANCHES[@]};++b)); do
-	BRANCH=${BRANCHES[b]}
-	LIGHTHOUSE_URL=${URLS[b]}
+for ((v=0;v<${#VARIANTS[@]};++v)); do
+	VARIANT=${VARIANTS[v]}
+	for ((b=0;b<${#BRANCHES[@]};++b)); do
+		BRANCH=${BRANCHES[b]}
+		LIGHTHOUSE_URL=${URLS[b]}
 
-	# Ping the Pantheon environment to wake it from sleep and prime the cache
-	echo -e "\nPinging the ${BRANCH} environment to wake it from sleep..."
-	curl -s -I "$LIGHTHOUSE_URL" >/dev/null
+		# Ping the Pantheon environment to wake it from sleep and prime the cache
+		echo -e "\nPinging the ${BRANCH} environment to wake it from sleep..."
+		curl -s -I "$LIGHTHOUSE_URL" >/dev/null
 
-	for ((i=0;i<${#PAGE_URLS[@]};++i)); do
-		PAGE_NAME=${PAGE_LABELS[i]//\"}
-		PAGE_SLUG=`slugify ${PAGE_NAME}`
-		PAGE_URL=${PAGE_URLS[i]//\"}
+		for ((i=0;i<${#PAGE_URLS[@]};++i)); do
+			PAGE_NAME=${PAGE_LABELS[i]//\"}
+			PAGE_SLUG=`slugify ${PAGE_NAME}`
+			PAGE_URL=${PAGE_URLS[i]//\"}
 
-		LIGHTHOUSE_RESULTS_DIR="lighthouse_results/$BRANCH/$PAGE_SLUG"
-		LIGHTHOUSE_REPORT_NAME="$LIGHTHOUSE_RESULTS_DIR/lighthouse.json"
-		LIGHTHOUSE_JSON_REPORT="$LIGHTHOUSE_RESULTS_DIR/lighthouse.report.json"
-		LIGHTHOUSE_HTML_REPORT="$LIGHTHOUSE_RESULTS_DIR/lighthouse.report.html"
-		LIGHTHOUSE_RESULTS_JSON="$LIGHTHOUSE_RESULTS_DIR/lighthouse.results.json"
+			LIGHTHOUSE_RESULTS_DIR="lighthouse_results/$BRANCH/$VARIANT/$PAGE_SLUG"
+			LIGHTHOUSE_REPORT_NAME="$LIGHTHOUSE_RESULTS_DIR/lighthouse.json"
+			LIGHTHOUSE_JSON_REPORT="$LIGHTHOUSE_RESULTS_DIR/lighthouse.report.json"
+			LIGHTHOUSE_HTML_REPORT="$LIGHTHOUSE_RESULTS_DIR/lighthouse.report.html"
+			LIGHTHOUSE_RESULTS_JSON="$LIGHTHOUSE_RESULTS_DIR/lighthouse.results.json"
 
-		TEST_URL="$LIGHTHOUSE_URL/$PAGE_URL?variant=noads"
+			TEST_URL="$LIGHTHOUSE_URL/$PAGE_URL$VARIANT"
 
-		echo -e "\nTesting $PAGE_NAME on $BRANCH branch (${TEST_URL})"
+			echo -e "\nTesting $PAGE_NAME on $BRANCH branch (${TEST_URL})"
 
-		# Delete the Lighthouse results directory so we don't keep old results around
-		if [ -d "$LIGHTHOUSE_RESULTS_DIR" ]; then
-		  rm -rf $LIGHTHOUSE_RESULTS_DIR
-		fi
+			# Delete the Lighthouse results directory so we don't keep old results around
+			if [ -d "$LIGHTHOUSE_RESULTS_DIR" ]; then
+			  rm -rf $LIGHTHOUSE_RESULTS_DIR
+			fi
 
-		# Create the Lighthouse results directory if it doesn't exist or has been deleted
-		mkdir -p $LIGHTHOUSE_RESULTS_DIR
+			# Create the Lighthouse results directory if it doesn't exist or has been deleted
+			mkdir -p $LIGHTHOUSE_RESULTS_DIR
 
-		# Stash Circle Artifacts URL
-		CIRCLE_ARTIFACTS_URL="$CIRCLE_BUILD_URL/artifacts/$CIRCLE_NODE_INDEX/$CIRCLE_ARTIFACTS"
+			# Stash Circle Artifacts URL
+			CIRCLE_ARTIFACTS_URL="$CIRCLE_BUILD_URL/artifacts/$CIRCLE_NODE_INDEX/$CIRCLE_ARTIFACTS"
 
-		# Run the Lighthouse test
-		lighthouse --disable-device-emulation --perf --save-artifacts --output json --output html --output-path ${LIGHTHOUSE_REPORT_NAME} --chrome-flags="--headless --disable-gpu --no-sandbox" ${TEST_URL}
+			# Run the Lighthouse test
+			lighthouse --disable-device-emulation --perf --save-artifacts --output json --output html --output-path ${LIGHTHOUSE_REPORT_NAME} --chrome-flags="--headless --disable-gpu --no-sandbox" ${TEST_URL}
 
-		# Check for HTML report file
-		if [ ! -f $LIGHTHOUSE_HTML_REPORT ]; then
-			echo -e "\nLighthouse HTML report file $LIGHTHOUSE_HTML_REPORT not found!"
-			exit 1
-		fi
+			# Check for HTML report file
+			if [ ! -f $LIGHTHOUSE_HTML_REPORT ]; then
+				echo -e "\nLighthouse HTML report file $LIGHTHOUSE_HTML_REPORT not found!"
+				exit 1
+			fi
 
-		# Check for JSON report file
-		if [ ! -f $LIGHTHOUSE_JSON_REPORT ]; then
-			echo -e "\nLighthouse JSON report file $LIGHTHOUSE_JSON_REPORT not found!"
-			exit 1
-		fi
+			# Check for JSON report file
+			if [ ! -f $LIGHTHOUSE_JSON_REPORT ]; then
+				echo -e "\nLighthouse JSON report file $LIGHTHOUSE_JSON_REPORT not found!"
+				exit 1
+			fi
 
-		# Keep track of the results
-		# @todo: Lighthouse on CI is running an older version. This will fail with newer formats of the JSON report
-		LIGHTHOUSE_SCORE=$(cat $LIGHTHOUSE_JSON_REPORT | jq ' .score | tonumber | floor')
-		RESULTS["$BRANCH-$PAGE_SLUG-SCORE"]=$LIGHTHOUSE_SCORE
-		RESULTS["$BRANCH-$PAGE_SLUG-HTML_REPORT"]="$CIRCLE_ARTIFACTS_URL/$LIGHTHOUSE_HTML_REPORT"
-		RESULTS["$BRANCH-$PAGE_SLUG-JSON_REPORT"]="$CIRCLE_ARTIFACTS_URL/$LIGHTHOUSE_JSON_REPORT"
+			# Keep track of the results
+			# @todo: Lighthouse on CI is running an older version. This will fail with newer formats of the JSON report
+			LIGHTHOUSE_SCORE=$(cat $LIGHTHOUSE_JSON_REPORT | jq ' .score | tonumber | floor')
+			RESULTS["$BRANCH-$VARIANT-$PAGE_SLUG-SCORE"]=$LIGHTHOUSE_SCORE
+			RESULTS["$BRANCH-$VARIANT-$PAGE_SLUG-HTML_REPORT"]="$CIRCLE_ARTIFACTS_URL/$LIGHTHOUSE_HTML_REPORT"
+			RESULTS["$BRANCH-$VARIANT-$PAGE_SLUG-JSON_REPORT"]="$CIRCLE_ARTIFACTS_URL/$LIGHTHOUSE_JSON_REPORT"
 
-		echo -e "\nLighthouse score for $PAGE_NAME in $BRANCH branch is $LIGHTHOUSE_SCORE"
+			echo -e "\nLighthouse score for $PAGE_NAME in $BRANCH branch is $LIGHTHOUSE_SCORE"
 
-		# Rsync files to CIRCLE_ARTIFACTS_DIR
-		echo -e "\nRsyincing lighthouse_results files to $CIRCLE_ARTIFACTS_DIR..."
-		rsync -rlvz lighthouse_results $CIRCLE_ARTIFACTS_DIR
+			# Rsync files to CIRCLE_ARTIFACTS_DIR
+			echo -e "\nRsyincing lighthouse_results files to $CIRCLE_ARTIFACTS_DIR..."
+			rsync -rlvz lighthouse_results $CIRCLE_ARTIFACTS_DIR
+		done
 	done
 done
 
@@ -123,10 +129,13 @@ printf '%s\n' "${RESULTS[@]}"
 THEAD=""
 THEADL1="| Page/Branch "
 THEADL2="| --- "
-for ((b=0;b<${#BRANCHES[@]};++b)); do
-	BRANCH=${BRANCHES[b]}
-	THEADL1+="| ${BRANCH} "
-	THEADL2+="| ---: "
+for ((v=0;v<${#VARIANTS[@]};++v)); do
+	VARIANT=${VARIANTS[v]}
+	for ((b=0;b<${#BRANCHES[@]};++b)); do
+		BRANCH=${BRANCHES[b]}
+		THEADL1+="| ${BRANCH} ${VARIANT}"
+		THEADL2+="| ---: "
+	done
 done
 THEADL1+="| Result |"
 THEADL2+="| :---: |"
@@ -141,16 +150,19 @@ for ((i=0;i<${#PAGE_URLS[@]};++i)); do
 	PAGE_SLUG=`slugify ${PAGE_NAME}`
 	TBODY+="| ${PAGE_NAME} ";
 
-	for ((b=0;b<${#BRANCHES[@]};++b)); do
-		BRANCH=${BRANCHES[b]}
-		SCORE=${RESULTS[$BRANCH-$PAGE_SLUG-SCORE]}
-		REPORT_URL=${RESULTS[$BRANCH-$PAGE_SLUG-HTML_REPORT]}
-		TBODY+="| [${SCORE}](${REPORT_URL}) ";
-		if [[ ${BRANCH} == "master" ]]; then
-			MASTER_SCORE=$SCORE
-		else
-			PR_SCORE=$SCORE
-		fi
+	for ((v=0;v<${#VARIANTS[@]};++v)); do
+		VARIANT=${VARIANTS[v]}
+		for ((b=0;b<${#BRANCHES[@]};++b)); do
+			BRANCH=${BRANCHES[b]}
+			SCORE=${RESULTS[$BRANCH-$VARIANT-$PAGE_SLUG-SCORE]}
+			REPORT_URL=${RESULTS[$BRANCH-$VARIANT-$PAGE_SLUG-HTML_REPORT]}
+			TBODY+="| [${SCORE}](${REPORT_URL}) ";
+			if [[ ${BRANCH} == "master" ]]; then
+				MASTER_SCORE=$SCORE
+			else
+				PR_SCORE=$SCORE
+			fi
+		done
 	done
 
 	ACCEPTABLE_SCORE=$((MASTER_SCORE-THRESHOLD))
