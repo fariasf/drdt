@@ -92,6 +92,28 @@ get_header();
 							</section>
 							<div class="dek"><?php the_excerpt(); ?></div>
 						</div>
+						<div class="sponsor_ad_section">
+							<?php
+							bumblebee_render_ad(
+								uniqid( 'ad' ),
+								[
+									'slot-name'        => 'sponsorattribution',
+									'targeting'        => [
+										'pos'      => 'sponsor',
+										'location' => '',
+										'tf'       => 'atf',
+									],
+									'responsive-sizes' => [
+										'mobile'       => [ [ 4, 4 ] ],
+										'tablet'       => [ [ 4, 4 ] ],
+										'desktop'      => [ [ 4, 4 ] ],
+										'large_screen' => [ [ 4, 4 ] ],
+									],
+								]
+							);
+
+							?>
+						</div>
 						<?php
 					}
 					?>
