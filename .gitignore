@@ -60,6 +60,7 @@ web/wp-content/plugins/*
 !web/wp-content/plugins/tmbi-ad-blocker
 !web/wp-content/plugins/tmbi-generic-schema-mark-up
 !web/wp-content/plugins/tmbi-hide-featured-image-field
+!web/wp-content/plugins/no-category-base-wpml
 
 # Ignore third party themes (managed with Composer)
 !web/wp-content/themes
