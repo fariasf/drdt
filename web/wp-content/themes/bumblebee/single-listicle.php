@@ -90,7 +90,31 @@ get_header();
 							<section class="social-menu-mobile">
 								<?php get_template_part( 'template-parts/social-share', 'none' ); ?>
 							</section>
-							<div class="dek"><?php the_excerpt(); ?></div>
+							<div class="dek">
+								<h2><?php echo wp_kses_post( wp_strip_all_tags( get_the_excerpt() ) ); ?></h2>
+							</div>
+						</div>
+						<div class="sponsor_ad_section">
+							<?php
+							bumblebee_render_ad(
+								uniqid( 'ad' ),
+								[
+									'slot-name'        => 'sponsorattribution',
+									'targeting'        => [
+										'pos'      => 'sponsor',
+										'location' => '',
+										'tf'       => 'atf',
+									],
+									'responsive-sizes' => [
+										'mobile'       => [ [ 4, 4 ] ],
+										'tablet'       => [ [ 4, 4 ] ],
+										'desktop'      => [ [ 4, 4 ] ],
+										'large_screen' => [ [ 4, 4 ] ],
+									],
+								]
+							);
+
+							?>
 						</div>
 						<?php
 					}
@@ -192,23 +216,6 @@ get_header();
 				<?php endif; ?>
 			</section>
 		</section>
-		<div class="postarticle_ad">
-			<?php
-			bumblebee_render_ad(
-				uniqid( 'ad' ),
-				[
-					'slot-name'        => 'postarticle',
-					'sizes'            => '970x550,970x250,970x90,728x90,3x3,300x250',
-					'responsive-sizes' => [
-						'mobile'       => [ [ 320, 50 ], [ 300, 250 ], [ 3, 3 ] ],
-						'tablet'       => [ [ 320, 50 ], [ 300, 250 ], [ 3, 3 ] ],
-						'desktop'      => [ [ 728, 90 ], [ 640, 360 ], [ 3, 3 ], [ 300, 250 ] ],
-						'large_screen' => [ [ 970, 550 ], [ 970, 250 ], [ 970, 90 ], [ 728, 90 ], [ 3, 3 ], [ 300, 250 ] ],
-					],
-				]
-			);
-			?>
-		</div>
 </main>
 <?php
 get_footer();
