@@ -18,9 +18,11 @@
     &:hover {
       text-decoration: underline;
     }
+
     a.author_link {
       font-weight: 700;
       color: #000000;
+      border: none !important;
     }
   }
 
