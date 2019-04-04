@@ -9,6 +9,12 @@ body.archive::before {
 	@media screen and (min-width: 1024px) {
 		height : 72em;
 	}
+	@media screen and (min-width: 481px) and (max-width: 768.98px) {
+		height : 50em;
+	}
+	@media screen and (max-width: 480.98px) {
+		height : 70em;
+	}
 }
 .archive-page {
 	@media screen and (max-width: 768px) {
