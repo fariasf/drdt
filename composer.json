@@ -119,7 +119,7 @@
     "wpackagist-plugin/wp-native-php-sessions": "0.*",
     "wpackagist-plugin/wp-redis": "0.7.0",
     "wpwhitesecurity/wp-security-audit-log": "^3.3.0.2",
-    "yoast/wordpress-seo-premium": "^9.5",
+    "yoast/wordpress-seo-premium": "^9.5"
   },
   "require-dev": {
     "behat/mink-goutte-driver": "^1.2",
