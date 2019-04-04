@@ -1,10 +1,36 @@
 /* archive content */
+body.archive::before {
+	content    : "";
+	width      : 100%;
+	position   : absolute;
+	background : #ffffff;
+	z-index    : -1;
+	top        : 0;
+	@media screen and (min-width: 1024px) {
+		height : 72em;
+	}
+	@media screen and (min-width: 481px) and (max-width: 768.98px) {
+		height : 50em;
+	}
+	@media screen and (max-width: 480.98px) {
+		height : 70em;
+	}
+}
 .archive-page {
+	@media screen and (max-width: 768px) {
+		width: 97%;
+		margin : 0 auto;
+	}
 	position: relative;
 	z-index: 0;
 
 	.entry-title a {
 		font-weight: 300;
+	}
+	h1.page-title {
+		@media screen and (max-width: 768px) {
+			font-size : 32px;
+		}
 	}
 
 	.tag-cloud {
@@ -191,6 +217,7 @@
 				.diyu-text {
 					flex-grow : 12;
 					color     : #999999;
+					align-self : center;
 				}
 				.diyu-img {
 					flex-grow: 1;
@@ -235,6 +262,27 @@
 
 		.page-numbers.current {
 			background: #ffc10e;
+		}
+	}
+	#breadcrumbs {
+		span {
+			span {
+				color : #245f91;
+				a,
+				.breadcrumb_last {
+					color          : #245f91;
+					font-weight    : 400;
+					font-size      : 16px;
+					font-family    : 'Open Sans', Arial, Helvetica, sans-serif;
+					text-transform : uppercase;
+					letter-spacing : 0.025em;
+					padding-right  : 8px;
+				}
+				a:hover, a:focus,
+				.breadcrumb_last:hover, .breadcrumb_last:focus{
+					text-decoration : underline;
+				}
+			}
 		}
 	}
 }

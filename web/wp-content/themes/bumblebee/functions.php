@@ -182,7 +182,7 @@ function bumblebee_scripts() {
 
 	wp_enqueue_script( 'bumblebee-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20151215', true );
 
-	// wp_enqueue_script( 'cutom-lazy-loader', get_template_directory_uri() . '/js/custom-lazy-loader.js', array( 'jquery' ), '20190329', false ); //.
+
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
@@ -486,7 +486,7 @@ function newsletter_after_the_content( $content ) {
 function newsletter_module() { ?>
 	<div class="newsletter">
 		<h3><?php echo esc_html( get_theme_mod( 'bumblebee_footer_nl_heading_text' ) ); ?></h3>
-		<form action="<?php echo esc_url( get_site_url() ); ?>/newslettersignuppage/" method="post" data-analytics-metrics='{"name":"newsletter signup","module":"newsletter signup","position":"footer"}' >
+		<form action="<?php echo esc_url( get_home_url() ); ?>/newslettersignuppage/" method="post" data-analytics-metrics='{"name":"newsletter signup","module":"newsletter signup","position":"footer"}' >
 			<input type="text" id="email" placeholder="Email Address">
 			<button type="submit" id="subscribe">Sign Up</button>
 		</form>
