@@ -778,6 +778,38 @@ function bumblebee_custom_customize_register( $wp_customize ) {
 		)
 	);
 
+	$wp_customize->add_setting( 'bumblebee_archive_nl_bg_image' );
+
+	$wp_customize->add_control(
+		new WP_Customize_Image_Control(
+			$wp_customize,
+			'bumblebee_archive_nl_bg_image',
+			array(
+				'label'       => __( 'Newsletter Background Image', 'bumblebee' ),
+				'description' => __( 'Background Full Width Image (Archive/Hub Pages Only)', 'bumblebee' ),
+				'section'     => 'bumblebee_nl',
+				'settings'    => 'bumblebee_archive_nl_bg_image',
+				'priority'    => '40',
+			)
+		)
+	);
+
+	$wp_customize->add_setting( 'bumblebee_in_content_nl_bg_color' );
+
+	$wp_customize->add_control(
+		new WP_Customize_Color_Control(
+			$wp_customize,
+			'bumblebee_in_content_nl_bg_color',
+			array(
+				'label'       => __( 'Footer BG Color' ),
+				'description' => __( 'Background Color (In-Content Pages/Posts Only)', 'bumblebee' ),
+				'section'     => 'bumblebee_nl',
+				'settings'    => 'bumblebee_in_content_nl_bg_color',
+				'priority'    => '45',
+			)
+		)
+	);
+
 	$wp_customize->add_section(
 		'bumblebee_facebook_id',
 		array(
