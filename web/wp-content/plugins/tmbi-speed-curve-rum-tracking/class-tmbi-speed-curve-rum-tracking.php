@@ -1,12 +1,11 @@
 <?php
-
-/*
-  Plugin Name: TMBI SpeedCurve RUM Tracking
-  Plugin URI: https://readersdigest.atlassian.net/browse/DRDT-148
-  Description: This plugins provide us Real-Time Performance Measurement using SpeedCurve rum tracking.
-  Version: 1.0.0
-  Author: Prasanth Bendra
-  License: GPL2
+/**
+ * Plugin Name: TMBI SpeedCurve RUM Tracking
+ * Plugin URI: https://readersdigest.atlassian.net/browse/DRDT-148
+ * Description: This plugins provide us Real-Time Performance Measurement using SpeedCurve rum tracking.
+ * Version: 1.0.0
+ * Author: Prasanth Bendra
+ * License: GPL2
  */
 
 class TMBI_SPEED_CURVE_RUM_TRACKING {
@@ -22,10 +21,20 @@ class TMBI_SPEED_CURVE_RUM_TRACKING {
 	const CUSTOM_SCRIPT_URL     = 'js/custom-script.js';
 	const CUSTOM_SCRIPT_SLUG    = 'custom-script';
 
+	/**
+	 * Constructor.
+	 * 
+	 * @return void
+	 */
 	public function __construct() {
 		add_action( 'wp_enqueue_scripts', array( $this, 'tmbi_speed_curve_script' ), 100001 );
 	}
 
+	/**
+	 * Load all the scripts.
+	 * 
+	 * @return void
+	 */
 	public function tmbi_speed_curve_script() {
 		wp_register_script(
 				self::SCRIPT_NAME, plugins_url( self::SCRIPT_FILE, __FILE__ ), array( self::DEPENDS ), self::VERSION, self::IN_FOOTER
@@ -40,11 +49,16 @@ class TMBI_SPEED_CURVE_RUM_TRACKING {
 		wp_register_script(
 			self::CUSTOM_SCRIPT_SLUG, plugins_url( self::CUSTOM_SCRIPT_URL, __FILE__ ), array( 'jquery', self::SC_SCRIPT_SLUG, self::SCRIPT_NAME ), self::VERSION, self::IN_FOOTER
 		);
-		wp_localize_script( self::CUSTOM_SCRIPT_SLUG, 'LUX_label', $this->get_LUX_label() );
+		wp_localize_script( self::CUSTOM_SCRIPT_SLUG, 'LUX_label', $this->get_lux_label() );
 		wp_enqueue_script( self::CUSTOM_SCRIPT_SLUG );
 	}
 
-	public function get_LUX_label() {
+	/**
+	 * Get lux labels for each page.
+	 * 
+	 * @return string
+	 */
+	public function get_lux_label() {
 		$page_type = page_type();
 
 		$labels = array(
