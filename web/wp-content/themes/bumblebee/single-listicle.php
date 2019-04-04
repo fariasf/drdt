@@ -91,7 +91,7 @@ get_header();
 								<?php get_template_part( 'template-parts/social-share', 'none' ); ?>
 							</section>
 							<div class="dek">
-								<h2><?php the_excerpt(); ?></h2>
+								<h2><?php echo wp_kses_post( wp_strip_all_tags( get_the_excerpt() ) ); ?></h2>
 							</div>
 						</div>
 						<div class="sponsor_ad_section">
