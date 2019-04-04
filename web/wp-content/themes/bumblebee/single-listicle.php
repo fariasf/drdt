@@ -90,7 +90,9 @@ get_header();
 							<section class="social-menu-mobile">
 								<?php get_template_part( 'template-parts/social-share', 'none' ); ?>
 							</section>
-							<div class="dek"><?php the_excerpt(); ?></div>
+							<div class="dek">
+								<h2><?php the_excerpt(); ?></h2>
+							</div>
 						</div>
 						<div class="sponsor_ad_section">
 							<?php
