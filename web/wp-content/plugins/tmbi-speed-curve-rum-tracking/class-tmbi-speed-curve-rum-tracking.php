@@ -1,6 +1,8 @@
 <?php
+/**
+  SpeedCurve RUM Tracking
 
-/*
+  @package     SpeedCurve RUM Tracking
   Plugin Name: TMBI SpeedCurve RUM Tracking
   Plugin URI: https://readersdigest.atlassian.net/browse/DRDT-148
   Description: This plugins provide us Real-Time Performance Measurement using SpeedCurve rum tracking.
@@ -9,6 +11,9 @@
   License: GPL2
  */
 
+ /**
+  * Class speed curve rum tracking.
+  */
 class TMBI_SPEED_CURVE_RUM_TRACKING {
 
 	const VERSION               = '1.0.0';
@@ -22,10 +27,16 @@ class TMBI_SPEED_CURVE_RUM_TRACKING {
 	const CUSTOM_SCRIPT_URL     = 'js/custom-script.js';
 	const CUSTOM_SCRIPT_SLUG    = 'custom-script';
 
+	/**
+	 * Init.
+	 */
 	public function __construct() {
 		add_action( 'wp_enqueue_scripts', array( $this, 'tmbi_speed_curve_script' ), 100001 );
 	}
 
+	/**
+	 * Load scripts.
+	 */
 	public function tmbi_speed_curve_script() {
 		wp_register_script(
 			self::SCRIPT_NAME,
@@ -56,7 +67,10 @@ class TMBI_SPEED_CURVE_RUM_TRACKING {
 		wp_enqueue_script( self::CUSTOM_SCRIPT_SLUG );
 	}
 
-	public function get_LUX_label() {
+	/**
+	 * Get page lux page labels.
+	 */
+	public function get_lux_label() {
 		$page_type = page_type();
 
 		$labels = array(
