@@ -778,35 +778,31 @@ function bumblebee_custom_customize_register( $wp_customize ) {
 		)
 	);
 
-	$wp_customize->add_setting( 'bumblebee_archive_nl_bg_image' );
-
-	$wp_customize->add_control(
-		new WP_Customize_Image_Control(
-			$wp_customize,
-			'bumblebee_archive_nl_bg_image',
-			array(
-				'label'       => __( 'Newsletter Background Image', 'bumblebee' ),
-				'description' => __( 'Background Full Width Image (Archive/Hub Pages Only)', 'bumblebee' ),
-				'section'     => 'bumblebee_nl',
-				'settings'    => 'bumblebee_archive_nl_bg_image',
-				'priority'    => '40',
-			)
+	$wp_customize->add_section(
+		'bumblebee_facebook_id',
+		array(
+			'title'       => __( 'Facebook Meta Tag', 'bumblebee' ),
+			'description' => __( 'Add the FB ID' ),
+			'priority'    => 45,
 		)
 	);
 
-	$wp_customize->add_setting( 'bumblebee_in_content_nl_bg_color' );
+	$wp_customize->add_setting(
+		'bumblebee_facebook_id_string',
+		array(
+			'capability'        => 'edit_theme_options',
+			'sanitize_callback' => 'sanitize_text_field',
+		)
+	);
 
 	$wp_customize->add_control(
-		new WP_Customize_Color_Control(
-			$wp_customize,
-			'bumblebee_in_content_nl_bg_color',
-			array(
-				'label'       => __( 'Footer BG Color' ),
-				'description' => __( 'Background Color (In-Content Pages/Posts Only)', 'bumblebee' ),
-				'section'     => 'bumblebee_nl',
-				'settings'    => 'bumblebee_in_content_nl_bg_color',
-				'priority'    => '45',
-			)
+		'bumblebee_facebook_id_string',
+		array(
+			'type'        => 'text',
+			'section'     => 'bumblebee_facebook_id',
+			'label'       => __( 'Facebook ID' ),
+			'description' => __( 'Enter FB ID here, i.e: 1234567890' ),
+			'settings'    => 'bumblebee_facebook_id_string',
 		)
 	);
 }
