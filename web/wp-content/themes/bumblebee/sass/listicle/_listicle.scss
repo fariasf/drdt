@@ -26,6 +26,11 @@ body.single-listicle::before {
   position: relative;
   z-index: 0;
 
+  .full-width-ad {
+    &:not(.prearticle) {
+      background: #eee;
+    }
+  }
   .sponsor_ad_section {
     display: flex;
     justify-content: left;
@@ -112,7 +117,8 @@ body.single-listicle::before {
       display: flex;
       position: sticky;
       justify-content: center;
-      top: 0;
+      top: 56px;
+      margin-top: 74px;
     }
   }
 }
