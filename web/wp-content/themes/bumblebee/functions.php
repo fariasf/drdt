@@ -611,6 +611,11 @@ function disable_yoast_schema_data( $data ) {
 }
 add_filter( 'wpseo_json_ld_output', 'disable_yoast_schema_data', 10, 1 );
 
+/**
+ * Check if it is a post.
+ *
+ * @return boolean
+ */
 function is_post() {
 	if ( get_post_type( get_the_ID() ) === 'post' ) {
 		return ( true );
@@ -619,6 +624,11 @@ function is_post() {
 	return ( false );
 }
 
+/**
+ * Check if it is a collection.
+ *
+ * @return boolean
+ */
 function is_collection() {
 	if ( get_post_type( get_the_ID() ) === 'collection' ) {
 		return( true );
@@ -627,8 +637,9 @@ function is_collection() {
 }
 
 /**
- * check queried slideshow/listicle/collection is a paginated version.
- * supports from Main Query
+ * Check queried slideshow/listicle/collection is a paginated version.
+ * Supports from Main Query
+ *
  * @return bool
  */
 function is_paginated() {
@@ -643,8 +654,8 @@ function is_paginated() {
 /**
  * This condition will be true for all Slideshow types
  * using global query to determine the post-type
- * @param WP_Post|null
  *
+ * @param mixed $post post.
  * @return true|false
  */
 function is_listicle( $post = null ) {
@@ -659,7 +670,7 @@ function is_listicle( $post = null ) {
 		$post_type = get_post_type( get_the_ID() );
 	}
 
-	if ( ! ( $check_archive ) && ( $post_type === 'listicle' || $post_type === 'slicklist' || $post_type == 'collection' ) ) {
+	if ( ! ( $check_archive ) && ( 'listicle' === $post_type || 'slicklist' === $post_type || 'collection' === $post_type ) ) {
 		return( true );
 	}
 
@@ -667,6 +678,8 @@ function is_listicle( $post = null ) {
 }
 
 /**
+ * Check if it is card.
+ *
  * @return bool
  */
 function is_card() {
@@ -680,6 +693,7 @@ function is_card() {
 /**
  * Ultimately this construct needs o be refactored and simplified by
  * utilizing the static $post_type var.
+ *
  * @return bool
  */
 function is_slideshow() {
@@ -690,6 +704,8 @@ function is_slideshow() {
 }
 
 /**
+ * Check if it is slide show page.
+ *
  * @return bool
  */
 function is_slide() {
@@ -700,6 +716,11 @@ function is_slide() {
 	return ( false );
 }
 
+/**
+ * Check if it is a joke page.
+ *
+ * @return boolean
+ */
 function is_joke() {
 	if ( get_post_type( get_the_ID() ) === 'joke' ) {
 		return ( true );
@@ -708,6 +729,11 @@ function is_joke() {
 	return ( false );
 }
 
+/**
+ * Check if it is a quiz page.
+ *
+ * @return boolean
+ */
 function is_quiz() {
 	if ( get_post_type( get_the_ID() ) === 'quiz' ) {
 		return ( true );
@@ -716,6 +742,11 @@ function is_quiz() {
 	return ( false );
 }
 
+/**
+ * Check if it is a video page.
+ *
+ * @return boolean
+ */
 function is_video() {
 	if ( get_post_type( get_the_ID() ) === 'video' ) {
 		return ( true );
@@ -724,6 +755,11 @@ function is_video() {
 	return ( false );
 }
 
+/**
+ * Check if it is a project page.
+ *
+ * @return boolean
+ */
 function is_project() {
 	if ( get_post_type( get_the_ID() ) === 'project' ) {
 		return( true );
@@ -731,6 +767,11 @@ function is_project() {
 	return( false );
 }
 
+/**
+ * Check if it is a recipe page.
+ *
+ * @return boolean
+ */
 function is_recipe() {
 	if ( get_post_type( get_the_ID() ) === 'recipe' ) {
 		return( true );
@@ -738,6 +779,11 @@ function is_recipe() {
 	return( false );
 }
 
+/**
+ * Check if it is a video recipe page.
+ *
+ * @return boolean
+ */
 function is_video_recipe() {
 	$pid = get_the_ID();
 	if ( get_post_type( $pid ) === 'recipe' ) {
@@ -750,6 +796,11 @@ function is_video_recipe() {
 	return( false );
 }
 
+/**
+ * Check if it is a video project page.
+ *
+ * @return boolean
+ */
 function is_video_project() {
 	$pid = get_the_ID();
 	if ( class_exists( 'TMBI_Video_Meta_Box' ) ) {
@@ -763,16 +814,16 @@ function is_video_project() {
 
 /**
  * Get page type.
- * 
+ *
  * @return string
  */
-function page_type( ) {
+function page_type() {
 	global $wp_query;
-    $page_type = 'default';
+	$page_type = 'default';
 
-    if ( $wp_query->is_home || $wp_query->is_front_page ) {
-        $page_type = 'homepage';
-    } elseif ( $wp_query->is_archive ) {
+	if ( $wp_query->is_home || $wp_query->is_front_page ) {
+		$page_type = 'homepage';
+	} elseif ( $wp_query->is_archive ) {
 		if ( $wp_query->is_category ) {
 			$page_type = 'category';
 		} elseif ( $wp_query->is_tag ) {
