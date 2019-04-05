@@ -72,42 +72,28 @@ class TMBI_Custom_Social_Share extends WPSEO_Opengraph_Twitter_Title {
 				$page_image = get_the_post_thumbnail_url( get_the_ID(), 'full' );
 			}
 			$position_prop = 'social share-left sticky nav';
-			$allowed_tags  = array(
-				'a'   => array(
-					'class'                  => array(),
-					'data-analytics-metrics' => array(),
-					'id'                     => array(),
-					'onClick'                => array(),
-					'href'                   => array(),
-					'target'                 => array(),
-				),
-				'img' => array(
-					'class' => array(),
-					'src'   => array(),
-					'alt'   => array(),
-				),
-			);
+
 			print( '<ul class="pure-menu-list social-menu">' );
 			foreach ( self::$default_share_icons as $social_icons ) {
 				print( '<li class="social-share-item">' );
 				switch ( strtoupper( trim( $social_icons ) ) ) {
 					case 'FACEBOOK':
-						echo '<a class="pure-menu-link" data-analytics-metrics=' . self::tmbi_adobe_analytics( 'facebook', $position_prop ) . ' id="fb-share" onClick="window.open(\'https://www.facebook.com/sharer/sharer.php?u=' . rawurlencode( $page_url ) . '&t' . rawurlencode( $page_title ) . '=&v=3\',\'sharer\',\'toolbar=0,status=0,width=548,height=325\');" href="javascript: void(0)"><img class="social-icons" src="' . plugin_dir_url( __FILE__ ) . '/images/facebook-letter-logo.svg" alt="facebook" /></a>';
+						echo '<a class="pure-menu-link" data-analytics-metrics=\'' . self::tmbi_adobe_analytics( 'facebook', $position_prop ) . '\' id="fb-share" onClick="window.open(\'https://www.facebook.com/sharer/sharer.php?u=' . rawurlencode( $page_url ) . '&t' . rawurlencode( $page_title ) . '=&v=3\',\'sharer\',\'toolbar=0,status=0,width=548,height=325\');" href="javascript: void(0)"><img class="social-icons" src="' . plugin_dir_url( __FILE__ ) . '/images/facebook-letter-logo.svg" alt="facebook" /></a>';
 
 						break;
 
 					case 'TWITTER':
-						echo '<a class="pure-menu-link" data-analytics-metrics=' . self::tmbi_adobe_analytics( 'twitter', $position_prop ) . ' id="twitter-share" onClick="window.open(\'https://twitter.com/share?url=' . rawurlencode( $page_url ) . '&amp;text=' . rawurlencode( $page_title ) . '&amp;hashtags=\',\'sharer\',\'toolbar=0,status=0,width=548,height=325\');" href="javascript: void(0)"><img class="social-icons" src="' . plugin_dir_url( __FILE__ ) . './images/twitter-logo.svg" alt="twitter" /></a>';
+						echo '<a class="pure-menu-link" data-analytics-metrics=\'' . self::tmbi_adobe_analytics( 'twitter', $position_prop ) . '\' id="twitter-share" onClick="window.open(\'https://twitter.com/share?url=' . rawurlencode( $page_url ) . '&amp;text=' . rawurlencode( $page_title ) . '&amp;hashtags=\',\'sharer\',\'toolbar=0,status=0,width=548,height=325\');" href="javascript: void(0)"><img class="social-icons" src="' . plugin_dir_url( __FILE__ ) . './images/twitter-logo.svg" alt="twitter" /></a>';
 
 						break;
 
 					case 'PINTEREST':
-						echo '<a class="pure-menu-link" data-analytics-metrics=' . self::tmbi_adobe_analytics( 'pinterest', $position_prop ) . ' id="pinterest-share" onClick="window.open(\'https://pinterest.com/pin/create/button/?url=' . rawurlencode( $page_url ) . '&media=' . rawurlencode( $page_image ) . '&description=' . rawurlencode( $page_title ) . ',\'sharer\',\'toolbar=0,status=0,width=548,height=325\');" href="javascript: void(0)"><img class="social-icons" src="' . plugin_dir_url( __FILE__ ) . './images/pinterest-social-visual-website-logotype.svg" alt="Pinterest" /></a>';
+						echo '<a class="pure-menu-link" data-analytics-metrics=\'' . self::tmbi_adobe_analytics( 'pinterest', $position_prop ) . '\' id="pinterest-share" onClick="window.open(\'https://pinterest.com/pin/create/button/?url=' . rawurlencode( $page_url ) . '&media=' . rawurlencode( $page_image ) . '&description=' . rawurlencode( $page_title ) . '\',\'sharer\',\'toolbar=0,status=0,width=548,height=325\');" href="javascript: void(0)"><img class="social-icons" src="' . plugin_dir_url( __FILE__ ) . './images/pinterest-social-visual-website-logotype.svg" alt="Pinterest" /></a>';
 
 						break;
 
 					case 'EMAIL':
-						echo '<a class="pure-menu-link" data-analytics-metrics=' . self::tmbi_adobe_analytics( 'email', $position_prop ) . '  id="email_a_friend" onClick="window.open(\'' . self::tmbi_custom_email() . '\',\'_self\')" href="javascript: void(0)" > <img class="social-icons" src="' . plugin_dir_url( __FILE__ ) . './images/envelope.svg" alt="Email" /></a>';
+						echo '<a class="pure-menu-link" data-analytics-metrics=\'' . self::tmbi_adobe_analytics( 'email', $position_prop ) . '\'  id="email_a_friend" onClick="window.open(\'' . self::tmbi_custom_email() . '\',\'_self\')" href="javascript: void(0)" > <img class="social-icons" src="' . plugin_dir_url( __FILE__ ) . './images/envelope.svg" alt="Email" /></a>';
 
 						break;
 
