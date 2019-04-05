@@ -13,6 +13,28 @@
 <style type="text/css">
 	<?php require get_stylesheet_directory() . '/footer.css'; ?>
 </style>
+<div class="sticky-bottom-ad">
+	<?php
+	bumblebee_render_ad(
+		uniqid( 'ad' ),
+		[
+			'slot-name'        => 'oop',
+			'targeting'        => [
+				'pos'      => 'oop',
+				'location' => 'oop',
+				'tf'       => 'btf',
+			],
+			'responsive-sizes' => [
+				'mobile'       => [],
+				'tablet'       => [],
+				'desktop'      => [ [ 1, 1 ] ],
+				'large_screen' => [ [ 1, 1 ] ],
+			],
+		]
+	);
+
+	?>
+</div>
 <footer class="footer">
 	<div class="container">
 		<div class="pure-g">

@@ -139,6 +139,8 @@ img {
 	img {
 		width: 20px;
 		height: 20px;
+		position: relative;
+		top: 2px;
 	}
 }
 
@@ -207,7 +209,12 @@ img {
 	}
 }
 
-@media only screen and (max-width: 567px) {
+
+body {
+	background: url('../bumblebee/images/textured-bg.png');
+}
+
+@media only screen and (max-width: 768px) {
 	.social-menu-mobile {
 		display: block;
 	}
@@ -232,6 +239,8 @@ img {
 	.social-menu-mobile li {
 		display: inline-block;
 		margin: 20px;
+		margin-left: 8px;
+		margin-right: 8px;
 	}
 }
 
