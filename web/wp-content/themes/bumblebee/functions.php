@@ -156,6 +156,19 @@ function bumblebee_widgets_init() {
 			'after_title'   => '</h3>',
 		)
 	);
+
+	register_sidebar(
+		array(
+			'name'          => __( '404 Widget', 'bumblebee' ),
+			'id'            => 'not-found-widget',    // ID should be LOWERCASE  ! ! !
+			'description'   => 'Add Custom Content for 404 Page Here',
+			'class'         => '',
+			'before_widget' => '<section id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</section>',
+			'before_title'  => '<h3>',
+			'after_title'   => '</h3>',
+		)
+	);
 }
 
 add_action( 'widgets_init', 'bumblebee_widgets_init' );
@@ -169,7 +182,6 @@ function bumblebee_scripts() {
 
 	wp_enqueue_script( 'bumblebee-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20151215', true );
 
-	// wp_enqueue_script( 'cutom-lazy-loader', get_template_directory_uri() . '/js/custom-lazy-loader.js', array( 'jquery' ), '20190329', false );
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
@@ -473,7 +485,7 @@ function newsletter_after_the_content( $content ) {
 function newsletter_module() { ?>
 	<div class="newsletter">
 		<h3><?php echo esc_html( get_theme_mod( 'bumblebee_footer_nl_heading_text' ) ); ?></h3>
-		<form action="<?php echo esc_url( get_site_url() ); ?>/newslettersignuppage/" method="post" data-analytics-metrics='{"name":"newsletter signup","module":"newsletter signup","position":"footer"}' >
+		<form action="<?php echo esc_url( get_home_url() ); ?>/newslettersignuppage/" method="post" data-analytics-metrics='{"name":"newsletter signup","module":"newsletter signup","position":"footer"}' >
 			<input type="text" id="email" placeholder="Email Address">
 			<button type="submit" id="subscribe">Sign Up</button>
 		</form>
@@ -486,7 +498,13 @@ function newsletter_module() { ?>
 		</div>
 		<div class="diyu-img">
 			<a data-analytics-metrics='{"name":"Subscribe link","module":"footer","position":"magazine subscription"}' href="<?php echo esc_html( get_theme_mod( 'bumblebee_footer_nl_subscribe_url' ) ); ?>" target="_blank" rel="noopener noreferrer">
-				<img src="<?php echo esc_html( get_theme_mod( 'bumblebee_footer_nl_subscribe_image' ) ); ?>" alt="" style="width:<?php echo esc_html( get_theme_mod( 'bumblebee_footer_nl_subscribe_image_width' ) ); ?>px">
+				<?php
+				$img_src  = esc_html( get_theme_mod( 'bumblebee_footer_nl_subscribe_image' ) );
+				$width    = esc_html( get_theme_mod( 'bumblebee_footer_nl_subscribe_image_width' ) );
+				$img      = '<img src="' . $img_src . '" alt="" style="width:' . $width . 'px">';
+				$img_html = apply_filters( 'a3_lazy_load_images', $img );
+				echo wp_kses_post( $img_html );
+				?>
 			</a>
 		</div>
 	</div>
@@ -593,3 +611,280 @@ function bumblebee_excerpt_more( $more ) {
 add_filter( 'excerpt_more', 'bumblebee_excerpt_more' );
 
 require_once 'video/video-hub.php';  // Custom video archive page.
+
+/**
+ * Remove schema data coming from yoast.
+ *
+ * @param array $data schema data.
+ * @return array
+ */
+function disable_yoast_schema_data( $data ) {
+	$data = array();
+	return $data;
+}
+add_filter( 'wpseo_json_ld_output', 'disable_yoast_schema_data', 10, 1 );
+
+/**
+ * Check if it is a post.
+ *
+ * @return boolean
+ */
+function is_post() {
+	if ( get_post_type( get_the_ID() ) === 'post' ) {
+		return ( true );
+	}
+
+	return ( false );
+}
+
+/**
+ * Check if it is a collection.
+ *
+ * @return boolean
+ */
+function is_collection() {
+	if ( get_post_type( get_the_ID() ) === 'collection' ) {
+		return( true );
+	}
+	return( false );
+}
+
+/**
+ * Check queried slideshow/listicle/collection is a paginated version.
+ * Supports from Main Query
+ *
+ * @return bool
+ */
+function is_paginated() {
+	global $wp_query;
+
+	if ( get_query_var( 'page' ) > 0 ) {
+		return ( true );
+	}
+	return ( false );
+}
+
+/**
+ * This condition will be true for all Slideshow types
+ * using global query to determine the post-type
+ *
+ * @param mixed $post post.
+ * @return true|false
+ */
+function is_listicle( $post = null ) {
+	$check_archive = is_archive();
+	if ( $post && ( is_string( $post ) || $post instanceof WP_Post ) ) {
+		$post_type = $post;
+		if ( $post instanceof WP_Post ) {
+			$post_type = $post->post_type;
+		}
+		$check_archive = false;
+	} else {
+		$post_type = get_post_type( get_the_ID() );
+	}
+
+	if ( ! ( $check_archive ) && ( 'listicle' === $post_type || 'slicklist' === $post_type || 'collection' === $post_type ) ) {
+		return( true );
+	}
+
+	return ( false );
+}
+
+/**
+ * Check if it is card.
+ *
+ * @return bool
+ */
+function is_card() {
+	if ( is_listicle() && is_paginated() ) {
+		return ( true );
+	}
+
+	return ( false );
+}
+
+/**
+ * Ultimately this construct needs o be refactored and simplified by
+ * utilizing the static $post_type var.
+ *
+ * @return bool
+ */
+function is_slideshow() {
+	if ( get_post_type( get_the_ID() ) === 'slideshows' ) {
+		return ( true );
+	}
+	return ( false );
+}
+
+/**
+ * Check if it is slide show page.
+ *
+ * @return bool
+ */
+function is_slide() {
+	if ( is_slideshow() && is_paginated() ) {
+		return ( true );
+	}
+
+	return ( false );
+}
+
+/**
+ * Check if it is a joke page.
+ *
+ * @return boolean
+ */
+function is_joke() {
+	if ( get_post_type( get_the_ID() ) === 'joke' ) {
+		return ( true );
+	}
+
+	return ( false );
+}
+
+/**
+ * Check if it is a quiz page.
+ *
+ * @return boolean
+ */
+function is_quiz() {
+	if ( get_post_type( get_the_ID() ) === 'quiz' ) {
+		return ( true );
+	}
+
+	return ( false );
+}
+
+/**
+ * Check if it is a video page.
+ *
+ * @return boolean
+ */
+function is_video() {
+	if ( get_post_type( get_the_ID() ) === 'video' ) {
+		return ( true );
+	}
+
+	return ( false );
+}
+
+/**
+ * Check if it is a project page.
+ *
+ * @return boolean
+ */
+function is_project() {
+	if ( get_post_type( get_the_ID() ) === 'project' ) {
+		return( true );
+	}
+	return( false );
+}
+
+/**
+ * Check if it is a recipe page.
+ *
+ * @return boolean
+ */
+function is_recipe() {
+	if ( get_post_type( get_the_ID() ) === 'recipe' ) {
+		return( true );
+	}
+	return( false );
+}
+
+/**
+ * Check if it is a video recipe page.
+ *
+ * @return boolean
+ */
+function is_video_recipe() {
+	$pid = get_the_ID();
+	if ( get_post_type( $pid ) === 'recipe' ) {
+		$recipe_data = new RD_Toh\Resource\RecipeResource();
+		$video_code = $recipe_data->get_recipe_video();
+		if ( $video_code ) {
+			return true;
+		}
+	}
+	return( false );
+}
+
+/**
+ * Check if it is a video project page.
+ *
+ * @return boolean
+ */
+function is_video_project() {
+	$pid = get_the_ID();
+	if ( class_exists( 'TMBI_Video_Meta_Box' ) ) {
+		$vshortcode = TMBI_Video_Meta_Box::get_video_shortcode( $pid );
+		if ( $vshortcode ) {
+			return true;
+		}
+	}
+	return( false );
+}
+
+/**
+ * Get page type.
+ *
+ * @return string
+ */
+function page_type() {
+	global $wp_query;
+	$page_type = 'default';
+
+	if ( $wp_query->is_home || $wp_query->is_front_page ) {
+		$page_type = 'homepage';
+	} elseif ( $wp_query->is_archive ) {
+		if ( $wp_query->is_category ) {
+			$page_type = 'category';
+		} elseif ( $wp_query->is_tag ) {
+			$page_type = 'tag';
+		} else {
+			$page_type = 'archive';
+		}
+	} elseif ( $wp_query->is_search ) {
+		$page_type = 'search';
+	} elseif ( $wp_query->is_page ) {
+		$page_type = 'page';
+	} elseif ( $wp_query->is_404 ) {
+		$page_type = '404page';
+	} elseif ( is_post() ) {
+		$page_type = 'article';
+	} elseif ( is_collection() ) {
+		if ( is_paginated() ) {
+			$page_type = 'card';
+		} else {
+			$page_type = 'listicle';
+		}
+	} elseif ( is_listicle() ) {
+		$page_type = 'listicle';
+		if ( is_card() ) {
+			$page_type = 'card';
+		}
+	} elseif ( is_slideshow() ) {
+		$page_type = 'slideshow';
+		if ( is_slide() ) {
+			$page_type = 'slide';
+		}
+	} elseif ( is_joke() ) {
+		$page_type = 'joke';
+	} elseif ( is_video() ) {
+		$page_type = 'video';
+	} elseif ( is_quiz() ) {
+		$page_type = 'quiz';
+	} elseif ( is_recipe() ) {
+		$page_type = 'recipe';
+		if ( is_video_recipe() ) {
+			$page_type = 'videorecipe';
+		}
+	} elseif ( is_project() ) {
+		$page_type = 'projectdetail';
+		if ( is_video_project() ) {
+			$page_type = 'videoproject';
+		}
+	}
+
+	return $page_type;
+}

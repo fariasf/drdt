@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Lato');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
 * {
 	font-size: 18px;
 	line-height: 29px;
@@ -204,6 +205,11 @@ img {
 		background-color: #999;
 		padding: 20px;
 	}
+}
+
+
+body {
+	background: url('../bumblebee/images/textured-bg.png');
 }
 
 @media only screen and (max-width: 768px) {
