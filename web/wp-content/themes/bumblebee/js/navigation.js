@@ -106,8 +106,9 @@
 	}( container ) );
 } )();
 (function($){
-	var mobile_width = 767;
-	var mobile_inner_width = 480;
+	// @todo: why -2 and -1?
+	var mobile_width = bumblebee.breakpoints.desktop - 2;
+	var mobile_inner_width = bumblebee.breakpoints.tablet - 1;
 
 	//showing hamburger icon and 'MENU' text (only if JS is available)
 	show_menu_icon();
@@ -185,7 +186,7 @@
 		$( '#search-form-wrapper' ).toggleClass( 'visible' );
 	});
 
-	if( $(window).width() < 767 ) {
+	if( $(window).width() < bumblebee.breakpoints.desktop ) {
 		var lastScrollY = 0;
 		var ticking = false;
 		var update = function() {

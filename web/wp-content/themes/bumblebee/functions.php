@@ -197,7 +197,11 @@ function bumblebee_navigation_scripts() {
 	wp_deregister_script( 'jquery' );
 	wp_register_script( 'jquery', includes_url( '/js/jquery/jquery.js' ), false, '1.0.0', true );
 	wp_enqueue_script( 'slinky', get_stylesheet_directory_uri() . '/js/util/slinky.min.js', array( 'jquery' ), '4.1.0', true );
-	wp_enqueue_script( 'bumblebee-navigation', get_template_directory_uri() . '/js/navigation.js', array( 'slinky' ), '20190207', true );
+	wp_register_script( 'bumblebee-navigation', get_template_directory_uri() . '/js/navigation.js', array( 'slinky' ), '20190207', true );
+	wp_localize_script( 'bumblebee-navigation', 'bumblebee', array(
+		'breakpoints' => apply_filters( 'get_current_breakpoints', [] ),
+	) );
+	wp_enqueue_script( 'bumblebee-navigation' );
 }
 add_action( 'wp_enqueue_scripts', 'bumblebee_navigation_scripts' );
 
