@@ -186,13 +186,26 @@
 	});
 
 	if( $(window).width() < 767 ) {
-		$(window).scroll(function() {
-			var scroll = $(window).scrollTop();
-			if (scroll >= 140) {
+		var lastScrollY = 0;
+		var ticking = false;
+		var update = function() {
+			if ( scroll >= 140 ) {
 				$('header.header').addClass('fixed');
 				$('nav').removeClass('sticky');
 			} else {
 				$('header.header').removeClass('fixed');
+			}
+			ticking = false;
+		};
+		$(window).scroll(function() {
+			lastScrollY = window.scrollY;
+			if ( ! ticking ) {
+				if ( typeof window.requestAnimationFrame != undefined ) {
+					window.requestAnimationFrame( update );
+				} else {
+					update();
+				}
+				ticking = true;
 			}
 		});
 
