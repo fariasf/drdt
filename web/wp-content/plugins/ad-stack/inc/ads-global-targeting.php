@@ -78,22 +78,9 @@ function ads_global_targeting_parameters() {
 			'category' => $top_level_categories,
 			'topic'    => $sub_categories,
 		),
-		'breakpoint'       => get_breakpoints(),
+		'breakpoint'       => apply_filters( 'get_current_breakpoints', [] ),
 	);
 	wp_localize_script( 'ad-stack', 'tmbi_ad_data', $g_targeting );
-}
-
-/**
- * Breakpoints defined for devices. This should actually come from theme level
- */
-function get_breakpoints() {
-	$breakpoints = array(
-		'large_screen' => 1024,
-		'desktop'      => 769,
-		'tablet'       => 481,
-		'mobile'       => 0,
-	);
-	return apply_filters( 'get_current_breakpoints', $breakpoints );
 }
 
 /**

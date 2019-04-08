@@ -7,6 +7,8 @@
  * @package bumblebee
  */
 
+require_once( 'inc/breakpoints.php' );
+
 if ( ! function_exists( 'bumblebee_setup' ) ) :
 	/**
 	 * Sets up theme defaults and registers support for various WordPress features.
